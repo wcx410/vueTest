@@ -5,6 +5,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Axios from "axios"
+import Store from '../vuex/store.js'
 
 Vue.use(ElementUI)
 
@@ -16,5 +17,6 @@ Vue.prototype.$axios = Axios
 
 new Vue({
   el: '#app',
-  render: h => h(App)
+  render: h => h(App),
+  store:Store  //挂载store
 })

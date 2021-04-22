@@ -1,6 +1,5 @@
 <template>
     <div id="app" class="homeWrap">
-      我好帅
       <el-container  style="height:100%">
         <el-aside width="200px" >
           <!-- 菜单-->
