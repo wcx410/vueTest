@@ -1,0 +1,167 @@
+/**
+ * 全局css样式
+ */
+
+.el-breadcrumb__separator{
+    color: black;
+}
+
+/* 默认字体 */
+body {
+    font-family: "Microsoft JhengHei", verdana, sans-serif;
+}
+
+/* 添加滚动条样式 */
+.bse-scroll, .bse-scroll-hover:hover {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.bse-scroll-x, .bse-scroll-x-hover:hover {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.bse-scroll-y, .bse-scroll-y-hover:hover {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.bse-scroll-hover,.bse-scroll-x-hover,.bse-scroll-y-hover {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+/* 滚动条 */
+.bse-scroll::-webkit-scrollbar,
+.bse-scroll-x::-webkit-scrollbar,
+.bse-scroll-y::-webkit-scrollbar,
+.bse-scroll-hover::-webkit-scrollbar,
+.bse-scroll-x-hover::-webkit-scrollbar,
+.bse-scroll-y-hover::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 5px;
+    height: 5px;
+}
+.bse-scroll-x::-webkit-scrollbar-thumb,
+.bse-scroll-y::-webkit-scrollbar-thumb,
+.bse-scroll-hover::-webkit-scrollbar-thumb,
+.bse-scroll-x-hover::-webkit-scrollbar-thumb,
+.bse-scroll-y-hover::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0);
+    background: #d4d4d4;
+}
+.bse-scroll-x::-webkit-scrollbar-track,
+.bse-scroll-y::-webkit-scrollbar-track,
+.bse-scroll-hover::-webkit-scrollbar-track,
+.bse-scroll-x-hover::-webkit-scrollbar-track,
+.bse-scroll-y-hover::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0);
+    border-radius: 5px;
+    background: #efefef;
+}
+
+
+/* 块级 */
+.xsyx-block {
+    /*background-color: #F4F4F4;*/
+    margin-top: 25px;
+    /*border: 2px solid #F4F4F4;*/
+    border-radius: 5px;
+    padding: 20px;
+}
+/* 横线 */
+.xsyx-line {
+    width: 100%;
+    height: 1px;
+    background-color: #d9d9d9;
+    margin-top: 5px;
+    margin-bottom: 4px;
+}
+/* 标签 */
+.xsyx-flag {
+    margin-right: 5px;
+    width: 5px;
+    height: 25px;
+    float:left;
+}
+
+
+.xsyx-type-box {
+
+}
+.xsyx-type-item {
+    float: left;
+    width: calc(100% / 10);
+    min-width: 100px;
+    height: 100px;
+    text-align: center;
+    padding-top: 10px;
+    overflow: hidden;
+}
+.xsyx-type-content {
+    cursor: pointer;
+    width: 98px;
+    height: 98px;
+    background-color: #F5F7FA;
+    border-radius: 4px;
+    margin: 0 auto;
+    border: 1px solid #F5F7FA;
+}
+.xsyx-type-content:hover {
+    border: 1px solid #67C23A;
+}
+.xsyx-commodity-box {
+
+}
+.xsyx-commodity-item {
+    border: 1px solid #ffffff00;
+    float: left;
+    width: calc(100% / 5 - 2px);
+    min-width: 200px;
+    height: 300px;
+    /*background-color: #6c6c6c;*/
+    text-align: center;
+    padding-top: 10px;
+}
+.xsyx-commodity-item:hover {
+    border-color: #67C23A;
+}
+.xsyx-commodity-content {
+    /*cursor: pointer;*/
+    width: 200px;
+    height: 280px;
+   /* background-color: #F5F7FA;*/
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+/* 图片上传 */
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+}
+.avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
+
+.zdy-icon {
+    margin-top: 5px;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
