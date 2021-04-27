@@ -9,11 +9,11 @@
         <!--热门分类-->
         <hot-types></hot-types>
         <!--新品上市-->
-        <new-commodity></new-commodity>
+        <new-commodity :data="homeData.newReleases"></new-commodity>
         <!--热销商品-->
-        <hot-sale></hot-sale>
+        <hot-sale :data="homeData.hotSale"></hot-sale>
         <!--猜你喜欢-->
-        <guess-likes></guess-likes>
+        <guess-likes :data="homeData.guessLikes"></guess-likes>
       </el-main>
 
       <el-footer style="margin: 100px -10px -10px -10px;padding: 0;">
@@ -32,8 +32,11 @@
   import HotSale from "../../components/front/home/HotSale";
   import GuessLikes from "../../components/front/home/GuessLikes";
   import HomeFooter from "./Footer";
+  import {ShoppingCartHelper} from "../../helper/front/ShoppingCartHelper";
 
-    export default {
+  let shoppingCartHelper = new ShoppingCartHelper();
+
+  export default {
         name: "FrontHome",
       components:{
           FrontHeader,
@@ -43,10 +46,38 @@
           HotSale,
           GuessLikes,
           HomeFooter
+      },
+      data(){
+          return{
+            homeData:{
+              newReleases:[],
+              hotSale:[],
+              guessLikes:[]
+            },
+            carData:null
+          }
+      },
+      created() {
+          var _this = this;
+
+          shoppingCartHelper.getShoppingData().then(value => {
+            _this.carData = value;
+          })
+
+        this.$axios.get("/commodity/queryHome").then(function (result) {
+          console.log(result);
+          _this.homeData=result.data;
+        }).catch()
       }
     }
 </script>
 
 <style scoped>
+  .el-menu--horizontal > .el-menu-item.is-active {
+    border-bottom: 2px solid #67C23A;
+  }
 
+  .right {
+    float: right !important;
+  }
 </style>

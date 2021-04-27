@@ -15,6 +15,7 @@
           </el-col>
           <el-col :span="12">
             <el-image fit="cover" style="height: 100%" :src="item.image"></el-image>
+            <!--<el-image fit="cover" style="height: 100%" src="item.image"></el-image>-->
           </el-col>
         </el-container>
 
@@ -31,16 +32,16 @@
           return{
             data:[
               {
-                image: './assets/home-1.jpg',
+                image: 'src/assets/home-1.jpg',
                 title: '年终究极大特惠',
                 label: '秒杀天天有，今天更刺激。'
               },{
-                image: './assets/slide3.jpg',
-                title: '巨幕标题巨幕标题巨幕标题巨幕',
+                image: 'src/assets/slide3.jpg',
+                title: '年终究极大特惠',
                 label: '爆价出击，让你躲无可躲。'
               },{
-                image: './assets/slide-2.jpg',
-                title: '巨幕标题巨幕标题巨幕标题巨幕',
+                image: 'src/assets/slide-2.jpg',
+                title: '年终究极大特惠',
                 label: '一路惠，一路降，一路有你，就不怕。'
               }
             ]

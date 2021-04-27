@@ -39,101 +39,54 @@
 
 
   </el-header>
-    <!--<el-header style="position: fixed;width: 100%;z-index: 10;margin-top: -9px;">
-        <el-menu :default-active="'1'"
-                 mode="horizontal">
-            <el-menu-item>
-                <el-image style="width: 60px; height: 60px"></el-image>
-            </el-menu-item>
-            <el-menu-item index="1"><i class="el-icon-house"/>首页</el-menu-item>
-
-            <el-menu-item class="right">
-                <el-button round type="success" plain>现在下单</el-button>
-            </el-menu-item>
-&lt;!&ndash;            <el-menu-item class="right" index="7">联系客服</el-menu-item>&ndash;&gt;
-            <el-menu-item class="right" index="6" >注册</el-menu-item>
-            <el-menu-item class="right" index="5" >个人首页</el-menu-item>
-
-            <el-menu-item class="right" index="5"  v-show="xs">登录</el-menu-item>
-            <el-avatar shape="square" class="right" style="margin-top: 10px"
-                       :size="'small'" :fit="'fit'" src="../assets/mcimg/6.png" v-show="bxs">
-
-            </el-avatar>
-            &lt;!&ndash;购物车&ndash;&gt;
-            <el-submenu class="right" index="4" >
-                <template slot="title">
-                    <i class="el-icon-shopping-cart-2">
-                        <el-badge :value="carData ? carData.length : 0" :max="99" type="success" style="margin-top: -30px;margin-left: -8px"/>
-                    </i>
-                </template>
-                &lt;!&ndash;购物车模板&ndash;&gt;
-&lt;!&ndash;                <shopping-cart :car-data="carData"></shopping-cart>&ndash;&gt;
-            </el-submenu>
-            <el-menu-item class="right" index="3"><i class="el-icon-scissors"></i>每日特价</el-menu-item>
-            <el-submenu class="right" index="2">
-                <template slot="title"><i class="el-icon-notebook-2"></i>商品分类</template>
-            </el-submenu>
-            <el-menu-item class="right">
-&lt;!&ndash;                <home-query ref="search"></home-query>&ndash;&gt;
-            </el-menu-item>
-
-        </el-menu>
-    </el-header>-->
 
 </div>
 
 </template>
 
 <script>
-    // import {Vue, Component} from "vue-property-decorator";
-    // import ShoppingCart from "@/components/front/home/ShoppingCart.vue";
-    // import HomeQuery from "@/components/front/home/HomeQuery.vue";
-    // import {ShoppingCartHelper, ShoppingData} from "@/helper/front/ShoppingCartHelper";
-    // import {UserHelper} from "@/helper/front/UserHelper";
+    import ShoppingCart from "./ShoppingCart";
+    import HomeQuery from "./HomeQuery";
+    import {UserHelper} from "../../../helper/front/UserHelper";
+    import {ShoppingCartHelper} from "../../../helper/front/ShoppingCartHelper";
 
-// import LogoImg from '../../../assets/mcimg/logos.png'
+    let shoppingCartHelper = new ShoppingCartHelper();
 
-    // let shoppingCartHelper = new ShoppingCartHelper();
-
-    // @Component({
-        // components: {HomeQuery, ShoppingCart}
-    // })
     export default {
-        // logoImg = require('@/assets/mcimg/logos.png');
         data(){
-          // logoImg:LogoImg
           return{
             'xs':true,
-            'bxs':false
+            'bxs':false,
+            carData:null
           }
-        }
-      /*carData: ShoppingData[] = null;
-
-      xs:boolean=true;
-      bxs:boolean=false
-      xianshi(){
+        },
+      components:{
+          ShoppingCart,
+          HomeQuery
+      },
+      methods:{
+        xianshi(){
           if (UserHelper.userId===null){
 
-              this.xs=true
-              this.bxs=false;
+            this.xs=true
+            this.bxs=false;
           }else {
-              this.xs=false
-              this.bxs=true;
+            this.xs=false
+            this.bxs=true;
           }
-      }*/
-
-
-
-        /*created() {
-            shoppingCartHelper.getShoppingData().then(value => {
-                this.carData = value;
-            })
-            this.xianshi()
         }
+      },
+      created() {
+          var _this = this;
+            shoppingCartHelper.getShoppingData().then(value => {
+                _this.carData = value;
+            })
+            this.xianshi();
+        },
 
         mounted() {
 
-        }*/
+        }
     }
 </script>
 
