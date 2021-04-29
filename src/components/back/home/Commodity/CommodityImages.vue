@@ -20,12 +20,28 @@ export  default {
   data(){
     return{
       imageFile: {},
+      empId :'1'
     }
     //当前员工id, 上传需要获取员工id
-
-
   },
   methods:{
+    //上传前验证
+    beforeAvatarUpload(file) {
+      _this=this;
+      const type = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
+      const isLt5M = file.size / 1024 / 1024 < 5;
+      if (!type)
+        _this.$message.error('上传图片只能是 JPG 或 PNG 获取 GIF 格式!');
+      if (!isLt5M)
+        _this.$message.error('上传图片大小不能超过 5MB!');
+      return type && isLt5M;
+    },
+
+    //上传成功调用
+    handleAvatarSuccess(res, files) {
+      _this=this;
+      _this.imageFile.url = res.msg;
+    }
 
   }
 }

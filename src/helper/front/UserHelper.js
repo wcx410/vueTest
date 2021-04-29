@@ -34,9 +34,9 @@ export class UserHelper{
     sessionStorage.setItem("merId",val);
   }
 
-  static async getUser(id){
+/*  static async getUser(id){
     $Axios.get("/user/get/"+(id ?? UserHelper.userId)).then(function (result) {
       return result.data;
     }).catch()
-  }
+  }*/
 }

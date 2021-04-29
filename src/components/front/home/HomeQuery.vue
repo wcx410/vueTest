@@ -25,7 +25,8 @@
 
 <script>
     export default {
-        name: "HomeQuery"
+        name: "HomeQuery",
+
     }
 </script>
 

@@ -22,10 +22,12 @@
     export default {
         name: "HotSale",
       data(){
-          data:[]
       },
       components:{
           Commodity
+      },
+      props:{
+        data:[]
       }
     }
 </script>

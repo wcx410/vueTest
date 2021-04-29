@@ -40,9 +40,12 @@
         name: "ShoppingCart",
       data(){
           return{
-            carData:[]
           }
       },
+      props:{
+          carData:[]
+      }
+      ,
       computed:{
           sumPrice:function(){
             let sum = 0;

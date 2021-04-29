@@ -1,5 +1,7 @@
 import {RouteConfig} from "vue-router";
 import Commodity from "./components/back/home/Commodity/Commodity.vue";
+import CommodityEdit from "./components/back/home/Commodity/CommodityEdit.vue";
+import CommodityImages from "../../components/back/home/Commodity/CommodityImages";
 import CommodityTypeMaintain from "./components/back/home/Commodity/CommodityTypeMaintain.vue";
 import CommodityLableMaintain from "./components/back/home/Commodity/CommodityLableMaintain.vue";
 /**

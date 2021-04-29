@@ -25,8 +25,10 @@
       },
       data(){
           return{
-            data:[]
           }
+      },
+      props:{
+        data:[]
       }
     }
 </script>

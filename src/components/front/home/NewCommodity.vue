@@ -23,10 +23,12 @@
     export default {
         name: "NewCommodity",
       data(){
-        data:[]
       },
       components:{
           Commodity
+      },
+      props:{
+          data:[]
       }
     }
 </script>

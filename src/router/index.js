@@ -3,6 +3,8 @@ import VueRouter, {RouteConfig} from "vue-router"
 import FrontHome from "../views/front/FrontHome";
 import Commodity from "../components/back/home/Commodity/Commodity";
 import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
+import CommodityImages from "../components/back/home/Commodity/CommodityImages";
+
 
 Vue.use(VueRouter)
 

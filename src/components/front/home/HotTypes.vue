@@ -25,7 +25,10 @@
         }
       },
       mounted() {
-
+          var _this = this;
+          this.$axios.get("/comType/queryHot").then(function (result) {
+            _this.data=result.data;
+          }).catch()
       },
       components:{
           CommodityType

@@ -28,8 +28,10 @@
         name: "Commodity",
       data(){
           return{
-            data:[]
           }
+      },
+      props:{
+        data:{}
       }
     }
 </script>

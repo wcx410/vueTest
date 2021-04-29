@@ -1,4 +1,4 @@
-<!--商品添加修改模态框-->
+<!--商品修改模态框-->
 <template>
        <div>
 
@@ -26,11 +26,11 @@
                 <el-input v-model="fromData.manufacturer"></el-input>
             </el-form-item>
             <el-form-item label="商品类型" prop="comType.id">
-                <el-select v-model="fromData.comType.id">
-                    <el-option :value="type.id" :label="type.name" v-for="type in comtype" :key="type.id" :index="type.id"></el-option>
+                <el-select v-model="fromData.comType">
+                    <el-option :value="type.id" :label="type.name" v-for="type in comtype"  ></el-option>
                 </el-select>
             </el-form-item>
-            <!--<el-form-item label="上架时间">
+           <!-- <el-form-item label="上架时间">
                 <el-input v-model="fromData.putawayDate" type="date" placeholder="选择日期"></el-input>
             </el-form-item>-->
 
@@ -46,8 +46,7 @@
     name:"CommodityEdit",
     data(){
       return{
-      fromData: {},
-      imageFile:{},
+      tid:"1",
       comtype : {},
         //验证执行
         rules: {
@@ -92,6 +91,10 @@
     components:{
       CommodityImages
     },
+    props:{
+      fromData: {},
+      imageFile:{}
+    },
     methods:{
       //查询所有商品类型信息
       getCommodityTypeAll(){
@@ -99,6 +102,10 @@
         this.$axios.post("/commodity/queryAlltype.action").then(value => {
           console.log(value.data)
           _this.comtype=value.data;
+
+
+          _this.tid =_this.fromData.comType;
+          console.log(_this.tid)
         })
       },
 

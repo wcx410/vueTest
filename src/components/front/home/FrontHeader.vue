@@ -2,11 +2,11 @@
 <div>
   <el-header style="position: fixed;width: 100%;z-index: 10;margin-top: -9px;">
     <el-menu :default-active="'1'" mode="horizontal">
-      <el-menu-item>
+      <el-menu-item index="9">
         <el-image style="width: 60px; height: 60px" src="./src/assets/mcimg/logos.png"></el-image>
       </el-menu-item>
       <el-menu-item index="1"><i class="el-icon-house"/>首页</el-menu-item>
-      <el-menu-item class="right">
+      <el-menu-item class="right" index="8">
         <el-button round type="success" plain>现在下单</el-button>
       </el-menu-item>
       <el-menu-item class="right" index="7">联系客服</el-menu-item>
@@ -53,6 +53,7 @@
     let shoppingCartHelper = new ShoppingCartHelper();
 
     export default {
+      name:"FrontHeader",
         data(){
           return{
             'xs':true,
