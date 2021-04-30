@@ -4,6 +4,8 @@ import FrontHome from "../views/front/FrontHome";
 import Commodity from "../components/back/home/Commodity/Commodity";
 import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
 import CommodityImages from "../components/back/home/Commodity/CommodityImages";
+import CommodityLableMaintain from "../components/back/home/Commodity/CommodityLableMaintain";
+import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
 
 
 Vue.use(VueRouter)
@@ -19,6 +21,10 @@ const routes = [
   {
     path: '/com',
     component: Commodity
+  },
+  {
+    path: '/lb',
+    component: CommodityLableMaintain
   }
 ]
 

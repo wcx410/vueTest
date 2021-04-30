@@ -12,16 +12,17 @@
                 type="primary"
                 slot="append"
                 icon="el-icon-search"
+                @click="MohuqueryCommoditylable"
 
         >查询
         </el-button>
-        <el-button
+        <!--<el-button
                 type="success"
                 slot="append"
                 icon="el-icon-circle-plus"
 
         >添加
-        </el-button>
+        </el-button>-->
         <!--strip 双行阴影效果属性-->
         <el-table
                 border
@@ -66,11 +67,21 @@
                 </template>
             </el-table-column>
         </el-table>
+      <!--分页-->
+      <el-pagination
+        @size-change="rowsChange"
+        @current-change="pageChange"
+        :current-page="newpage"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData.total">
+      </el-pagination>
 
     </div>
 </template>
 
-<script lang="ts">
+<script>
 
 
   import Axios from "axios";
@@ -80,20 +91,49 @@
       data(){
         return{
           tableData: {},
+          //当前页数
+          newpage:1,
+          //分页页码的值
+          page:1,
+          //分页一页多少行的值
+          rows:5,
+          //搜索框的值
+          input:"",
+          //修改的id
+          id:0,
         }
-        //搜索框的值
-        input:"";
+
       },
+      components:{},
       methods:{
         //                      商品标签查询部分
         //***********************************************************
         //页面打开 查询所有商品标签信息
         getCommodityLableAll(){
           var _this=this;
-          this.$axios.post("/commodity/queryAlllabel.action").then(value => {
-            console.log(value.data)
-            _this.tableData=value.data;
+          let params = new URLSearchParams();
+          params.append("name",this.input);
+          this.$axios.post("/commodity/queryAlllabelbydto.action",params).then(value => {
+            console.log(value.data.records)
+            _this.tableData=value.data.records;
           })
+        },
+        //点击查询按钮 模糊查询商品标签
+        MohuqueryCommoditylable(){
+          this.getCommodityLableAll();
+        },
+        /*点击换条数的按钮*/
+        rowsChange(val) {
+          //修改条数的值
+          console.log(val)
+          this.rows=val;
+          this.getCommodityAll();
+        },
+        //点击分页页数按钮
+        pageChange(val) {
+          //修改页数的值
+          this.page=val;
+          this.getCommodityAll();
         },
         queryCommodityLabledetails(){
 

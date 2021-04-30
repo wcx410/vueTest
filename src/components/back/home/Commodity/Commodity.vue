@@ -336,6 +336,7 @@
         params.append("specification",this.fromData.specification)
         params.append("manufacturer",this.fromData.manufacturer)
         params.append("comType",this.fromData.comType)
+        params.append("state",0)
 
         console.log(params)
         console.log(this.fromData.name)
