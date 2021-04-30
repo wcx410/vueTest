@@ -46,7 +46,6 @@
     name:"CommodityEdit",
     data(){
       return{
-      tid:"1",
       comtype : {},
         //验证执行
         rules: {
@@ -102,10 +101,6 @@
         this.$axios.post("/commodity/queryAlltype.action").then(value => {
           console.log(value.data)
           _this.comtype=value.data;
-
-
-          _this.tid =_this.fromData.comType;
-          console.log(_this.tid)
         })
       },
 

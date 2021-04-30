@@ -71,15 +71,38 @@
 </template>
 
 <script lang="ts">
-    import {Vue, Component} from "vue-property-decorator";
-
-    import Axios from "axios";
 
 
-    @Component
-    export default class CommodityTypeMaintain extends Vue {
+  import Axios from "axios";
+  import {t} from "element-ui/src/locale/index";
+    export default {
+      name:"CommodityLableMaintain",
+      data(){
+        return{
+          tableData: {},
+        }
+        //搜索框的值
+        input:"";
+      },
+      methods:{
+        //                      商品标签查询部分
+        //***********************************************************
+        //页面打开 查询所有商品标签信息
+        getCommodityLableAll(){
+          var _this=this;
+          this.$axios.post("/commodity/queryAlllabel.action").then(value => {
+            console.log(value.data)
+            _this.tableData=value.data;
+          })
+        },
+        queryCommodityLabledetails(){
 
-        created() {
+        },
+        deleteCommodityLable(){
+
+        }
+      },
+      created() {
             this.$store.commit('back/url', window.location.href);
 
             //加载所有商品类型信息
@@ -89,36 +112,15 @@
             /*EmpHelper.getEmp().then(value => {
                 console.log(value);
             })*/
-        }
+        },
 
-        //搜索框的值
-        input="";
-        /*商品标签数据*/
-        tableData: any[]=[];
+
 
         //***********************************************************
-        //                      商品标签查询部分
-        //***********************************************************
-        //页面打开 查询所有商品标签信息
-        getCommodityLableAll(){
-            Axios({
-                method: "post",
-                url: "/commodity/queryAlllabel"
-            }).then(value => {
-               /* console.log(value.data)*/
-                this.tableData=value.data;
-
-            })
-        }
 
 
-        queryCommodityLabledetails(){
 
-        }
 
-        deleteCommodityLable(){
-
-        }
 
 
     }

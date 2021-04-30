@@ -15,6 +15,12 @@
             <el-option value="未上架">未上架</el-option>
             <el-option value="下架">下架</el-option>
         </el-select>
+      <!-- 商品类型-->
+      <el-select v-model="leixing">
+        <el-option value="蔬菜">蔬菜</el-option>
+        <el-option value="水果">水果</el-option>
+        <el-option value="熟食">熟食</el-option>
+      </el-select>
         <el-button
                 type="primary"
                 slot="append"
@@ -132,7 +138,7 @@
                @current-change="pageChange"
                 :current-page="newpage"
                 :page-sizes="[5, 10, 15, 20]"
-                :page-size="5"
+                :page-size="rows"
                 layout="total, sizes, prev, pager, next, jumper"
                 :total="tableData.total">
         </el-pagination>
@@ -192,6 +198,8 @@
         input:"",
         //状态框的变量
         zhuangtai:"全部",
+        //类型框的变量
+        leixing:"蔬菜",
         //商品数据(包括图片)
         tableData:  {},
       //修改用 的商品id
@@ -219,12 +227,22 @@
       getCommodityAll(){
         //console.log("getCommodityAll")
         var _this=this;
+        var lx;
         let params = new URLSearchParams();
-        params.append("name",this.input)
-        params.append("state",this.zhuangtai)
-        params.append("page",this.page.toString())
-        params.append("rows",this.rows.toString())
-        params.append("com_type",1)
+        params.append("name",this.input);
+        params.append("state",this.zhuangtai);
+        params.append("page",this.page);
+        params.append("rows",this.rows);
+        if(this.leixing==="蔬菜"){
+          lx=1;
+        }
+         if(this.leixing==="水果"){
+          lx=2;
+        }
+         if(this.leixing==="熟食"){
+          lx=3;
+        }
+        params.append("com_type",lx);
 
         this.$axios.post("/commodity/queryallcommodity.action",params).then(value => {
           console.log(value.data.records)
@@ -248,6 +266,7 @@
       /*点击换条数的按钮*/
       rowsChange(val) {
         //修改条数的值
+        console.log(val)
         this.rows=val;
         this.getCommodityAll();
       },
@@ -316,7 +335,7 @@
         params.append("unit",this.fromData.unit)
         params.append("specification",this.fromData.specification)
         params.append("manufacturer",this.fromData.manufacturer)
-        params.append("comType",this.fromData.comType.id)
+        params.append("comType",this.fromData.comType)
 
         console.log(params)
         console.log(this.fromData.name)
@@ -338,8 +357,73 @@
           });
         });
       },
-      updateCommodity(){
+      //点击模态框确定按钮  修改商品信息方法
+      async updateCommodity() {
+       /* //验证非空
+        if (!await this.$refs.updateFrom.validate()) {
+          this.$message.error("验证失败")
+          return ;
+        }
+        //验证价格是不是数字
+        let value = this.fromData.price.toString().replace('/(^*)|(*$)','')  //去除字符串前后空格
+        let num = Number(value)  //将字符串转换为数字
+        if(isNaN(num)){  //判断是否是非数字
+          this.$message.error("价格必须是数字")
+          return;
+        }else if(value === ''|| value === null){  //空字符串和null都会被当做数字
+          this.$message.error("价格必须是数字")
+          return;
+        }
+        //价格大于0
+        if(num<=0){
+          this.$message.error("价格必须大于0")
+          return;
+        }
+        //验证规格是不是数字
+        let value1 = this.fromData.specification.toString().replace('/(^*)|(*$)','')  //去除字符串前后空格
+        let num1 = Number(value1)  //将字符串转换为数字
+        if(isNaN(num1)){  //判断是否是非数字
+          this.$message.error("规格必须是数字")
+          return;
+        }else if(value1 === ''|| value1 === null){  //空字符串和null都会被当做数字
+          this.$message.error("规格必须是数字")
+          return;
+        }
+        //规格大于0
+        if(num1<=0){
+          this.$message.error("规格必须大于0")
+          return;
+        }*/
+        //关闭模态框
+        this.updatemotaikuang = false;
+        //执行提交操作
+        let params = new URLSearchParams();
+        params.append("name",this.fromData.name)
+        params.append("particulars",this.fromData.particulars)
+        params.append("image",this.imageFile.url)
+        params.append("price",this.fromData.price)
+        params.append("unit",this.fromData.unit)
+        params.append("specification",this.fromData.specification)
+        params.append("manufacturer",this.fromData.manufacturer)
+        params.append("comType",this.fromData.comType)
+        params.append("id",this.id)
 
+        this.$axios.post("/commodity/update.action",params)
+          .then((result)=> {
+            if (result.data===true){
+              this.$message({
+                type: 'success',
+                message: "修改成功√"
+              });
+            }
+            //刷新页面
+            this.getCommodityAll();
+          }).catch((msg) => {
+          this.$message({
+            type: 'error',
+            message: "修改失败×"
+          });
+        });
       },
       //获取选中的商品的详情 打开修改模态框
       queryCommoditydetails(index, row) {
@@ -352,10 +436,110 @@
         this.updatemotaikuang = true;
 
       },
-      deleteCommodity(){
+      //                      商品删除(下架)部分
+      //***********************************************************
+      //删除商品信息方法
+      deleteCommodity(index, row) {
+        if (row.state!==2){
+          this.$confirm('此操作将下架商品, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true
+          }).then(() => {
+            let params = new URLSearchParams();
+            params.append("state",2);
+            params.append("id",row.id);
+
+            //执行删除操作
+            this.$axios.post("/commodity/updatecommodity.action",params)
+              .then((result)=> {
+                if (result.data===true){
+                  this.$message({
+                    type: 'success',
+                    message: "下架成功√"
+                  });
+                }
+                //刷新页面
+                this.getCommodityAll();
+              }).catch((msg) => {
+              this.$message({
+                type: 'error',
+                message: "下架失败×"
+              });
+            });
+
+
+          }).catch(() => {
+            this.$message({
+              type: 'error',
+              message: '已取消下架'
+            });
+          });
+        }else {
+          this.$message({
+            type: 'error',
+            message: "商品已是下架状态×"
+          });
+        }
+
 
       },
-      PutCommodity(){
+      //上架商品
+      PutCommodity(index, row){
+        //alert(row.id)
+        //console.log(row.putawayDate) //null  等于1是上架状态
+        if (row.state!==1){
+          //拿到商品id
+
+          this.$confirm('此操作将上架商品, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true
+          }).then(() => {
+            let params = new URLSearchParams();
+            //如果上架时间不是null 上架修改最新和第一次上架时间
+            if (row.putawayDate===null){
+              params.append("id",row.id);
+              params.append("state",1);
+            }else {
+              params.append("id",row.id);
+              params.append("state",1);
+              params.append("putawayDate",row.putawayDate);
+            }
+
+            //执行删除操作
+            this.$axios.post("/commodity/updatecommodity.action",params)
+              .then((result)=> {
+                if (result.data===true){
+                  this.$message({
+                    type: 'success',
+                    message: "上架成功√"
+                  });
+                }
+                //刷新页面
+                this.getCommodityAll();
+              }).catch((msg) => {
+              this.$message({
+                type: 'error',
+                message: "上架失败×"
+              });
+            });
+
+
+          }).catch(() => {
+            this.$message({
+              type: 'error',
+              message: '已取消上架'
+            });
+          });
+        }else {
+          this.$message({
+            type: 'error',
+            message: '商品已是上架状态'
+          });
+        }
 
       }
     },
