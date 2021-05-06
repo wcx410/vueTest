@@ -6,6 +6,8 @@ import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
 import CommodityImages from "../components/back/home/Commodity/CommodityImages";
 import CommodityLableMaintain from "../components/back/home/Commodity/CommodityLableMaintain";
 import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
+import BackHome from "../views/back/BackHome";
+import BackRouter from "./back/backRouter";
 
 
 Vue.use(VueRouter)
@@ -18,6 +20,11 @@ const routes = [
   /**
    * 后台路由,访问地址 /back/.....
    */
+  {
+    path: '/back',
+    component: BackHome,
+    children: BackRouter
+  },
   {
     path: '/com',
     component: Commodity

@@ -1,20 +1,21 @@
 import {RouteConfig} from "vue-router";
-import Commodity from "./components/back/home/Commodity/Commodity.vue";
-import CommodityEdit from "./components/back/home/Commodity/CommodityEdit.vue";
+// import Commodity from "./components/back/home/Commodity/Commodity.vue";
+// import CommodityEdit from "./components/back/home/Commodity/CommodityEdit.vue";
 import CommodityImages from "../../components/back/home/Commodity/CommodityImages";
-import CommodityTypeMaintain from "./components/back/home/Commodity/CommodityTypeMaintain.vue";
-import CommodityLableMaintain from "./components/back/home/Commodity/CommodityLableMaintain.vue";
+// import CommodityTypeMaintain from "./components/back/home/Commodity/CommodityTypeMaintain.vue";
+// import CommodityLableMaintain from "./components/back/home/Commodity/CommodityLableMaintain.vue";
+import BackHome from "../../views/back/BackHome";
 /**
  * 后台路由
  */
 const BackRouter = [
-    // {path: '/', component: BackHome,},
+    {path: '/', component: BackHome,},
      //商品资料维护
-    {path:"/commodity",component:Commodity},
+    // {path:"/commodity",component:Commodity},
     //商品类型维护
-    {path:"/typemaintain",component:CommodityTypeMaintain},
+    // {path:"/typemaintain",component:CommodityTypeMaintain},
     //商品标签维护
-    {path:"/lablemaintain",component:CommodityLableMaintain},
+    // {path:"/lablemaintain",component:CommodityLableMaintain},
     // //配送管理
     // {path:"/peison",component:Distribution},
     /*{
