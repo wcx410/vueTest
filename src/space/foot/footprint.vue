@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import userhelper from  "../../helper/front/UserHelper"
     export default {
         name: "footprint",
        data(){
@@ -28,7 +29,7 @@
           getfoot(){
             var _this =this;
             var params = new URLSearchParams();
-            params.append("uid",this.user.id);
+            params.append("uid",userhelper.userId);
             this.$axios.post("foot/queryFoot",params).then(function (response) {
               _this.commodity = response.data;
             }).catch();

@@ -11,7 +11,7 @@
       </el-menu-item>
       <el-menu-item class="right" index="7">联系客服</el-menu-item>
       <el-menu-item class="right" index="6" @click="$router.replace('/zc')">注册</el-menu-item>
-      <el-menu-item class="right" index="5" @click="$router.replace('/homepage')">个人首页</el-menu-item>
+      <el-menu-item class="right" index="5" @click="$router.push('/userhome')">个人首页</el-menu-item>
 
       <el-menu-item class="right" index="5" @click="$router.replace('/login')" v-show="xs">登录</el-menu-item>
       <!--<el-avatar shape="square" class="right" style="margin-top: 10px"

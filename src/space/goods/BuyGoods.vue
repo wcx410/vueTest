@@ -60,6 +60,7 @@
 </template>
 
 <script>
+  import userhelper from  "../../helper/front/UserHelper"
     export default {
       name: "BuyGoods",
       data(){
@@ -72,7 +73,7 @@
           var _this =this;
           var params = new URLSearchParams();
           params.append("state",state);
-          params.append("uid",this.user.id);
+          params.append("uid",userhelper.userId);
           this.$axios.post("buy/getBuyGoods",params).then(function (response) {
             _this.goods = response.data;
           }).catch();

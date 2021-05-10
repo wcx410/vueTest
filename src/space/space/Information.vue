@@ -5,15 +5,15 @@
     <div style="margin-top: 70px">
       <!--            <el-avatar :size="110" :src="require('@/assets/mcimg/16.png')"></el-avatar>-->
       <!--<el-upload-->
-        <!--class="avatar-uploader"-->
-        <!--:action="'http://localhost:8080/userFileUpload?dir=frontImage&uId=' + userHelper.userId"-->
-        <!--:show-file-list="false"-->
-        <!--:on-success="handleAvatarSuccess"-->
-        <!--:before-upload="beforeAvatarUpload"-->
-        <!--name="file">-->
-        <!--&lt;!&ndash;                <img v-if="imageUrl" :src="'http://localhost:8080/' + imageUrl" class="avatar">&ndash;&gt;-->
+      <!--class="avatar-uploader"-->
+      <!--:action="'http://localhost:8080/userFileUpload?dir=frontImage&uId=' + userHelper.userId"-->
+      <!--:show-file-list="false"-->
+      <!--:on-success="handleAvatarSuccess"-->
+      <!--:before-upload="beforeAvatarUpload"-->
+      <!--name="file">-->
+      <!--&lt;!&ndash;                <img v-if="imageUrl" :src="'http://localhost:8080/' + imageUrl" class="avatar">&ndash;&gt;-->
 
-        <!--<el-image style="width:200px;height: 200px" v-if="user.headPortrait" :src="$host + user.headPortrait"></el-image>-->
+      <!--<el-image style="width:200px;height: 200px" v-if="user.headPortrait" :src="$host + user.headPortrait"></el-image>-->
 
       <!--</el-upload>-->
       <div style="font-size: 15px;margin-left: 240px;margin-top: -60px">
@@ -36,7 +36,7 @@
 
       <div style="margin-left: 390px;margin-top: -40px" v-show="isSmrz">
         <!--去申请商户-->
-        <el-button type="warning" plain @click="$router.replace('')">申请成为商户</el-button>
+        <el-button type="warning" plain @click="$router.replace('/apply')">申请成为商户</el-button>
       </div>
 
       <div style="margin-left: 390px;margin-top: -40px" v-show="sh">
@@ -110,8 +110,9 @@
 </template>
 
 <script>
+  import userhelper from  "../../helper/front/UserHelper"
     export default {
-        name: "Informtion",
+        name: "Information",
         data(){
             return{
               isnSmrz:false,
@@ -120,21 +121,7 @@
               sh:false,
               dialogVisible:false,
               // msg:"",
-              user:{
-                // id:"",
-                // username:"",
-                // password:"",
-                // headPortrait:"",
-                // phone:"",
-                // signature:"",
-                // birthday :"",
-                // uname:"",
-                // sex:"",
-                // idCard:"",
-                // merid:"",
-                // lastLoginTime:"",
-                // isDelete:"",
-              }
+              user:{}
             }
         },
       methods:{
@@ -150,38 +137,40 @@
           //根据id显示查出来的用户，在上面显示
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",this.user.id);
+          //userhelper.userId
+          params.append("id",userhelper.userId);
           this.$axios.post("space/queryBy",params).then(function (response) {
             _this.user = response.data;
-          }).catch();
-          // 是否进行了实名认证
-          if (this.user.idCard == null) {
-            this.isnSmrz = true
+            // 是否进行了实名认证
+            if (_this.user.idCard == null) {
+              _this.isnSmrz = true
 
-          } else {
-            this.isSmrz = true
-            this.sqsh=true
-          }
-          //是否是商户
-          if (this.user.merid == null){
-            this.sh=false
-          }else {
-            this.sh=true
-            this.isSmrz=false
-          }
+            } else {
+              _this.isSmrz = true
+              _this.sqsh=true
+            }
+            //是否是商户
+            if (_this.user.merid == null){
+              _this.sh=false
+            }else {
+              _this.sh=true
+              _this.isSmrz=false
+            }
+          }).catch();
+
           // let id = this.user.idCard;
           // id=id.substr(0,id.length-4)+"****";
           // this.user.idCard=id;
         },
         gotoShop(){
           //替换路由路径
-          this.$router.push({path: ''})
+          this.$router.replace('/shop')
         },
         smrzff(){
           //进行实名认证，输入身份证
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",this.user.id);
+          params.append("id",userhelper.userId);
           params.append("idCard",this.user.idCard)
           this.$axios.post("space/updateUser",params).then(function (response) {
             // _this.msg = response.data;

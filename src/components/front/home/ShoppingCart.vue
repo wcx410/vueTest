@@ -42,9 +42,7 @@
           return{
           }
       },
-      props:{
-          carData:[]
-      }
+      props:["carData"]
       ,
       computed:{
           sumPrice:function(){

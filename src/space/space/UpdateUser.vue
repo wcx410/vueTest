@@ -61,6 +61,7 @@
 </template>
 
 <script>
+  import userhelper from  "../../helper/front/UserHelper"
     export default {
         name: "UpdateUser",
        data(){
@@ -88,7 +89,7 @@
         getdata(){
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",this.user.id);
+          params.append("id",userhelper.userId);
           this.$axios.post("space/queryBy",params).then(function (response) {
             _this.user = response.data;
           }).catch();
@@ -100,7 +101,7 @@
         xg(){
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",this.user.id)
+          params.append("id",userhelper.userId)
           params.append("sex",this.user.sex);
           params.append("phone",this.user.phone);
           params.append("signature",this.user.signature);

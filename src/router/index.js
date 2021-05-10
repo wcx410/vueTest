@@ -3,6 +3,7 @@ import VueRouter, {RouteConfig} from "vue-router"
 import FrontHome from "../views/front/FrontHome";
 import Commodity from "../components/back/home/Commodity/Commodity";
 import Login from "../components/login/Login"
+import UserHome from "../space/home/UserHome"
 import UserRoutes from '../router/user/user'
 import ShopCar from "../space/shopCar/ShopCar"
 import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
@@ -14,6 +15,7 @@ import BackRouter from "./back/backRouter";
 
 import ShopHome from "../views/shop/ShopHome";
 import ShopRouter from "./shop/ShopRouter";
+import Merchant from "../space/Merchant/Merchant";
 
 Vue.use(VueRouter)
 
@@ -25,6 +27,10 @@ const routes = [
   {
     path: '/shopCar',
     component: ShopCar
+  },
+  {
+    path: '/apply',
+    component: Merchant
   },
   {
     path: '/',
@@ -46,6 +52,11 @@ const routes = [
   {
     path: '/com',
     component: Commodity
+  },
+  {
+    path: '/userhome',
+    component: UserHome,
+    children:UserRoutes
   },
   {
     path: '/lb',
