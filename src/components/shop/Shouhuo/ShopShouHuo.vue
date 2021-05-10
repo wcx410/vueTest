@@ -127,7 +127,7 @@
       <span>您目前已选中{{selectRows.length}}条记录, 你确定收货吗 ?</span>
       <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="shouHuo">确 定</el-button>
+                <el-button type="primary" @click="shouhuo">确 定</el-button>
               </span>
     </el-dialog>
   </div>
@@ -177,8 +177,8 @@
         params.append("rows", this.rows);
 
         this.$axios.post("/shop/queryshouhuo.action", params).then(value => {
-          console.log(value.data.rows)
           _this.tableData = value.data.rows;
+          console.log(this.tableData)
         })
       },
       //点击查询按钮 模糊查询商品信息
@@ -198,12 +198,47 @@
         this.page = val;
         this.getCommodityAll();
       },
+      //复选框选择
+      checkChange(val) {
+        this.selectRows = val;
+      },
+      //判断复选框是否选择
       openDialog() {
-        if (this.selectRows.length === 0) {
+        if (this.selectRows.length == 0) {
           this.$notify.error({title: "提示",message: "请至少选择一行 !"});
           return;
         }
         this.dialogVisible = true;
+      },
+      //修改订单状态为待提货（ordstate=2）
+      shouhuo(){
+        var list =[];
+        for(var i =0;i<this.selectRows.length;i++){
+          list.push(this.selectRows[i].id);
+        }
+        //修改订单状态为待提货
+        this.$axios.post("/shop/updatepshopcars.action",JSON.stringify(list),{headers: {'Content-Type': 'application/json'}}).then(value => {
+          if(value){//向收货门店表插入数据
+            var arr=[];
+            for (var i = 0; i < this.selectRows.length; i++) {
+              arr.push(this.selectRows[i])
+            }
+            console.log(arr)
+            this.$axios.post("/shop/insertpickupmerchants.action",JSON.stringify(arr),{headers: {'Content-Type': 'application/json'}}).then(value => {
+              this.$message({
+                message: '收货成功！',
+                type: 'success'
+              });
+              this.getCommodityAll();
+              this.dialogVisible = false;
+            })
+          }else {
+            this.$message({
+              message: '收货失败！',
+              type: 'warning'
+            });
+          }
+        })
       }
     },
     filters: {
@@ -214,9 +249,12 @@
         return value.substring(0,6) + '****' + value.substring(10);
       },
       state:function(value){
+        if (value == 0) return "待发货";
         if (value == 1) return "未收货";
         if (value == 2) return "待提货";
         if (value == 3) return "已提货";
+        if (value == 4) return "待退款";
+        if (value == 5) return "已退款";
         return value;
       },
     },

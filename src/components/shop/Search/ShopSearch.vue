@@ -15,9 +15,12 @@
                 <!-- 订单状态 -->
                 <el-select v-model="state" placeholder="订单状态" style="width: 110px;">
                   <el-option value="全部">全部</el-option>
+                  <el-option value="待发货">待发货</el-option>
                   <el-option value="未收货">未收货</el-option>
                   <el-option value="待提货">待提货</el-option>
                   <el-option value="已提货">已提货</el-option>
+                  <el-option value="待退款">待退款</el-option>
+                  <el-option value="已退款">已退款</el-option>
                 </el-select>
               </el-tooltip>
             </div>
@@ -94,8 +97,15 @@
             <el-table-column
               width="90px"
               label="订单状态"
-
-            v-model="ordstate">
+              prop="ordstate">
+              <template slot-scope="scope">
+                <span v-if="scope.row.ordstate==0">待发货</span>
+                <span v-else-if="scope.row.ordstate==1">未收货</span>
+                <span v-else-if="scope.row.ordstate==2">待提货</span>
+                <span v-else-if="scope.row.ordstate==3">已提货</span>
+                <span v-else-if="scope.row.ordstate==4">待退款</span>
+                <span v-else-if="scope.row.ordstate==5">已退款</span>
+              </template>
             </el-table-column>
             <el-table-column
               width="120px"
@@ -188,18 +198,13 @@
           params.append("search_ordname", this.input);
           params.append("page", this.page);
           params.append("rows", this.rows);
-          if(this.state==="全部"){
-            state=-1;
-          }
-          if(this.state==="未收货"){
-            state=1;
-          }
-          if(this.state==="待提货"){
-            state=2;
-          }
-          if(this.state==="已提货"){
-            state=3;
-          }
+          if(this.state==="全部"){state=-1;}
+          if(this.state==="待发货"){state=0;}
+          if(this.state==="未收货"){state=1;}
+          if(this.state==="待提货"){state=2;}
+          if(this.state==="已提货"){state=3;}
+          if(this.state==="待退款"){state=4;}
+          if(this.state==="已退款"){state=5;}
           params.append("search_ordstate",state);
 
           this.$axios.post("/shop/querycomorder.action", params).then((value) => {

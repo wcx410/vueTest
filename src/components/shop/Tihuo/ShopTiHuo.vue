@@ -131,7 +131,7 @@
       <span>您目前已选中{{selectRows.length}}条记录, 你确定提货吗 ?</span>
       <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="tiHuo">确 定</el-button>
+                <el-button type="primary" @click="tihuo">确 定</el-button>
               </span>
     </el-dialog>
   </div>
@@ -201,12 +201,25 @@
         this.page = val;
         this.getCommodityAll();
       },
-      openDialog() {
-        if (this.selectRows.length === 0) {
-          this.$notify.error({title: "提示",message: "请至少选择一行 !"});
-          return;
-        }
-        this.dialogVisible = true;
+      //复选框选择
+    checkChange(val) {
+      this.selectRows = val;
+    },
+    //判断复选框是否选择
+    openDialog() {
+      if (this.selectRows.length == 0) {
+        this.$notify.error({title: "提示",message: "请至少选择一行 !"});
+        return;
+      }
+      this.dialogVisible = true;
+    },
+      //修改订单状态为已提货（ordstate=3）
+      tihuo(){
+        let params = new URLSearchParams();
+        params.append();
+        this.$axios.post("/shop/updatepshopcars.action", params).then(value => {
+
+        })
       }
     },
     filters: {
@@ -217,9 +230,12 @@
         return value.substring(0,6) + '****' + value.substring(10);
       },
       state:function(value){
+        if (value == 0) return "待发货";
         if (value == 1) return "未收货";
         if (value == 2) return "待提货";
         if (value == 3) return "已提货";
+        if (value == 4) return "待退款";
+        if (value == 5) return "已退款";
         return value;
       },
     },
