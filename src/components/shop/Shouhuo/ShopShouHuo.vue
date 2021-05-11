@@ -218,6 +218,7 @@
         }
         //修改订单状态为待提货
         this.$axios.post("/shop/updatepshopcars.action",JSON.stringify(list),{headers: {'Content-Type': 'application/json'}}).then(value => {
+          this.dialogVisible = false;
           if(value){//向收货门店表插入数据
             var arr=[];
             for (var i = 0; i < this.selectRows.length; i++) {
@@ -230,7 +231,6 @@
                 type: 'success'
               });
               this.getCommodityAll();
-              this.dialogVisible = false;
             })
           }else {
             this.$message({

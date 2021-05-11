@@ -138,7 +138,6 @@
               prop="pickUpTime">
             </el-table-column>
           </el-table>
-
           <el-pagination
             @size-change="rowsChange"
             @current-change="pageChange"
