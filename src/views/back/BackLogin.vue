@@ -44,7 +44,7 @@
         params.append("password",this.empInfo.password);
         var _this =this;
         this.$axios.post("employee/backLogin",params).then(function (request) {
-          _this.$router.push({path: "/"});
+          _this.$router.push({path: "/BackHome"});
         }).catch();
       }
     }
