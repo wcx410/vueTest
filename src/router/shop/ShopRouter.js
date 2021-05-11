@@ -4,6 +4,7 @@ import ShopTihuo from "../../components/shop/Tihuo/ShopTihuo"
 import ShopSearch from "../../components/shop/Search/ShopSearch"
 import ShopStatistics from "../../components/shop/Statistics/ShopStatistics"
 import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
+import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
 
 /**
  * 商户路由
@@ -28,6 +29,10 @@ const ShopRouter = [
   {
     path: '/maintenance',
     component: ShopMaintenance
+  },
+  {
+    path: '/maintenanceapply',
+    component: MaintenanceApply
   }
 ]
 
