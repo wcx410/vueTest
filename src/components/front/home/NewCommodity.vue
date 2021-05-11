@@ -23,13 +23,16 @@
     export default {
         name: "NewCommodity",
       data(){
+          return{
+
+          }
       },
       components:{
           Commodity
       },
-      props:{
-          data:[]
-      }
+      props:["data"]
+
+
     }
 </script>
 

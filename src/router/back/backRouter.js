@@ -9,13 +9,13 @@ import CustomerMaintain from "./components/back/home/Customer/CustomerMaintain.v
  * 后台路由
  */
 const BackRouter = [
-    // {path: '/', component: BackHome,},
+    {path: '/', component: BackHome,},
      //商品资料维护
-    {path:"/commodity",component:Commodity},
+    // {path:"/commodity",component:Commodity},
     //商品类型维护
-    {path:"/typemaintain",component:CommodityTypeMaintain},
+    // {path:"/typemaintain",component:CommodityTypeMaintain},
     //商品标签维护
-    {path:"/lablemaintain",component:CommodityLableMaintain},
+    // {path:"/lablemaintain",component:CommodityLableMaintain},
     // //配送管理
     // {path:"/peison",component:Distribution},
     /*{

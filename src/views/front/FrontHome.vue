@@ -60,9 +60,9 @@
       created() {
           var _this = this;
 
-          shoppingCartHelper.getShoppingData().then(value => {
+          /*shoppingCartHelper.getShoppingData().then(value => {
             _this.carData = value;
-          })
+          })*/
 
         this.$axios.get("/commodity/queryHome").then(function (result) {
           console.log(result);

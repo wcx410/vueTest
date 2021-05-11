@@ -27,9 +27,7 @@
           return{
           }
       },
-      props:{
-        data:[]
-      }
+      props:["data"]
     }
 </script>
 
