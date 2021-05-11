@@ -213,18 +213,53 @@
             });
             return
           }
+          if(this.carid==="0"){
+            this.$message({
+              type: 'error',
+              message: "请选择配送车辆"
+            });
+            return
+          }
+          if(this.carid=="1"){
+            this.$message({
+              type: 'error',
+              message: "请选择闲置配送车辆"
+            });
+            return
+          }
+          if(this.peisongyuanid==="0"){
+            this.$message({
+              type: 'error',
+              message: "请选择配送员"
+            });
+            return
+          }if(this.peisongyuanid=="1"){
+            this.$message({
+              type: 'error',
+              message: "请选择闲置配送员"
+            });
+            return
+          }if(this.peisongyuanid=="2"){
+            this.$message({
+              type: 'error',
+              message: "请选择在职配送员"
+            });
+            return
+          }
           //如果配送数量小于仓库数量 就可以配送
           if (this.xuqiushopsum<=this.shopsum){
             let params = new URLSearchParams();
             params.append("warid",this.warehouseid)
-            params.append("shopid",this.shop.id1.toString())
-            params.append("xuqiushopsum",this.xuqiushopsum.toString())
-            params.append("guige",this.shop.specification.toString())
-            params.append("ddid",this.shop.ordernumber.toString())
-            this.$axios.post("/peisong/querenpeison.action",params).then(value => {
+            params.append("carid",this.carid)
+            params.append("peisongyuanid",this.peisongyuanid)
+            params.append("shopid",this.shop.id1)
+            params.append("xuqiushopsum",this.xuqiushopsum)
+            params.append("guige",this.shop.specification)
+            params.append("ddid",this.shop.id)
+            this.$axios.post("/peisong/querenpeisong.action",params).then(value => {
               this.$message({
                 type: 'success',
-                message: value.data.msg
+                message: "配送成功"
             })
               //this.shopsum = value.data;
               //关闭选择配送仓库模态框
@@ -252,7 +287,7 @@
         getCarState(state) {
           if (state == "0") return "闲置";
           if (state == "1") return "运输中";
-          if (state == "2") return "已解雇";
+          if (state == "2") return "已离职";
         }
       },
 
