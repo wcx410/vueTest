@@ -5,11 +5,15 @@
 </template>
 
 <script>
+  import FrontHeader from "./components/front/home/FrontHeader"
+  import Registered from "./views/front/Registered"
 
-    export default {
-        name: "App1",
+  export default {
+    name: "App1",
     components: {
-    }
+      FrontHeader,
+      Registered
+    },
     }
 </script>
 

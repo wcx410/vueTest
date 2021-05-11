@@ -30,7 +30,6 @@
                 :name="item.name"
               >
                 <component :is="item.content"></component>
-
               </el-tab-pane>
             </el-tabs>
 
@@ -38,6 +37,7 @@
           <el-footer>Footer</el-footer>
         </el-container>
       </el-container>
+      <router-view></router-view>
   </div>
 </template>
 

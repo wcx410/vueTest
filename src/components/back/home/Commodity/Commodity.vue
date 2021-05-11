@@ -46,7 +46,7 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                         <el-form-item label="商品名称：">
                             <span>{{ props.row.name }}</span>
-                        </el-form-item>
+                      </el-form-item>
                         <el-form-item label="商品描述：">
                             <span>{{ props.row.particulars }}</span>
                         </el-form-item>
@@ -163,7 +163,7 @@
                    title="商品修改"
                    :visible.sync="updatemotaikuang">
             <!-- 商品编辑组件, 传入data值, 传入图片列表 -->
-            <commodity-edit ref="updateFrom" :from-data="fromData" :image-file="imageFile"></commodity-edit>
+            <commodity-edit ref="updateFrom" :from-data="fromData" :image-file="imageFilew"></commodity-edit>
 
             <div slot="footer" class="dialog-footer">
                 <el-button @click="updatemotaikuang = false">取 消</el-button>

@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from "vue-router"
 import FrontHome from "../views/front/FrontHome";
+import Registered from "../views/front/Registered"
+import Login from "../views/front/Login"
+import BackLogin from "../views/back/BackLogin"
 import Commodity from "../components/back/home/Commodity/Commodity";
-import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
-import CommodityImages from "../components/back/home/Commodity/CommodityImages";
 import CommodityLableMaintain from "../components/back/home/Commodity/CommodityLableMaintain";
-import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
+import Emp from "../components/back/home/system/emp/EmpManagement";
+import EmpManagementEdit from "../components/back/home/system/emp/EmpManagementEdit";
 
 
 Vue.use(VueRouter)
@@ -15,9 +17,17 @@ const routes = [
     path: '/',
     component: FrontHome
   },
-  /**
-   * 后台路由,访问地址 /back/.....
-   */
+  {
+    path:'/zc',
+    component:Registered
+  },
+  {
+    path:'/login',
+    component:Login
+  },
+  {path:'/emp',component:Emp},
+  {path:'/empedit',component:EmpManagementEdit},
+  {path:'/backLogin',component:BackLogin},
   {
     path: '/com',
     component: Commodity
@@ -31,13 +41,7 @@ const routes = [
 
 const router = new VueRouter({
   routes
-})
-/**
- * 静态根路由
- */
-/*export class RootRouter {
-
-}*/
+});
 
 
 export default router

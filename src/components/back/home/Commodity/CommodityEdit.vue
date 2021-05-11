@@ -89,7 +89,7 @@
     },
     components:{
       CommodityImages
-    },
+  },
     props:{
       fromData: {},
       imageFile:{}

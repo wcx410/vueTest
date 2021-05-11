@@ -4,6 +4,7 @@ import CommodityEdit from "./components/back/home/Commodity/CommodityEdit.vue";
 import CommodityImages from "../../components/back/home/Commodity/CommodityImages";
 import CommodityTypeMaintain from "./components/back/home/Commodity/CommodityTypeMaintain.vue";
 import CommodityLableMaintain from "./components/back/home/Commodity/CommodityLableMaintain.vue";
+import CustomerMaintain from "./components/back/home/Customer/CustomerMaintain.vue"
 /**
  * 后台路由
  */
