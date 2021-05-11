@@ -227,14 +227,14 @@
             console.log(arr)
             this.$axios.post("/shop/insertpickupmerchants.action",JSON.stringify(arr),{headers: {'Content-Type': 'application/json'}}).then(value => {
               this.$message({
-                message: '收货成功！',
+                message: '收货成功√',
                 type: 'success'
               });
               this.getCommodityAll();
             })
           }else {
             this.$message({
-              message: '收货失败！',
+              message: '收货失败×',
               type: 'warning'
             });
           }

@@ -149,7 +149,7 @@
             <maintenance-edit ref="updateFrom" :from-data="fromData"></maintenance-edit>
 
             <div slot="footer" class="dialog-footer">
-              <el-button @click="updatemotaikuang = false">取 消</el-button>
+              <el-button @click="getCommodityAll">取 消</el-button>
               <!--点击调用修改方法-->
               <el-button type="primary" @click="update">确 定</el-button>
             </div>
@@ -194,17 +194,10 @@
         //修改用 的商品id
         id:0,
         fromData:{
-          comType: {},
           comDiscount: {}
         },
         //订单状态
-        ordstate:"",
-        fromData: {
-          comDiscount: {}
-        },
-        imageFile: {
-          url: null
-        }
+        ordstate:""
       }
     },
     components:{
@@ -213,6 +206,7 @@
     methods: {
       //页面打开 查询所有订单信息
       getCommodityAll() {
+        this.updatemotaikuang = false
         var _this = this;
         var state;
         let params = new URLSearchParams();
@@ -284,12 +278,52 @@
       queryCommoditydetails(index, row) {
         //获取商品id
         this.id=row.id;
-
         this.fromData = row;
-        console.log(row);
         this.updatemotaikuang = true;
-
       },
+      //删除商户信息方法
+      deleteCommodity(index, row) {
+        if (row.state!==-1){
+          this.$confirm('此操作将删除商户, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true
+          }).then(() => {
+            let params = new URLSearchParams();
+            params.append("state",-1);
+            params.append("id",row.id);
+
+            //执行删除操作
+            this.$axios.post("/shop/deletemerchantsbyid.action",params)
+              .then((result)=> {
+                if (result.data===true){
+                  this.$message({
+                    type: 'success',
+                    message: "删除成功√"
+                  });
+                }
+                //刷新页面
+                this.getCommodityAll();
+              }).catch((msg) => {
+              this.$message({
+                type: 'error',
+                message: "删除失败×"
+              });
+            });
+          }).catch(() => {
+            this.$message({
+              showClose: true,
+              message: '已取消删除'
+            });
+          });
+        }else {
+          this.$message({
+            type: 'warning',
+            message: "该商户已是删除状态"
+          });
+        }
+      }
     },
     filters: {
       phone:function(value){

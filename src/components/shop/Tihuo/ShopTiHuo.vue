@@ -224,14 +224,14 @@
           this.dialogVisible = false;
           if(value){//向收货门店表插入数据
             this.$message({
-              message: '提货成功！',
+              message: '提货成功√',
               type: 'success'
             });
             this.getCommodityAll();
 
           }else {
             this.$message({
-              message: '提货失败！',
+              message: '提货失败×',
               type: 'warning'
             });
           }

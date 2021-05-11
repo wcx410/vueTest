@@ -19,17 +19,35 @@
         <el-input v-model="fromData.latitude"></el-input>
       </el-form-item>
       <el-form-item label="营业起始时间" prop="openTimeFrom">
-        <el-input v-model="fromData.openTimeFrom"></el-input>
+        <el-date-picker
+          v-model="fromData.openTimeFrom"
+          type="datetime"
+          placeholder="选择营业起始时间" format="yyyy/MM/dd HH:mm:ss">
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="营业结束时间" prop="openTimeTo">
-        <el-input v-model="fromData.openTimeTo"></el-input>
+        <el-date-picker
+          v-model="fromData.openTimeTo"
+          type="datetime"
+          placeholder="选择营业结束时间" format="yyyy/MM/dd HH:mm:ss">
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="商户备注" prop="remark">
-        <el-input v-model="fromData.remark"></el-input>
+        <el-input
+          type="textarea"
+          :rows="2"
+          placeholder="请输入内容"
+          v-model="fromData.remark">
+        </el-input>
       </el-form-item>
        <el-form-item label="商户状态" prop="state">
          <el-select v-model="fromData.state">
-           <el-option></el-option>
+           <el-option
+             v-for="item in options"
+             :key="item.value"
+             :label="item.label"
+             :value="item.value">
+           </el-option>
          </el-select>
        </el-form-item>
     </el-form>
@@ -43,6 +61,13 @@
     name:"MaintenanceEdit",
     data(){
       return{
+        options:[{ value: 0,
+                   label: '冻结'},
+          { value: 1,
+            label: '正常'},
+          { value: -1,
+            label: '删除'}
+        ],
         //验证执行
         rules: {
           name: [{
@@ -96,9 +121,13 @@
     props:{
       fromData: {}
     },
-    created() {
-      //加载所有商品类型信息
-      this.getCommodityTypeAll();
+    filters: {
+      state:function(value){
+        if (value == 0) return "冻结";
+        if (value == 1) return "正常";
+        if (value == -1) return "删除";
+        return value;
+      }
     },
     //触发验证
     async validate() {
