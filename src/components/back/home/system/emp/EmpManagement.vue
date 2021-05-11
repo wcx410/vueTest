@@ -63,7 +63,7 @@
               <span>{{ props.row.name }}</span>
             </el-form-item>
             <el-form-item label="头像 ：">
-              <el-image style="height: 100px;width: 135px" :preview-src-list="[$host + row.image]" src="$host + row.image" fit="cover"></el-image>
+              <el-image style="height: 100px;width: 135px" :preview-src-list="[$host + props.row.image]" src="$host + row.image" fit="cover"></el-image>
             </el-form-item>
             <el-form-item label="性别 ：">
               <span>{{ props.row.sex }}</span>
@@ -72,7 +72,7 @@
               <span>{{ props.row.phone }}</span>
             </el-form-item>
             <el-form-item label="身份证号码 ：">
-              <span>{{ props.row.idCard }}</span>
+              <span>{{ props.row.icCard }}</span>
             </el-form-item>
             <el-form-item label="员工住址 ：">
               <span>{{ props.row.address }}</span>
@@ -160,7 +160,7 @@
             </el-tooltip>
 
           <el-tooltip effect="dark" content="删除" placement="top-start"
-                      v-if="$btnPermissions('删除员工')">
+                      >
             <el-button
               type="danger"
               circle
@@ -223,7 +223,7 @@
                    :visible.sync="updatemotaikuang">
           <!--&lt;!&ndash; 商品编辑组件, 传入data值, 传入图片列表 &ndash;&gt;-->
           <!--<emp-management-edit ref="editBox" :form-data="formData" :image-file="imageFile"></emp-management-edit>-->
-          <EmpManagementEdit :form-data="formData" :image-file="imageFile"></EmpManagementEdit>
+          <EmpManagementEdit :form-data="formData.id" :image-file="imageFile"></EmpManagementEdit>
           <div slot="footer" class="dialog-footer">
             <el-button @click="updatemotaikuang = false">取 消</el-button>
             <!--&lt;!&ndash;点击调用修改方法&ndash;&gt;-->
@@ -538,12 +538,12 @@
       openUnFreezeValidation(index,row) {
         this.selectEmpId = row.id;
         this.unFreezeyanzheng = true;
-        this.freezeYzPassword = "";
+        this.unFreezeYzPassword = "";
       },
 
       async unFreezeEmp(){
         let params = new URLSearchParams();
-        params.append("password", this.freezeYzPassword);
+        params.append("password", this.unFreezeYzPassword);
         params.append("empId",this.selectEmpId);
         this.$axios.post("/employee/unFreeze", params).then((result)=> {
           if (result.data===true){
@@ -574,7 +574,8 @@
       },
       async deleteEmp(){
         let params = new URLSearchParams();
-        params.append("id",this.selectEmpId);
+        params.append("empId",this.selectEmpId);
+        params.append("password",this.deleteYzPassword)
         this.$axios.post("/employee/delete", params).then((result)=> {
           if (result.data===true){
             this.$message({

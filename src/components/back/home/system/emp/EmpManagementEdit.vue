@@ -51,7 +51,7 @@
     name:"EmpManagementEdit",
     data(){
       return{
-        formData:{
+       /* formData:{
           name:"",
           sex:"",
           phone:"",
@@ -59,7 +59,7 @@
           address:"",
           email:"",
           remark:""
-        },
+        },*/
         rules:{
           name: [{
             pattern: /^[\u4e00-\u9fa5]{2,4}$/,
@@ -96,9 +96,7 @@
     components:{
       EmpManagementImage
     },
-    props:{
-      formData: {},
-      imageFile:{}
-    },
+    props:["formData","imageFile"]
+
   }
 </script>
