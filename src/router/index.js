@@ -14,6 +14,7 @@ import CommodityLableMaintain from "../components/back/home/Commodity/CommodityL
 import Emp from "../components/back/home/system/emp/EmpManagement";
 import EmpManagementEdit from "../components/back/home/system/emp/EmpManagementEdit";
 import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
+import Distribution from "../components/back/home/Distribution/Distribution";
 import BackHome from "../views/back/BackHome";
 import BackRouter from "./back/backRouter";
 
@@ -75,7 +76,7 @@ const routes = [
   },
   {
     path: '/lb',
-    component: CommodityLableMaintain
+    component: Distribution
   }
 ]
 
