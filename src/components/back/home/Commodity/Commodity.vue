@@ -66,14 +66,14 @@
                             <span>{{ props.row.manufacturer }}</span>
                         </el-form-item>
                         <el-form-item label="商品类型：">
-                            <span>{{ props.row.comType.name }}</span>
+                            <span>{{ gettype(props.row.comType) }}</span>
                         </el-form-item>
-                        <el-form-item label="商品上架时间(第一次上架时间)：">
+                       <!-- <el-form-item label="商品上架时间(第一次上架时间)：">
                             <span>{{ props.row.putawayDate }}</span>
                         </el-form-item>
                         <el-form-item label="最新上架时间：">
                             <span>{{ props.row.newestPutawayDate }}</span>
-                        </el-form-item>
+                        </el-form-item>-->
                         <el-form-item label="商品状态:" >
                             <span>{{ getState(props.row.state) }}</span>
                         </el-form-item>
@@ -216,7 +216,8 @@
         },
         imageFile:{
           url: null
-        }
+        },
+
       }
     },
     components:{
@@ -248,7 +249,10 @@
           console.log(value.data.records)
           _this.tableData=value.data.records;
         })
+
+
       },
+
       //点击查询按钮 模糊查询商品信息
       MohuqueryCommodity(){
         this.getCommodityAll();
@@ -281,7 +285,7 @@
         this.addmotaikuang = true;
         //设置fromData的值, 这个就是传到模态框表单里面的值, 这里是添加, 创建一个空的商品对象
         //清空数据
-        this.fromData = {comType: {}, comDiscount: {}};
+        this.fromData = {comType: {id:0}, comDiscount: {}};
         //设置图片
         this.imageFile = {url:null};
       },
@@ -335,7 +339,7 @@
         params.append("unit",this.fromData.unit)
         params.append("specification",this.fromData.specification)
         params.append("manufacturer",this.fromData.manufacturer)
-        params.append("comType",this.fromData.comType)
+        params.append("comType",this.fromData.comType.id)
         params.append("state",0)
 
         console.log(params)
@@ -430,8 +434,10 @@
       queryCommoditydetails(index, row) {
         //获取商品id
         this.id=row.id;
-
         this.fromData = row;
+        this.fromData.comType={id:row.comType};
+        //this.fromData = {comType: {id:row.comType}};
+        //,comDiscount: {id:row.id,name:row.name,particulars:row.particulars,image:row.image,price:row.price,unit:row.unit,specification:row.specification,manufacturer:row.manufacturer}
         console.log(row);
         this.imageFile = {url: row.image};
         this.updatemotaikuang = true;
@@ -485,6 +491,17 @@
         }
 
 
+      },
+      async gettype(id){
+
+        var n ="";
+        let params = new URLSearchParams();
+        params.append("id",id);
+        await this.$axios.post("/commodity/querytypebyid.action",params).then(value => {
+         // console.log(value.data.name)
+          n = value.data.name;
+        })
+      return n;
       },
       //上架商品
       PutCommodity(index, row){

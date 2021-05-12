@@ -32,7 +32,7 @@
           return{
             data:[
               {
-                image: '/assets/home-1.jpg',
+                image: 'src/assets/home-1.jpg',
                 title: '年终究极大特惠',
                 label: '秒杀天天有，今天更刺激。'
               },{

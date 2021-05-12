@@ -26,7 +26,8 @@
                 <el-input v-model="fromData.manufacturer"></el-input>
             </el-form-item>
             <el-form-item label="商品类型" prop="comType.id">
-                <el-select v-model="fromData.comType">
+                <el-select v-model="fromData.comType.id">
+                    <el-option :value="0" label="--请选择--"></el-option>
                     <el-option :value="type.id" :label="type.name" v-for="type in comtype"  ></el-option>
                 </el-select>
             </el-form-item>
