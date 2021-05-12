@@ -14,7 +14,7 @@
                     <use xlink:href="#icon-gouwu"></use>
                   </svg>
                 </div>
-                <div style="float: left;">个数: {{}}</div>
+                <div style="float: left;">个数: {{daishou}}</div>
               </div>
             </div>
           </xl-panel>
@@ -32,7 +32,7 @@
                     <use xlink:href="#icon-ziyuan"></use>
                   </svg>
                 </div>
-                <div style="float: left;">个数: {{}}</div>
+                <div style="float: left;">个数: {{daiti}}</div>
               </div>
             </div>
           </xl-panel>
@@ -97,9 +97,44 @@
 </template>
 
 <script>
-    export default {
-        name: "ShopStatistics"
-    }
+  import Axios from "axios";
+
+  import el from "element-ui/src/locale/lang/el";
+
+  export default {
+    name: "ShopStatistics",
+    data() {
+      return {
+        //商品数据(包括图片)
+        daishou: "",
+        daiti: "",
+        fromData: {
+          comDiscount: {}
+        },
+        imageFile: {
+          url: null
+        }
+      }
+    },
+    methods: {
+      getCommodityAll() {
+        var _this = this;
+        this.$axios.post("/shop/queryshouhuo.action").then(value => {
+          _this.daishou = value.data.rows.length;
+        }),
+          this.$axios.post("/shop/querytihuo.action").then(value => {
+            _this.daiti = value.data.rows.length;
+          })
+      },
+      //点击查询按钮 模糊查询商品信息
+      MohuqueryCommodity() {
+        this.getCommodityAll();
+      }
+    },
+  created() {
+    this.getCommodityAll();
+  }
+  }
 </script>
 
 <style scoped>

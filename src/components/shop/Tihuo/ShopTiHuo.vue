@@ -215,10 +215,26 @@
     },
       //修改订单状态为已提货（ordstate=3）
       tihuo(){
-        let params = new URLSearchParams();
-        params.append();
-        this.$axios.post("/shop/updatepshopcars.action", params).then(value => {
+        var list =[];
+        for(var i =0;i<this.selectRows.length;i++){
+          list.push(this.selectRows[i].id);
+        }
+        //修改订单状态为待提货
+        this.$axios.post("/shop/updatepshopcar.action",JSON.stringify(list),{headers: {'Content-Type': 'application/json'}}).then(value => {
+          this.dialogVisible = false;
+          if(value){//向收货门店表插入数据
+            this.$message({
+              message: '提货成功√',
+              type: 'success'
+            });
+            this.getCommodityAll();
 
+          }else {
+            this.$message({
+              message: '提货失败×',
+              type: 'warning'
+            });
+          }
         })
       }
     },

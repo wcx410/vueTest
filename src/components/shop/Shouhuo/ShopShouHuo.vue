@@ -218,6 +218,7 @@
         }
         //修改订单状态为待提货
         this.$axios.post("/shop/updatepshopcars.action",JSON.stringify(list),{headers: {'Content-Type': 'application/json'}}).then(value => {
+          this.dialogVisible = false;
           if(value){//向收货门店表插入数据
             var arr=[];
             for (var i = 0; i < this.selectRows.length; i++) {
@@ -226,15 +227,14 @@
             console.log(arr)
             this.$axios.post("/shop/insertpickupmerchants.action",JSON.stringify(arr),{headers: {'Content-Type': 'application/json'}}).then(value => {
               this.$message({
-                message: '收货成功！',
+                message: '收货成功√',
                 type: 'success'
               });
               this.getCommodityAll();
-              this.dialogVisible = false;
             })
           }else {
             this.$message({
-              message: '收货失败！',
+              message: '收货失败×',
               type: 'warning'
             });
           }

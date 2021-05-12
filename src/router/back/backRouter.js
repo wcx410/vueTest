@@ -4,7 +4,7 @@ import {RouteConfig} from "vue-router";
 import CommodityImages from "../../components/back/home/Commodity/CommodityImages";
 // import CommodityTypeMaintain from "./components/back/home/Commodity/CommodityTypeMaintain.vue";
 // import CommodityLableMaintain from "./components/back/home/Commodity/CommodityLableMaintain.vue";
-import BackHome from "../../views/back/BackHome";
+import BackHome from "../../views/back/BackHome"
 /**
  * 后台路由
  */
