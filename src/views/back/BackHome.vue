@@ -7,7 +7,7 @@
           :data="data"
           :props="defaultProps"
           accordion
-          @node-click="handleNodeClick(data)">
+          @node-click="handleNodeClick">
         </el-tree>
       </el-aside>
       <el-container>
@@ -16,8 +16,8 @@
             size="small"
             @click="addTab(editableTabsValue)"
           >
-            add tab-->
-          </el-button>
+            add tab
+          </el-button>-->
         </el-header>
         <el-main>
           <!-- tabs页面显示-->
@@ -41,8 +41,15 @@
 </template>
 
 <script>
+  import EmpManagement from "../../components/back/home/system/emp/EmpManagement";
+  import Warehousemaintain from "../../components/back/home/Warehouse/Warehousemaintain";
+
     export default {
         name: "BackHome",
+      components:{
+          EmpManagement,
+          Warehousemaintain
+      },
       data () {
         return {
           data: [],
@@ -61,7 +68,10 @@
         },*/
         handleNodeClick(data) {
           console.log(data)
-
+          // this.addTab(data.)
+          if (data.type == "页面") {
+            this.addTab(data.name, data.url);
+          }
         },
         getdata(){
           var _this=this;
@@ -72,9 +82,10 @@
           }).catch();
         },
         addTab(targetName,linkurl) {
-
           //判断 打开了没有
-          var res =  this.editableTabs.find((item)=>{return item.name ==targetName;});
+          var res =  this.editableTabs.find((item)=>{return item.title ==targetName;});
+          console.log("----------")
+          console.log(res);
           if(res!=undefined){
             //已打开的    ---选中
             this.editableTabsValue = res.name;
@@ -88,7 +99,6 @@
             });
             this.editableTabsValue = newTabName;
           }
-
 
 
         },
