@@ -2,10 +2,11 @@
     <div>
       <el-container>
         <el-header style="position: fixed;width: 100%;z-index: 10;margin-top: -9px;">
-          <el-menu :default-active="'1'"
+          <el-menu
+            :default-active= " '1'"
                    mode="horizontal">
 
-            <el-menu-item><i class="el-icon-house" style="margin-left:90px;" @click="$router.replace('/')"/>首页</el-menu-item>
+            <el-menu-item><i class="el-icon-house" style="margin-left:90px;" @click="$router.push('/ ')"/>首页</el-menu-item>
             <el-menu-item class="right">
               <el-image style="width: 55px; height: 50px;" src=""></el-image>
             </el-menu-item>
@@ -20,7 +21,7 @@
         <el-container>
 
           <el-row height="" style="margin-top: 50px;">
-            <el-menu :default-active="1"  style="margin-top: 30px"
+            <el-menu :default-active="'1'"  style="margin-top: 30px"
                      mode="horizontal" >
 
               <el-menu-item>
@@ -45,19 +46,19 @@
           style="margin-left: 110px"
           active-text-color="#ffd04b">
           <el-menu-item index="1" style="font-size: 20px">全部商品</el-menu-item>
-          <el-menu-item index="2" style="font-size: 20px">库存紧张</el-menu-item>
+          <!--<el-menu-item index="2" style="font-size: 20px">库存紧张</el-menu-item>-->
 
           <div class="zj">
             <div class="hh">
-              <el-select v-model="mers">
-                <el-option  v-for="type in mer" :value="type.id" :label="type.name" :key="type.id" :index="type.id"></el-option>
+              <el-select v-model="mer">
+                <el-option  v-for="type in mers" :value="type.id" :label="type.address" :key="type.id" :index="type.id"></el-option>
               </el-select>
             </div>
             已选择商品 总价：
           </div>
           <div style="color: #EA6650;font-size: 20px;margin-left: 1470px;margin-top: -27px">
-            {{zj}}
-            <el-button type="danger" size="small" style="margin-left: 10px" @click="addOrder(Shopcar.id,zj)">
+            {{zj | danwei}}
+            <el-button type="danger" size="small" style="margin-left: 10px" @click="addOrder(zj)">
               结算</el-button>
           </div>
 
@@ -77,20 +78,20 @@
             <el-col :span="24">
               <div class="sp" v-for="(Shopcar,index) in MyShopcar" :key="index">
                 <div style="height: 180px">
-                  <!--复选框，可选中结算-->
-                  <el-checkbox style="margin-left: 20px;top: -90px" v-model="Shopcar.checked" :min="0" @change="zongjia"></el-checkbox>
+                  <!--复选框，可选中结算 @change="zongjia"-->
+                  <el-checkbox style="margin-left: 20px;top: -90px" v-model="Shopcar.checked" :min="0" @change=""></el-checkbox>
                   <!--商品的图片-->
-                  <el-image fit="cover" style="width: 150px;height: 150px; margin-left: 20px;margin-top: 20px" v-if="Shopcar.cid.image" :src="'{{$host + Shopcar.cid.image}}'" ></el-image>
+                  <el-image fit="cover" style="width: 150px;height: 150px; margin-left: 20px;margin-top: 20px" v-if="Shopcar.image" :src="'{{$host + Shopcar.image}}'" ></el-image>
                   <div style="font-size: 18px;margin-left: 250px;margin-top: -140px;width: 300px;height: 100px;">
                     <!--商品描述-->
-                    <span>{{Shopcar.particulars}}</span>
+                    <span>{{Shopcar.name}}:{{Shopcar.particulars}}</span>
                   </div>
 
                   <div class="danjia">
                   </div>
                   <!--数量-->
                   <div class="numbers">
-                    <el-input-number v-model="Shopcar.number" @change="handleChange" :min="1"></el-input-number>
+                    <el-input-number v-model="Shopcar.number" @change="handleChanges" :min="1"></el-input-number>
                   </div>
                   <!--商品的单价-->
                   <div class="allmoney">
@@ -101,7 +102,7 @@
                     <br>
                     <el-link type="success" @click="del(Shopcar.id)">移除购物车</el-link>
                   </div>
-
+                  <!--选择商户-->
                 </div>
               </div>
             </el-col>
@@ -117,44 +118,112 @@
         name: "ShopCar",
         data(){
             return {
+              mer:"",
+              mers:[],
               selectId:[],
               checkAll:false,
               price:0,
-              zj:0,
+              // zj:0,
               checked:false,
               isdelete:0,
               ordstate:0,
-              MyShopcar:[],
+               MyShopcar:[//{
+              //   sid:"1",
+              //   id:"1",
+              //   name:"西红柿",
+              //   particulars:"搭搭大的撒撒大所大",
+              //   image:"qqqq",
+              //   price:"10",
+              //   unit:"斤",
+              //   specification:"",
+              //   manufacturer:"",
+              //   comType:"1",
+              //   putawayDate:"",
+              //   newestPutawayDat:"",
+              //   state:"1",
+              //   number:"1"
+              // },
+              //   {
+              //     sid:"2",
+              //     id:"1",
+              //     name:"苹果",
+              //     particulars:"搭搭大的撒撒大所大",
+              //     image:"qqqq",
+              //     price:"10",
+              //     unit:"斤",
+              //     specification:"",
+              //     manufacturer:"",
+              //     comType:"1",
+              //     putawayDate:"",
+              //     newestPutawayDat:"",
+              //     state:"1",
+              //     number:"1"
+              //   },
+              //   {
+              //     sid:"3",
+              //     id:"1",
+              //     name:"ssi",
+              //     particulars:"搭搭大的撒撒大所大",
+              //     image:"qqqq",
+              //     price:"10",
+              //     unit:"斤",
+              //     specification:"",
+              //     manufacturer:"",
+              //     comType:"1",
+              //     putawayDate:"",
+              //     newestPutawayDat:"",
+              //     state:"1",
+              //     number:"1"
+              //   }
+              ],
               Shopcar:{
                 checked:false
               },
             }
         },
         methods:{
-          addOrder(){
-            this.MyShopcar.forEach(value => {
-              if (value.checked) this.Shopcar = value;
-            });
-            var params = new URLSearchParams();
-            this.isdelete=this.Shopcar.number;
-          },
+
           //初始化购物车
           getShopCar(){
             var _this =this;
             var params = new URLSearchParams();
-            params.append("uid",userhelper.userId);
+            params.append("uid",1);
             this.$axios.post("shopCar/shopCarAndCommodities",params).then(function (response) {
               _this.MyShopcar = response.data;
             }).catch();
           },
-          //计算总价
-          zongjia(){
-            for (let i of this.MyShopcar) {
-              if (i.checked) {
-                this.zj += i.number * i.price;
+          //结算
+          addOrder(zj){
+            this.selectId.forEach(value => {
+              value.merid = this.mer
+            })
+
+            var _this =this;
+            // var params = new URLSearchParams();
+            // params.append("shopCarAndCommodityList",JSON.stringify(this.selectId));
+            // params.append("totlemoney",zj);
+            // params.append("merid",this.mer);
+            this.$axios.post("shopCar/addOrder",JSON.stringify(this.selectId),{headers: {'Content-Type': 'application/json'}}).then(function (response) {
+              _this.getShopCar();
+              if (response.data) {
+                _this.$message({
+                  message: '成功',
+                  type: 'success'
+                });
+              }else {
+                _this.$message({
+                  message: '失败',
+                  type: 'warning'
+                });
               }
-            }
-              // return this.zj = this.MyShopcar.price * this.MyShopcar.number;
+            }).catch();
+          },
+          //初始化商户地址
+          getAddr(){
+            var _this =this;
+            this.$axios.post("shopCar/getmers").then(function (response) {
+              _this.mers = response.data;
+            }).catch();
           },
           //根据商品id删除
           del(sid){
@@ -164,10 +233,28 @@
             this.$axios.post("",params).then(function (response) {
 
             }).catch();
-          }
+          },
+          handleChanges(){
+          },
         },
+      computed: {
+          zj(){
+            var  sumPrice=0;
+            this.selectId  =  this.MyShopcar.filter(value => {return value.checked});
+            this.selectId.forEach(value => {
+                   sumPrice += Number(value.price) * Number(value.number);
+            });
+            return sumPrice
+          }
+      },
+      filters:{
+        danwei(obj){
+          return "￥"+obj;
+        }
+      },
       created() {
         this.getShopCar();
+        this.getAddr();
       }
     }
 </script>

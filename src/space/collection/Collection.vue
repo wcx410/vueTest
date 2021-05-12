@@ -1,6 +1,7 @@
 <template>
     <div>
-      <h2>我的收藏</h2>
+      <el-page-header content="个人首页"></el-page-header>
+      <h3>我的收藏</h3>
       <el-row v-for="coll in commodity">
         <el-col :span="24">
           <div class="grid-content bg-purple-dark">

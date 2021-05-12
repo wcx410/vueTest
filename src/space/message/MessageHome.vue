@@ -21,7 +21,6 @@
 </template>
 
 <script>
-  import Message from "../../space/message/Message"
     export default {
         name: "MessageHome",
       data(){
@@ -44,7 +43,7 @@
       },
       methods:{
           querymsg(){
-            this.$router.replace('/msg')
+            this.$router.push ('/msg')
           }
       },
     }

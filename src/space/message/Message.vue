@@ -1,52 +1,132 @@
 <template>
-  <div style="width: 100% ">
-    <el-page-header content="wl" @click="$router.replace('')"></el-page-header>
+  <div style="width: 1000px;margin: auto; padding-left: 10px;border: solid gray 1px;height: 990px;">
+    <el-page-header content="wl" @click="fanhui"></el-page-header>
     <div class="chat-content">
       <!-- recordContent 聊天记录数组  v-for="(itemc,indexc) in msg" :key="indexc"-->
-      <div >
-      <!-- 对方  v-if="!itemc.mineMsg"-->
-      <div class="word" >
-        <!--<img :src="itemc.headUrl">-->
-        <div class="info">
-          <p class="time">wl</p>
-          <div class=" info-content2">gogogo</div>
-        </div>
-      </div>
-      <!-- 我的 v-else-->
-      <div class="word-my" >
-        <div class="info2">
-          <p class="time2">peng</p>
-          <div class="   info-content2">rush B</div>
-        </div>
-        <!--<img :src="itemc.headUrl">-->
-      </div>
-
-    </div>
+        <MessageMid :data ="msg"></MessageMid>
       <!--发送消息部分-->
-      <div class="talk_input">
-        <!-- 请输入内容 -->
-        <el-input type="text" class="talk_word"  clearable v-model='str2'></el-input>
-        <!-- 按钮 class="talk_sub"-->
-        <el-button type="success" round  plain  @click="add_data()">发送</el-button>
-      </div>
+      <Messagebom :str="str2"></Messagebom>
     </div>
   </div>
 </template>
 
 <script>
+  import MessageMid from "../message/MessageMid"
+  import Messagebom from "../message/Messagebom"
     export default {
         name: "Message",
         data(){
             return{
-                msg:[],
+                msg:[
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+                  {
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },{
+                    name1:"wl",
+                    name2:'liang',
+                    content2:"hi",
+                    content1:"hello",
+                  },
+
+
+
+
+
+
+
+                ],
               str2:"",
             }
         },
         methods:{
           add_data(){
 
+          },
+          load () {
+            this.count += 2
+          },
+          fanhui(){
+            this.$router.push('/msghome');
           }
         },
+      components:{
+        MessageMid,Messagebom
+      },
+      props:["data","str"],
         created() {
         }
     }
@@ -117,14 +197,14 @@
     height: 20px;
     line-height: 20px;
     margin-top: -5px;
-    margin-right: 10px;
+    margin-right: 20px;
   }
   .info-content2{
     max-width: 70%;
     padding: 10px;
     font-size: 14px;
     float: right;
-    margin-right: 10px;
+    margin-right: 25px;
     position: relative;
     margin-top: 8px;
     background: #A3C3F6;

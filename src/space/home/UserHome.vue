@@ -41,17 +41,17 @@
                         <span>个人中心</span>
                       </template>
                       <el-menu-item-group>
-                        <el-menu-item @click="$router.replace('/info')">显示个人信息</el-menu-item>
-                        <el-menu-item  @click="$router.replace('/updateuser')">修改个人信息</el-menu-item>
+                        <el-menu-item @click="$router.push('/info')">显示个人信息</el-menu-item>
+                        <el-menu-item  @click="$router.push('/updateuser')">修改个人信息</el-menu-item>
                       </el-menu-item-group>
                     </el-submenu>
-                    <el-menu-item @click="$router.replace('/shopCar')"><i class="el-icon-shopping-cart-full"/>我的购物车</el-menu-item>
+                    <el-menu-item @click="$router.push('/shopCar')"><i class="el-icon-shopping-cart-full"/>我的购物车</el-menu-item>
                     <!--index="./goods"-->
-                    <el-menu-item @click="$router.replace('/goods')"><i class="el-icon-shopping-bag-2"/>已买到的宝贝</el-menu-item>
-                    <el-menu-item @click="$router.replace('/collection')"><i class="el-icon-star-off"/>我的收藏</el-menu-item>
-                    <el-menu-item  @click="$router.replace('/msghome')"><i class="el-icon-s-comment"/>我的消息</el-menu-item>
-                    <el-menu-item @click="$router.replace('/evaluate')"><i class="el-icon-chat-line-round"/>评价管理</el-menu-item>
-                    <el-menu-item @click="$router.replace('/foot')"><i class="el-icon-bicycle"/>我的足迹</el-menu-item>
+                    <el-menu-item @click="$router.push('/goods')"><i class="el-icon-shopping-bag-2"/>已买到的宝贝</el-menu-item>
+                    <el-menu-item @click="$router.push('/collection')"><i class="el-icon-star-off"/>我的收藏</el-menu-item>
+                    <el-menu-item  @click="$router.push('/msghome')"><i class="el-icon-s-comment"/>我的消息</el-menu-item>
+                    <el-menu-item @click="$router.push('/evaluate')"><i class="el-icon-chat-line-round"/>评价管理</el-menu-item>
+                    <el-menu-item @click="$router.push('/foot')"><i class="el-icon-bicycle"/>我的足迹</el-menu-item>
                   </el-menu>
                 </div>
               </el-col>

@@ -16,6 +16,8 @@ import BackRouter from "./back/backRouter";
 import ShopHome from "../views/shop/ShopHome";
 import ShopRouter from "./shop/ShopRouter";
 import Merchant from "../space/Merchant/Merchant";
+import Message from "../space/message/Message";
+import demo from "../space/message/demo";
 
 Vue.use(VueRouter)
 
@@ -27,6 +29,10 @@ const routes = [
   {
     path: '/shopCar',
     component: ShopCar
+  },
+  {
+    path: '/msg',
+    component: Message
   },
   {
     path: '/apply',

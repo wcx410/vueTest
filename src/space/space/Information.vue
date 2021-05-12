@@ -61,7 +61,7 @@
     <br>
     <div style="font-size: 15px">
       <label>电话：</label>
-      <el-input type="text" style="width: 200px;margin-left: 40px" v-model="user.phone" :disabled="true">123</el-input>
+      <el-input type="text" style="width: 200px;margin-left: 40px" v-model="user.phone|phone" :disabled="true">123</el-input>
     </div>
     <br>
     <br>
@@ -73,7 +73,7 @@
     <br>
     <div style="font-size: 15px" v-show="sqsh">
       <label>身份证：</label>
-      <el-input type="text" style="width: 200px;margin-left: 24px" v-model="user.idCard" :disabled="true"></el-input>
+      <el-input type="text" style="width: 200px;margin-left: 24px" v-model="user.idCard|idCard" :disabled="true"></el-input>
     </div>
 
     <br>
@@ -180,6 +180,14 @@
 
           }).catch();
         }
+      },
+      computed:{
+        idCard:function(value){
+          return value.substring(0,6) + '****' + value.substring(10);
+        },
+        phone:function(value){
+          return value.substring(0,3)+ '****' + value.substring(7);
+        },
       },
       created() {
         this.queryUserById()
