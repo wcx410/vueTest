@@ -29,6 +29,11 @@
       </el-table-column>
       <el-table-column
         width="200px"
+        label="用户id"
+        prop="userId">
+      </el-table-column>
+      <el-table-column
+        width="200px"
         label="商户名称"
         prop="name">
       </el-table-column>
@@ -63,7 +68,7 @@
               circle
               icon="el-icon-check"
               size="medium"
-              @click="approval(row.id,true)"
+              @click="approval(row.id,true,row)"
             ></el-button>
           </el-tooltip>
           <el-tooltip effect="dark" content="拒绝" placement="top-start" >
@@ -72,7 +77,7 @@
               circle
               icon="el-icon-close"
               size="medium"
-              @click="approval(row.id,false)"
+              @click="approval(row.id,false,row)"
             ></el-button>
           </el-tooltip>
 
@@ -158,6 +163,7 @@
 
         this.$axios.post("/shop/querymerchantsstatu.action", params).then((value) => {
           _this.tableData = value.data.rows;
+          console.log(_this.tableData)
         })
       },
       //点击查询按钮 模糊查询商品信息
@@ -178,7 +184,7 @@
         this.page = val;
         this.getCommodityAll();
       },
-      approval(id, flag) {
+      approval(id, flag,row) {
         this.message = "";
         this.dialog.visible = true;
         this.dialog.title = flag ? "审批通过" : "审批拒绝";
@@ -187,15 +193,30 @@
             let params = new URLSearchParams();
             params.append("system_message", this.message);
             params.append("id", id);
-            params.append("state",1)
+            params.append("state",1);
             this.$axios.post("/shop/updatemerchantapply.action", params).then((value) => {
               this.dialog.visible = false;
               if(value){
-                this.$message({
-                  message: '申请通过√',
-                  type: 'success'
-                });
-                this.getCommodityAll();
+                let params = new URLSearchParams();
+                params.append("name", row.name);
+                params.append("address",row.address);
+                params.append("phone",row.phone);
+                params.append("state",1);
+                params.append("userId",row.userId);
+                this.$axios.post("/shop/insertmerchants.action", params).then((value) => {
+                  if(value){
+                    this.$message({
+                      message: '申请通过√',
+                      type: 'success'
+                    });
+                    this.getCommodityAll();
+                  }else {
+                    this.$message({
+                      message: '申请失败×',
+                      type: 'error'
+                    });
+                  }
+                })
               }else {
                 this.$message({
                   message: '申请失败×',
