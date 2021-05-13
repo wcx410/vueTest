@@ -50,7 +50,7 @@
                     <use xlink:href="#icon-shouru1"></use>
                   </svg>
                 </div>
-                <div style="float: left;">￥ {{}}</div>
+                <div style="float: left;">￥ {{zrsr}}</div>
               </div>
             </div>
           </xl-panel>
@@ -108,6 +108,8 @@
         //商品数据(包括图片)
         daishou: "",
         daiti: "",
+        zrsr:"",
+        zsr:"",
         fromData: {
           comDiscount: {}
         },
@@ -124,6 +126,9 @@
         }),
           this.$axios.post("/shop/querytihuo.action").then(value => {
             _this.daiti = value.data.rows.length;
+          }),
+          this.$axios.post("/shop/queryztsr").then(value => {
+            _this.zrsr = value = data.rows.length;
           })
       },
       //点击查询按钮 模糊查询商品信息

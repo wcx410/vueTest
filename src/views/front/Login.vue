@@ -87,6 +87,7 @@
 </template>
 
 <script>
+  import userHelper from "../../helper/front/UserHelper"
   export default {
     data(){
       return {
@@ -235,8 +236,24 @@
         params.append("password",this.user.password);
         var _this =this;
         this.$axios.post("user/login",params).then(function (request) {
-          _this.$router.push({path: "/"});
+          if (request.data===0){
+            _this.$message({
+              type: 'success',
+              message: "登录失败"
+            });
+          }else{
+            _this.$message({
+              type: 'success',
+              message: "登录成功"
+            });
+            _this.$router.push({path: "/"})
+            userHelper.userId(request.data);
+            console.log(userHelper.userId())
+          }
+          //刷新页面
         }).catch();
+        //   _this.$router.push({path: "/"});
+        // }).catch();
       }
     },
     watch: {
