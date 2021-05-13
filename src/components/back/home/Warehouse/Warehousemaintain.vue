@@ -117,6 +117,10 @@
             ><i style="font-size: 15px" class="el-icon-lock"></i>解冻
             </div>
         </div>
+
+      <div id="meeenu" style="width: 200px;height: 200px;">
+
+      </div>
         <!--分页-->
         <el-pagination
                 @size-change="rowsChange"
@@ -152,7 +156,7 @@
                 </el-table-column>
                 <el-table-column
                         label="商品id"
-                        prop="id">
+                        prop="commodityid">
                 </el-table-column>
                 <el-table-column
                         label="商品名称"
@@ -619,14 +623,16 @@
             //console.log(menu)
 
             // 根据事件对象中鼠标点击的位置，进行定位
-            menu.style.left = event.clientX + 'px';
-            menu.style.top = event.clientY + 'px';
+            menu.style.left = event.clientX-220 + 'px';
+            menu.style.top = event.clientY-140 + 'px';
             // 改变自定义菜单的隐藏与显示
             menu.style.display = 'block';
             //console.log(row,column);
-
+            console.log(this.tableData);
+            console.log(row);
             // 获取当前右键点击table 获取当前行的id值下标
-            this.tableData.rows.forEach((item, index) => {
+            this.tableData.records.forEach((item, index) => {
+              console.log(item.warname === row.warname);
               if (item.warname === row.warname) {
                 this.currentRowIndex = item.warid;
                 return false;
@@ -639,14 +645,14 @@
             //console.log(menu)
 
             // 根据事件对象中鼠标点击的位置，进行定位
-            menu.style.left = event.clientX + 'px';
-            menu.style.top = event.clientY + 'px';
+            menu.style.left = (event.clientX-220) + 'px';
+            menu.style.top = (event.clientY-140) + 'px';
             // 改变自定义菜单的隐藏与显示
             menu.style.display = 'block';
             //console.log(row,column);
 
             // 获取当前右键点击table 获取当前行的id值下标
-            this.tableData.rows.forEach((item, index) => {
+            this.tableData.records.forEach((item, index) => {
               if (item.warname === row.warname) {
                 this.currentRowIndex = item.warid;
                 return false;
@@ -708,13 +714,15 @@
         querywarehousestorage() {
           let params = new URLSearchParams();
           params.append("id", this.currentRowIndex.toString());
+          console.log("----------------")
+          console.log(this.currentRowIndex.toString())
           //查询数据
           Axios({
             method: "post",
             url: "/warehouse/queryWareHouseStorageAll",
             data: params
           }).then(value => {
-            //console.log(value.data)
+            console.log(value)
             this.warehousestoragetableData = value.data;
           })
         },
@@ -1220,8 +1228,8 @@
     /*table拉开的样式 ↑*/
 
     #menu {
-        width: 120px;
-
+        width: 140px;
+        white-space: nowrap;
         overflow: hidden; /*隐藏溢出的元素*/
         box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
         position: absolute;
