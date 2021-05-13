@@ -44,13 +44,22 @@
   import EmpManagement from "../../components/back/home/system/emp/EmpManagement";
   import Warehousemaintain from "../../components/back/home/Warehouse/Warehousemaintain";
   import PurchaseOrder from "../../components/back/home/Purchase/PurchaseOrder";
+  import Commodity from "../../components/back/home/Commodity/Commodity";
+  import CommodityLableMaintain from "../../components/back/home/Commodity/CommodityLableMaintain";
+  import CommodityTypeMaintain from "../../components/back/home/Commodity/CommodityTypeMaintain";
+  import Distribution from "../../components/back/home/Distribution/Distribution";
 
     export default {
         name: "BackHome",
       components:{
           EmpManagement,
           Warehousemaintain,
-          PurchaseOrder
+          PurchaseOrder,
+          Commodity,
+          CommodityLableMaintain,
+          CommodityTypeMaintain,
+          Distribution
+
       },
       data () {
         return {
