@@ -30,7 +30,7 @@
               <el-menu-item>
                 <el-menu-item style="font-size: 25px;margin-left: -50px;margin-top: 5px">购物车</el-menu-item>
               </el-menu-item>
-              <el-menu-item style="margin-left: 200px;margin-top: -50px">
+              <el-menu-item style="margin-left: -135px;margin-top: -50px">
                 <el-input placeholder="请输入内容"  class="fount">
                   <i slot="prefix" class="el-input__icon el-icon-search"></i>
 
@@ -43,9 +43,9 @@
         <el-menu
           class="el-menu-demo"
           mode="horizontal"
-          style="margin-left: 110px"
+          style="margin-left: -25px;"
           active-text-color="#ffd04b">
-          <el-menu-item index="1" style="font-size: 20px">全部商品</el-menu-item>
+          <!--<el-menu-item index="1" style="font-size: 20px">全部商品</el-menu-item>-->
           <!--<el-menu-item index="2" style="font-size: 20px">库存紧张</el-menu-item>-->
 
           <div class="zj">
@@ -73,9 +73,9 @@
             <div style="font-size: 20px;margin-left: 1555px;margin-top: -27px">操作</div>
             <!--<div style="font-size: 20px;margin-left: 1755px;margin-top: -32px">选择商户</div>-->
           </el-row>
-
           <el-main>
-            <el-col :span="24">
+
+            <el-col  :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
               <div class="sp" v-for="(Shopcar,index) in MyShopcar" :key="index">
                 <div style="height: 180px">
                   <!--复选框，可选中结算 @change="zongjia"-->
@@ -106,9 +106,11 @@
                 </div>
               </div>
             </el-col>
+
           </el-main>
         </div>
       </el-container>
+
     </div>
 </template>
 
@@ -127,55 +129,7 @@
               checked:false,
               isdelete:0,
               ordstate:0,
-               MyShopcar:[//{
-              //   sid:"1",
-              //   id:"1",
-              //   name:"西红柿",
-              //   particulars:"搭搭大的撒撒大所大",
-              //   image:"qqqq",
-              //   price:"10",
-              //   unit:"斤",
-              //   specification:"",
-              //   manufacturer:"",
-              //   comType:"1",
-              //   putawayDate:"",
-              //   newestPutawayDat:"",
-              //   state:"1",
-              //   number:"1"
-              // },
-              //   {
-              //     sid:"2",
-              //     id:"1",
-              //     name:"苹果",
-              //     particulars:"搭搭大的撒撒大所大",
-              //     image:"qqqq",
-              //     price:"10",
-              //     unit:"斤",
-              //     specification:"",
-              //     manufacturer:"",
-              //     comType:"1",
-              //     putawayDate:"",
-              //     newestPutawayDat:"",
-              //     state:"1",
-              //     number:"1"
-              //   },
-              //   {
-              //     sid:"3",
-              //     id:"1",
-              //     name:"ssi",
-              //     particulars:"搭搭大的撒撒大所大",
-              //     image:"qqqq",
-              //     price:"10",
-              //     unit:"斤",
-              //     specification:"",
-              //     manufacturer:"",
-              //     comType:"1",
-              //     putawayDate:"",
-              //     newestPutawayDat:"",
-              //     state:"1",
-              //     number:"1"
-              //   }
-              ],
+               MyShopcar:[],
               Shopcar:{
                 checked:false
               },
@@ -187,7 +141,7 @@
           getShopCar(){
             var _this =this;
             var params = new URLSearchParams();
-            params.append("uid",1);
+            params.append("uid",userhelper.userId);
             this.$axios.post("shopCar/shopCarAndCommodities",params).then(function (response) {
               _this.MyShopcar = response.data;
             }).catch();
@@ -227,12 +181,12 @@
           },
           //根据商品id删除
           del(sid){
-            var _this =this;
-            var params = new URLSearchParams();
-            params.append("sid",sid);
-            this.$axios.post("",params).then(function (response) {
-
-            }).catch();
+            for (var i = 0; i < this.MyShopcar.length; i++) {
+              var good = this.MyShopcar[i];
+              if (good.id ==  sid) {
+                this.MyShopcar.splice(i,1)
+              }
+            }
           },
           handleChanges(){
           },
@@ -274,12 +228,12 @@
     width:200px;
   }
   .sp{
-    width: 1700px;
+    width: 600px;
     border-radius: 4px;
     border: 1px solid #FAF3F4;
 
     /*box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);*/
-    margin-left: 300px;
+    margin-left: 240px;
     /*background-color: #FDF4F2;*/
 
   }
@@ -317,5 +271,12 @@
     margin-left: 1240px;
     width: 150px;
     height: 50px;
+  }
+  .page-component__scroll  {
+    height: 500px;
+  }
+  .el-scrollbar__wrap {
+    overflow: scroll;
+    height: 100%;
   }
 </style>

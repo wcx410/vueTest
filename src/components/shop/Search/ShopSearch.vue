@@ -142,7 +142,7 @@
             @size-change="rowsChange"
             @current-change="pageChange"
             background
-            :page-sizes="[10, 15, 25, 50]"
+            :page-sizes="[5, 10, 15, 25, 50]"
             :page-size="rows"
             layout="total, sizes, prev, pager, next, jumper"
             :total="tableData.total">
@@ -242,9 +242,12 @@
           return value.substring(0,6) + '****' + value.substring(10);
         },
         state:function(value){
+          if(value==0) return "待发货"
           if (value == 1) return "未收货";
           if (value == 2) return "待提货";
           if (value == 3) return "已提货";
+          if (value == 4) return "待退款";
+          if (value == 5) return "已退款";
           return value;
         },
       },
