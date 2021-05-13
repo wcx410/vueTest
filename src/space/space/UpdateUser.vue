@@ -2,7 +2,7 @@
   <!--修改个人信息-->
   <div>
     <el-page-header content="个人首页"></el-page-header>
-      <div style="margin-top: 70px">
+      <div style="margin-top: 70px;margin-right: auto">
           <!--<el-upload-->
             <!--class="avatar-uploader"-->
             <!--:action="'http://localhost:8080/userFileUpload?dir=frontImage&uId=' + user.id"-->

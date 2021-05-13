@@ -164,7 +164,9 @@
         },
         gotoShop(){
           //替换路由路径
+          userhelper.merId(this.user.merid);
           this.$router.replace('/shop')
+
         },
         smrzff(){
           //进行实名认证，输入身份证
@@ -174,7 +176,7 @@
           params.append("idCard",this.user.idCard)
           this.$axios.post("space/updateUser",params).then(function (response) {
             // _this.msg = response.data;
-            this.$message(response.data);
+            _this.$message(response.data);
             _this.dialogVisible = false;
             _this.queryUserById();
 

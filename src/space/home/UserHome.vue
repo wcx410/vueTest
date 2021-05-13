@@ -21,10 +21,10 @@
 
         <el-container>
           <div style="width: 2000px; height: 800px">
-            <el-col :span="24">
+            <el-col>
               <!--                <el-aside width="200px" style="background-color: white;margin-left: 5%;margin-top: 50px">-->
-              <el-col :span="6">
-                <div style="margin-top: 130px;width: 220px;margin-left: 100px">
+              <el-col style="width: 420px">
+                <div style="margin-top: 130px;width: 185px;margin-left: 65px">
 
                   <el-menu router default-active="2"
                            class="el-menu-vertical-demo"
@@ -56,7 +56,7 @@
                 </div>
               </el-col>
               <el-container>
-                <el-col :span="18" style="margin-left: -110px">
+                <el-col :span="18" style="margin-left: -110px;width: 1200px">
 
                   <div style="margin-top: 90px; width: 2200px;margin-left: -5px">
                     <!--                                <el-menu :default-active="'1'" :src="require('@/assets/mcimg/16.png')"-->

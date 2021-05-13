@@ -2,7 +2,7 @@
   <div>
 
       <el-menu :default-active="'1'"
-               mode="horizontal" style="width: 1500px">
+               mode="horizontal" style="width: 1200px">
         <el-menu-item style="cursor: default">|</el-menu-item>
         <el-menu-item @click="">代发货</el-menu-item>
         <el-menu-item style="cursor: default">|</el-menu-item>
@@ -15,9 +15,9 @@
     <el-row>
       <div style="font-size: 20px;margin-left: 0px;margin-top: 20px;margin-left: 150px"></div>
       <div style="font-size: 20px;margin-left: 0px;margin-top: 20px;margin-left: 150px">宝贝</div>
-      <div style="font-size: 20px;margin-left: 300px;margin-top: -20px;margin-left: 360px">单价</div>
-      <div style="font-size: 20px;margin-left: 450px;margin-top: -23px;margin-left: 550px">数量</div>
-      <div style="font-size: 20px;margin-left: 600px;margin-top: -24px;margin-left: 750px">实际付款</div>
+      <div style="font-size: 20px;margin-left: 0px;margin-top: -20px;margin-left: 360px">单价</div>
+      <div style="font-size: 20px;margin-left: 0px;margin-top: -23px;margin-left: 550px">数量</div>
+      <div style="font-size: 20px;margin-left: 0px;margin-top: -24px;margin-left: 750px">实际付款</div>
       <div style="font-size: 20px;margin-left: 750px;margin-top: -24px;margin-left: 950px">操作</div>
 
     </el-row>
