@@ -183,7 +183,7 @@
           }).catch();
         }
       },
-      computed:{
+      filter:{
         idCard:function(value){
           return value.substring(0,6) + '****' + value.substring(10);
         },

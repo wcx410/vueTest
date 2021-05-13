@@ -43,12 +43,14 @@
 <script>
   import EmpManagement from "../../components/back/home/system/emp/EmpManagement";
   import Warehousemaintain from "../../components/back/home/Warehouse/Warehousemaintain";
+  import PurchaseOrder from "../../components/back/home/Purchase/PurchaseOrder";
 
     export default {
         name: "BackHome",
       components:{
           EmpManagement,
-          Warehousemaintain
+          Warehousemaintain,
+          PurchaseOrder
       },
       data () {
         return {
@@ -67,8 +69,6 @@
           console.log(tab, event);
         },*/
         handleNodeClick(data) {
-          console.log(data)
-          // this.addTab(data.)
           if (data.type == "页面") {
             this.addTab(data.name, data.url);
           }
@@ -76,16 +76,12 @@
         getdata(){
           var _this=this;
           this.$axios.post("menu/queryMenu.action").then(function (response) {
-            console.log("-------------------")
-            console.log(response.data)
             _this.data=response.data;
           }).catch();
         },
         addTab(targetName,linkurl) {
           //判断 打开了没有
           var res =  this.editableTabs.find((item)=>{return item.title ==targetName;});
-          console.log("----------")
-          console.log(res);
           if(res!=undefined){
             //已打开的    ---选中
             this.editableTabsValue = res.name;
