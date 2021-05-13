@@ -5,6 +5,7 @@ import ShopSearch from "../../components/shop/Search/ShopSearch"
 import ShopStatistics from "../../components/shop/Statistics/ShopStatistics"
 import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
 import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
+import ShopMessage from "../../components/shop/Message/ShopMessage"
 
 /**
  * 商户路由
@@ -33,6 +34,10 @@ const ShopRouter = [
   {
     path: '/maintenanceapply',
     component: MaintenanceApply
+  },
+  {
+    path: '/message',
+    component: ShopMessage
   }
 ]
 

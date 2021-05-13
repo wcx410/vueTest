@@ -115,7 +115,7 @@
             @size-change="rowsChange"
             @current-change="pageChange"
             background
-            :page-sizes="[10, 15, 25, 50]"
+            :page-sizes="[5, 10, 15, 25, 50]"
             :page-size="rows"
             layout="total, sizes, prev, pager, next, jumper"
             :total="tableData.total">
@@ -228,7 +228,6 @@
               type: 'success'
             });
             this.getCommodityAll();
-
           }else {
             this.$message({
               message: '提货失败×',

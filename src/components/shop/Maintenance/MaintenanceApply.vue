@@ -29,6 +29,7 @@
       </el-table-column>
       <el-table-column
         width="200px"
+        v-if="show"
         label="用户id"
         prop="userId">
       </el-table-column>
@@ -127,6 +128,8 @@
     name: "MaintenanceApply",
     data() {
       return {
+        //隐藏userid列
+        show:false,
         // /!*延迟表格加载*!/
         loading: false,
         //搜索框的变量
