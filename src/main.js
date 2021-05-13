@@ -18,7 +18,8 @@ Vue.use(ElementUI)
 
 
 
-Axios.defaults.baseURL="http://localhost:8090/xsyx/"
+Axios.defaults.baseURL="http://localhost:8090/xsyx/";
+Axios.defaults.withCredentials = true;
 
 Vue.prototype.$axios = Axios
 
