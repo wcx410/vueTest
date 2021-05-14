@@ -59,7 +59,7 @@
                     <span>{{ row.phone | phone }}</span>
                   </el-form-item>
                   <el-form-item label="商品图片 ：">
-                    <el-image style="height: 100px;width: 150px" src="" fit="cover" lazy></el-image>
+                    <el-image style="height: 100px;width: 150px" :src="row.image" fit="cover" lazy></el-image>
                   </el-form-item><br>
                   <el-form-item label="数量 ：">
                     <span>{{ row.number }}</span>
@@ -100,10 +100,6 @@
               width="110px"
               label="商品数量"
               prop="number">
-            </el-table-column>
-            <el-table-column
-              label="用户手机号"
-              prop="phone">
             </el-table-column>
           </el-table>
 
@@ -178,7 +174,12 @@
 
         this.$axios.post("/shop/queryshouhuo.action", params).then(value => {
           _this.tableData = value.data.rows;
-          console.log(this.tableData)
+          _this.tableData =_this.tableData.map(function (item) {
+            item.image="http://localhost:8090/xsyx/"+item.image;
+            console.log(item);
+            return item;
+          })
+
         })
       },
       //点击查询按钮 模糊查询商品信息
