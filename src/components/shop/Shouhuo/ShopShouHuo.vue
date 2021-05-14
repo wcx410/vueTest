@@ -171,7 +171,6 @@
         params.append("search_uname", this.input);
         params.append("page", this.page);
         params.append("rows", this.rows);
-        params.append("shanghuid",sessionStorage.getItem(user.merid));
 
         this.$axios.post("/shop/queryshouhuo.action", params).then(value => {
           _this.tableData = value.data.rows;
