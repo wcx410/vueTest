@@ -236,7 +236,7 @@
         params.append("password",this.user.password);
         var _this =this;
         this.$axios.post("user/login",params).then(function (request) {
-          if (request.data===0){
+          if (request.data===null){
             _this.$message({
               type: 'success',
               message: "登录失败"
@@ -247,8 +247,10 @@
               message: "登录成功"
             });
             _this.$router.push({path: "/"})
-            userHelper.userId(request.data);
-            console.log(userHelper.userId())
+
+            sessionStorage.setItem("user",request.data);
+          //  userHelper.userId(request.data);
+
           }
           //刷新页面
         }).catch();

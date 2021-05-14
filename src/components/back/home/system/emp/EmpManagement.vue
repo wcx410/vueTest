@@ -176,7 +176,7 @@
             <el-button
               type="danger"
               circle
-              icon="el-icon-delete"
+              icon="el-icon-user"
               size="medium"
               @click="openEmpRoles(scope.$index, scope.row)"
             ></el-button>

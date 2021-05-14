@@ -44,7 +44,7 @@
         params.append("password",this.empInfo.password);
         var _this =this;
         this.$axios.post("employee/backLogin",params).then(function (request) {
-          if (request.data===0){
+          if (request.data===null){
             _this.$message({
               type: 'success',
               message: "登录失败"
@@ -54,8 +54,8 @@
               type: 'success',
               message: "登录成功"
             });
-            _this.$router.push({path: "/BackHome"});
-            userHelper.userId(request.data);
+            _this.$router.push({path: "/back"});
+            sessionStorage.setItem("emp",request.data);
           }
         }).catch();
       }

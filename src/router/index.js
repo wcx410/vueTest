@@ -26,6 +26,8 @@ import Merchant from "../space/Merchant/Merchant";
 import Message from "../space/message/Message";
 import demo from "../space/message/demo";
 
+import Demo from "../components/back/home/system/permission/demo";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -66,6 +68,7 @@ const routes = [
     component:Login
   },
   {path:'/emp',component:Emp},
+  {path:'/demo',component:Demo},
   {path:'/role',component:Role},
   {path:'/per',component:Per},
   {path:'/empedit',component:EmpManagementEdit},
