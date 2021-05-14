@@ -195,6 +195,7 @@
           if(this.state==="待退款"){state=4;}
           if(this.state==="已退款"){state=5;}
           params.append("search_ordstate",state);
+          params.append("shanghuid",sessionStorage.getItem(user.merid));
 
           this.$axios.post("/shop/querycomorder.action", params).then((value) => {
             _this.tableData = value.data.rows;0
