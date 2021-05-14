@@ -38,7 +38,7 @@
         <el-aside width="200px">
 
 
-          <el-menu router default-active="/shouhuo">
+          <el-menu router default-active="/search">
             <el-menu-item index="/shouhuo">
               <i class="el-icon-suitcase"></i>
               <span slot="title">收货</span>

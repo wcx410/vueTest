@@ -59,7 +59,7 @@
                     <span>{{ row.phone | phone }}</span>
                   </el-form-item>
                   <el-form-item label="商品图片 ：">
-                    <el-image style="height: 100px;width: 150px" src="" fit="cover" lazy></el-image>
+                    <el-image style="height: 100px;width: 150px" :src="row.image" fit="cover" lazy></el-image>
                   </el-form-item><br>
                   <el-form-item label="数量 ：">
                     <span>{{ row.number }}</span>
@@ -180,8 +180,12 @@
         params.append("rows", this.rows);
 
         this.$axios.post("/shop/querytihuo.action", params).then(value => {
-          console.log(value.data.rows)
           _this.tableData = value.data.rows;
+          _this.tableData =_this.tableData.map(function (item) {
+            item.image="http://localhost:8090/xsyx/"+item.image;
+            console.log(item);
+            return item;
+          })
         })
       },
       //点击查询按钮 模糊查询商品信息

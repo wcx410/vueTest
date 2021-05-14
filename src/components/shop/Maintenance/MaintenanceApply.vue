@@ -16,86 +16,124 @@
       </template>
     </el-input>
 
-    <el-table
-      v-loading="loading"
-      border
-      :data="tableData"
-      style="width: 100%;margin-top: 30px">
-      <el-table-column
-        sortable
-        width="100px"
-        label="ID"
-        prop="id">
-      </el-table-column>
-      <el-table-column
-        width="200px"
-        v-if="show"
-        label="用户id"
-        prop="userId">
-      </el-table-column>
-      <el-table-column
-        width="200px"
-        label="商户名称"
-        prop="name">
-      </el-table-column>
-      <el-table-column
-        label="申请人姓名"
-        prop="uname">
-      </el-table-column>
-      <el-table-column
-        label="商户地址"
-        prop="address">
-      </el-table-column>
-      <el-table-column
-        width="200px"
-        label="商户电话"
-        prop="phone">
-      </el-table-column>
-      <el-table-column
-        width="200px"
-        label="申请时间"
-        prop="applyTime">
-      </el-table-column>
-      <el-table-column
-        label="申请消息"
-        prop="userMessage">
-      </el-table-column>
+    <el-row style="margin-top: 15px">
+      <el-col :span="24">
+        <el-card style="width: 100%;min-height: 400px" shadow="hover">
+          <!--strip 双行阴影效果属性-->
+          <el-table
+            v-loading="loading"
+            border
+            :data="tableData"
+            style="width: 100%;margin-top: 30px">
+            <el-table-column type="expand">
+              <template slot-scope="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <el-form-item label="ID ：">
+                    <span>{{props.row.id}}</span>
+                  </el-form-item>
+                  <el-form-item label="申请人姓名 ：">
+                    <span>{{props.row.uname}}</span>
+                  </el-form-item>
+                  <el-form-item label="身份证件码 ：">
+                    <span>{{props.row.idCard | idCard}}</span>
+                  </el-form-item>
+                  <el-form-item label="商户地址 ：">
+                    <span>{{props.row.address}}</span>
+                  </el-form-item>
+                  <el-form-item label="商户电话 ：">
+                    <span>{{props.row.phone | phone}}</span>
+                  </el-form-item>
+                  <el-form-item label="申请时间 ：">
+                    <span>{{props.row.applyTime}}</span>
+                  </el-form-item>
+                  <el-form-item label="申请消息 ：">
+                    <span>{{props.row.userMessage}}</span>
+                  </el-form-item>
+                  <br>
+                  <el-form-item label="身份证件照正面 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.photos"  fit="cover" lazy></el-image>
+                  </el-form-item>
+                  <el-form-item label="身份证件照反面 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagezheng"  fit="cover" lazy></el-image>
+                  </el-form-item>
+                  <el-form-item label="营业执照 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagefan"  fit="cover" lazy></el-image>
+                  </el-form-item>
+                </el-form>
+              </template>
+            </el-table-column>
+            <el-table-column
+              sortable
+              width="100px"
+              label="ID"
+              prop="id">
+            </el-table-column>
+            <el-table-column
+              width="200px"
+              v-if="show"
+              label="用户id"
+              prop="userId">
+            </el-table-column>
+            <el-table-column
+              width="200px"
+              label="商户名称"
+              prop="name">
+            </el-table-column>
+            <el-table-column
+              label="申请人姓名"
+              prop="uname">
+            </el-table-column>
+            <el-table-column
+              width="200px"
+              label="商户电话"
+              prop="phone">
+            </el-table-column>
+            <el-table-column
+              width="200px"
+              label="申请时间"
+              prop="applyTime">
+            </el-table-column>
+            <el-table-column
+              label="申请消息"
+              prop="userMessage">
+            </el-table-column>
 
-      <el-table-column label="操作" width="180px">
-        <template slot-scope="{row}">
-          <el-tooltip effect="dark" content="通过" placement="top-start" >
-            <el-button
-              type="primary"
-              circle
-              icon="el-icon-check"
-              size="medium"
-              @click="approval(row.id,true,row)"
-            ></el-button>
-          </el-tooltip>
-          <el-tooltip effect="dark" content="拒绝" placement="top-start" >
-            <el-button
-              type="danger"
-              circle
-              icon="el-icon-close"
-              size="medium"
-              @click="approval(row.id,false,row)"
-            ></el-button>
-          </el-tooltip>
+            <el-table-column label="操作" width="180px">
+              <template slot-scope="{row}">
+                <el-tooltip effect="dark" content="通过" placement="top-start" >
+                  <el-button
+                    type="primary"
+                    circle
+                    icon="el-icon-check"
+                    size="medium"
+                    @click="approval(row.id,true,row)"
+                  ></el-button>
+                </el-tooltip>
+                <el-tooltip effect="dark" content="拒绝" placement="top-start" >
+                  <el-button
+                    type="danger"
+                    circle
+                    icon="el-icon-close"
+                    size="medium"
+                    @click="approval(row.id,false,row)"
+                  ></el-button>
+                </el-tooltip>
 
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <el-pagination
-      @size-change="rowsChange"
-      @current-change="pageChange"
-      background
-      :page-sizes="[10, 15, 25, 50]"
-      :page-size="rows"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="tableData.total">
-    </el-pagination>
-
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-pagination
+            @size-change="rowsChange"
+            @current-change="pageChange"
+            background
+            :page-sizes="[5, 10, 15, 25, 50]"
+            :page-size="rows"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="tableData.total">
+          </el-pagination>
+        </el-card>
+      </el-col>
+    </el-row>
 
     <!-- 模态框 -->
     <el-dialog :close-on-click-modal="false"
@@ -166,7 +204,12 @@
 
         this.$axios.post("/shop/querymerchantsstatu.action", params).then((value) => {
           _this.tableData = value.data.rows;
-          console.log(_this.tableData)
+          _this.tableData =_this.tableData.map(function (item) {
+            item.photos="http://localhost:8090/xsyx/"+item.photos;
+            item.idcardimagefan="http://localhost:8090/xsyx/"+item.idcardimagefan;
+            item.idcardimagezheng="http://localhost:8090/xsyx/"+item.idcardimagezheng;
+            return item;
+          })
         })
       },
       //点击查询按钮 模糊查询商品信息
@@ -253,6 +296,10 @@
         }
       }
     },
+    filters: {
+      phone: (phone) => phone && phone.substring(0,3) + '****' + phone.substring(7),
+      idCard: (idCard) => idCard && idCard.substring(0,6) + '****' + idCard.substring(10)
+    },
     created() {
       this.getCommodityAll();
     }
@@ -260,5 +307,19 @@
 </script>
 
 <style scoped>
+  /*table拉开的样式 ↓*/
+  .demo-table-expand {
+    font-size: 0;
+  }
 
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
 </style>
