@@ -55,14 +55,6 @@
               <i class="el-icon-s-data"></i>
               <span slot="title">营收统计</span>
             </el-menu-item>
-            <el-menu-item index="/maintenance">
-              <i class="el-icon-s-data"></i>
-              <span slot="title">资料维护</span>
-            </el-menu-item>
-            <el-menu-item index="/maintenanceapply">
-              <i class="el-icon-s-data"></i>
-              <span slot="title">商户审批</span>
-            </el-menu-item>
           </el-menu>
 
         </el-aside>

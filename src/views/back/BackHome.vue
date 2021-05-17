@@ -44,13 +44,17 @@
   import EmpManagement from "../../components/back/home/system/emp/EmpManagement";
   import Warehousemaintain from "../../components/back/home/Warehouse/Warehousemaintain";
   import PurchaseOrder from "../../components/back/home/Purchase/PurchaseOrder";
+  import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
+  import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
 
     export default {
         name: "BackHome",
       components:{
           EmpManagement,
           Warehousemaintain,
-          PurchaseOrder
+          PurchaseOrder,
+        MaintenanceApply,
+        ShopMaintenance
       },
       data () {
         return {
