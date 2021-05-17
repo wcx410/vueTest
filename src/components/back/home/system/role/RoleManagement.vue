@@ -156,6 +156,8 @@
         searchStr: "",
         //表数据
         tableData: {},
+        //表单数据
+        formData:[],
         //当前页数
         page:1,
         //每页条

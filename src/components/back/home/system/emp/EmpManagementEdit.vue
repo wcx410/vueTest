@@ -34,7 +34,7 @@
                            <!--style="width: 100%"></el-autocomplete>-->
           <el-input v-model="formData.email"></el-input>
         </el-form-item>
-        <el-form-item label="员工备注: ">
+        <el-form-item label="员工备注: " prop="remark">
           <el-input v-model="formData.remark" maxlength="100" type="textarea" placeholder="请输入备注"></el-input>
         </el-form-item>
       </el-col>
@@ -96,7 +96,18 @@
     components:{
       EmpManagementImage
     },
-    props:["formData","imageFile"]
-
+    // props:["formData","imageFile"],
+    props:{
+      formData: {},
+      imageFile:{}
+    },
+    //触发验证
+    async validate() {
+      return new Promise<boolean>(resolve => {
+        (this.$refs.form).validate((value) => {
+          resolve(value);
+        })
+      });
+    }
   }
 </script>

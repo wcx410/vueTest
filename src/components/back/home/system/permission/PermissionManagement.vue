@@ -33,7 +33,7 @@
           show-checkbox
           node-key="id"
           :default-expanded-keys=[]
-          :default-checked-keys=[]
+          :default-checked-keys=false
           :props="defaultProps">
         </el-tree>
 
@@ -70,7 +70,6 @@
         this.$store.commit('back/url', window.location.href);
         this.getPerManagement();
         this.getmenu();
-        console.log(sessionStorage.getItem("uid"))
         //延迟表格加载
         setTimeout(() => {
           this.isLoading = false;
@@ -119,9 +118,13 @@
             console.log(this.data)
           }).catch();
         },
-        async selectRow(){
-
-        },
+        // async selectRow(){
+        //   var _this = this;
+        //   this.$axios.post("menu/querybyid").then((result)=> {
+        //
+        //   }).catch();
+        //
+        // },
       getmenu(){
           var _this = this;
           this.$axios.post("menu/queryMenu.action").then((result)=>{

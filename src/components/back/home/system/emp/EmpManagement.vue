@@ -281,7 +281,7 @@
                title="角色添加"
                :visible.sync="rolesyanzheng"
                width="300px">
-      <EmpManagementEdit :form-data="formData" :image-file="imageFile"></EmpManagementEdit>
+      <EmpManagementRoleEdit :role-data="roleDate"></EmpManagementRoleEdit>
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="rolesyanzheng = false">取 消</el-button>
@@ -294,22 +294,12 @@
 </template>
 <script>
   import EmpManagementEdit from "./EmpManagementEdit"
+  import EmpManagementRoleEdit from "./EmpManagementRoleEdit"
 
   export default {
     name:"EmpManagement",
     data(){
       return{
-            // "name": "",
-            // "image": "",
-            // "sex": "男",
-            // "phone": "",
-            // "icCard": "",
-            // "email": "",
-            // "address": "",
-            // "remark": "",
-    //     $refs: {
-    //       editBox: any
-    // },
       //自己的id
         id:0,
       //加载状态
@@ -358,7 +348,8 @@
       }
     },
     components:{
-      EmpManagementEdit
+      EmpManagementEdit,
+      EmpManagementRoleEdit
     },
     methods: {
       //获取状态

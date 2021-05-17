@@ -24,7 +24,6 @@ import ShopHome from "../views/shop/ShopHome";
 import ShopRouter from "./shop/ShopRouter";
 import Merchant from "../space/Merchant/Merchant";
 import Message from "../space/message/Message";
-import demo from "../space/message/demo";
 
 import Demo from "../components/back/home/system/permission/demo";
 
