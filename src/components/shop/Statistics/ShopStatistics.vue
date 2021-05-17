@@ -50,7 +50,7 @@
                     <use xlink:href="#icon-shouru1"></use>
                   </svg>
                 </div>
-                <div style="float: left;">￥ {{}}</div>
+                <div style="float: left;">￥ {{zrsr}}</div>
               </div>
             </div>
           </xl-panel>
@@ -68,7 +68,7 @@
                     <use xlink:href="#icon-07"></use>
                   </svg>
                 </div>
-                <div style="float: left;">￥ {{}}</div>
+                <div style="float: left;">￥ {{zsr}}</div>
               </div>
             </div>
           </xl-panel>
@@ -108,6 +108,8 @@
         //商品数据(包括图片)
         daishou: "",
         daiti: "",
+        zrsr:"",
+        zsr:"",
         fromData: {
           comDiscount: {}
         },
@@ -119,11 +121,20 @@
     methods: {
       getCommodityAll() {
         var _this = this;
+        // let params = new URLSearchParams();
+        // params.append("id",sessionStorage.getItem("user.uid"))
         this.$axios.post("/shop/queryshouhuo.action").then(value => {
           _this.daishou = value.data.rows.length;
         }),
           this.$axios.post("/shop/querytihuo.action").then(value => {
             _this.daiti = value.data.rows.length;
+          }),
+          this.$axios.post("/shop/queryzsr").then(value => {
+            _this.zsr = value.data
+            console.log("zzz"+value.data);
+          }),
+          this.$axios.post("/shop/queryztsr").then(value => {
+            _this.zrsr = value.data
           })
       },
       //点击查询按钮 模糊查询商品信息

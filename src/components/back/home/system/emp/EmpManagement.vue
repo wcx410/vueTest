@@ -170,24 +170,17 @@
             ></el-button>
             </el-tooltip>
 
-          <!--&lt;!&ndash;员工角色&ndash;&gt;
-          <el-popover trigger="hover" placement="top" title="员工角色" @show="row.roleData === undefined && loadEmpRoles(row)"
-                      v-if="$btnPermissions('修改角色')">
-            <div v-loading="row.roleData === undefined">
-              <el-tooltip effect="light" v-for="(item,index) in row.roleData" :key="index" placement="top-start" :content="item.remark">
-                <el-tag style="margin-right: 10px;margin-bottom: 5px">{{ item.name }}</el-tag>
-              </el-tooltip>
-              <el-divider></el-divider>
-              <div style="width: 100%;text-align: center">
-                <el-button :disabled="row.id.toString() === selfId" size="mini" type="success" plain round icon="el-icon-edit" @click="openEditRole(row)">编辑</el-button>
-              </div>
-            </div>
+          <!--&lt;!&ndash;员工角色&ndash;&gt;-->
+          <el-tooltip effect="dark" content="添加角色" placement="top-start"
+          >
             <el-button
-              slot="reference" type="success" circle
-              icon="el-icon-user" size="medium"
-              style="margin-left: 11px"
+              type="danger"
+              circle
+              icon="el-icon-user"
+              size="medium"
+              @click="openEmpRoles(scope.$index, scope.row)"
             ></el-button>
-          </el-popover>-->
+          </el-tooltip>
 
         </template>
       </el-table-column>
@@ -223,7 +216,7 @@
                    :visible.sync="updatemotaikuang">
           <!--&lt;!&ndash; 商品编辑组件, 传入data值, 传入图片列表 &ndash;&gt;-->
           <!--<emp-management-edit ref="editBox" :form-data="formData" :image-file="imageFile"></emp-management-edit>-->
-          <EmpManagementEdit :form-data="formData.id" :image-file="imageFile"></EmpManagementEdit>
+          <EmpManagementEdit :form-data="formData" :image-file="imageFile"></EmpManagementEdit>
           <div slot="footer" class="dialog-footer">
             <el-button @click="updatemotaikuang = false">取 消</el-button>
             <!--&lt;!&ndash;点击调用修改方法&ndash;&gt;-->
@@ -282,40 +275,31 @@
                   </div>
                 </el-dialog>
 
-    <!--&lt;!&ndash; 编辑角色 &ndash;&gt;
-    &lt;!&ndash; 模态框 &ndash;&gt;
+    <!--&lt;!&ndash; 编辑角色 &ndash;&gt;-->
+    <!--&lt;!&ndash; 模态框 &ndash;&gt;-->
     <el-dialog :close-on-click-modal="false"
                title="角色添加"
-               :visible.sync="dialog.visible"
-               width="400px">
-      <div>
-        <emp-management-role-edit :role-data="dialog.roleData"></emp-management-role-edit>
-      </div>
+               :visible.sync="rolesyanzheng"
+               width="300px">
+      <EmpManagementRoleEdit :role-data="roleDate"></EmpManagementRoleEdit>
+
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="dialog.success">确 定</el-button>
+        <el-button @click="rolesyanzheng = false">取 消</el-button>
+        <!--点击调用修改方法-->
+        <el-button type="primary" @click="empRole">确 定</el-button>
       </div>
-    </el-dialog>-->
+    </el-dialog>
 
   </div>
 </template>
 <script>
   import EmpManagementEdit from "./EmpManagementEdit"
+  import EmpManagementRoleEdit from "./EmpManagementRoleEdit"
+
   export default {
     name:"EmpManagement",
     data(){
       return{
-            // "name": "",
-            // "image": "",
-            // "sex": "男",
-            // "phone": "",
-            // "icCard": "",
-            // "email": "",
-            // "address": "",
-            // "remark": "",
-    //     $refs: {
-    //       editBox: any
-    // },
       //自己的id
         id:0,
       //加载状态
@@ -364,7 +348,8 @@
       }
     },
     components:{
-      EmpManagementEdit
+      EmpManagementEdit,
+      EmpManagementRoleEdit
     },
     methods: {
       //获取状态
@@ -592,6 +577,10 @@
             message: "删除失败×"
           });
         });
+      },
+      /**获取角色*/
+      async loadEmpRoles(row) {
+        this.$set(row,"roleData",await EmpHelper.getRolesByEmpId(row.id));
       }
     },
 

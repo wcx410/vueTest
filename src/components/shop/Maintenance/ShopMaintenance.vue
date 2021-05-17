@@ -290,27 +290,41 @@
             type: 'warning',
             center: true
           }).then(() => {
+            //判断该商户有没有订单
             let params = new URLSearchParams();
-            params.append("state",-1);
-            params.append("id",row.id);
+            params.append("mid",row.id);
 
-            //执行删除操作
-            this.$axios.post("/shop/deletemerchantsbyid.action",params)
-              .then((result)=> {
-                if (result.data===true){
+            this.$axios.post("/shop/querybymerid.action",params).then((value) => {
+              console.log(value)
+              if(value.data){
+                this.$message({
+                  type: 'warning',
+                  message: "该商户下有订单信息，请谨慎！"
+                });
+              }else {
+                let params = new URLSearchParams();
+                params.append("state",-1);
+                params.append("id",row.id);
+
+                //执行删除操作
+                this.$axios.post("/shop/deletemerchantsbyid.action",params)
+                  .then((result)=> {
+                    if (result.data===true){
+                      this.$message({
+                        type: 'success',
+                        message: "删除成功√"
+                      });
+                    }
+                    //刷新页面
+                    this.getCommodityAll();
+                  }).catch((msg) => {
                   this.$message({
-                    type: 'success',
-                    message: "删除成功√"
+                    type: 'error',
+                    message: "删除失败×"
                   });
-                }
-                //刷新页面
-                this.getCommodityAll();
-              }).catch((msg) => {
-              this.$message({
-                type: 'error',
-                message: "删除失败×"
-              });
-            });
+                });
+              }
+            })
           }).catch(() => {
             this.$message({
               showClose: true,

@@ -44,6 +44,8 @@
   import EmpManagement from "../../components/back/home/system/emp/EmpManagement";
   import Warehousemaintain from "../../components/back/home/Warehouse/Warehousemaintain";
   import PurchaseOrder from "../../components/back/home/Purchase/PurchaseOrder";
+  import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
+  import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
   import Commodity from "../../components/back/home/Commodity/Commodity";
   import CommodityLableMaintain from "../../components/back/home/Commodity/CommodityLableMaintain";
   import CommodityTypeMaintain from "../../components/back/home/Commodity/CommodityTypeMaintain";
@@ -58,8 +60,9 @@
           Commodity,
           CommodityLableMaintain,
           CommodityTypeMaintain,
-          Distribution
-
+          Distribution,
+        MaintenanceApply,
+        ShopMaintenance
       },
       data () {
         return {

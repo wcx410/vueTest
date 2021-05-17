@@ -95,19 +95,6 @@
               prop="orderNumber">
             </el-table-column>
             <el-table-column
-              width="90px"
-              label="订单状态"
-              prop="ordstate">
-              <template slot-scope="scope">
-                <span v-if="scope.row.ordstate==0">待发货</span>
-                <span v-else-if="scope.row.ordstate==1">未收货</span>
-                <span v-else-if="scope.row.ordstate==2">待提货</span>
-                <span v-else-if="scope.row.ordstate==3">已提货</span>
-                <span v-else-if="scope.row.ordstate==4">待退款</span>
-                <span v-else-if="scope.row.ordstate==5">已退款</span>
-              </template>
-            </el-table-column>
-            <el-table-column
               width="120px"
               label="用户姓名"
               prop="uname">
@@ -128,14 +115,17 @@
               prop="phone">
             </el-table-column>
             <el-table-column
-              width="160px"
-              label="收货时间"
-              prop="deliveryTime">
-            </el-table-column>
-            <el-table-column
-              width="160px"
-              label="提货时间"
-              prop="pickUpTime">
+              width="90px"
+              label="订单状态"
+              prop="ordstate">
+              <template slot-scope="scope">
+                <span v-if="scope.row.ordstate==0">待发货</span>
+                <span v-else-if="scope.row.ordstate==1">未收货</span>
+                <span v-else-if="scope.row.ordstate==2">待提货</span>
+                <span v-else-if="scope.row.ordstate==3">已提货</span>
+                <span v-else-if="scope.row.ordstate==4">待退款</span>
+                <span v-else-if="scope.row.ordstate==5">已退款</span>
+              </template>
             </el-table-column>
           </el-table>
           <el-pagination
@@ -207,12 +197,7 @@
           params.append("search_ordstate",state);
 
           this.$axios.post("/shop/querycomorder.action", params).then((value) => {
-            // console.log(index);
-            // if(value.data.rows[0].ordstate==1){
-            //   this.ordstate="未收货";
-            // }
             _this.tableData = value.data.rows;
-
           })
         },
         //点击查询按钮 模糊查询商品信息

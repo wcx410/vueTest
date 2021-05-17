@@ -61,7 +61,7 @@
     <br>
     <div style="font-size: 15px">
       <label>电话：</label>
-      <el-input type="text" style="width: 200px;margin-left: 40px" v-model="user.phone|phone" :disabled="true">123</el-input>
+      <el-input type="text" style="width: 200px;margin-left: 40px" v-model="user.phone|phones" :disabled="true">123</el-input>
     </div>
     <br>
     <br>
@@ -73,7 +73,7 @@
     <br>
     <div style="font-size: 15px" v-show="sqsh">
       <label>身份证：</label>
-      <el-input type="text" style="width: 200px;margin-left: 24px" v-model="user.idCard|idCard" :disabled="true"></el-input>
+      <el-input type="text" style="width: 200px;margin-left: 24px" v-model="user.idCard|idCards" :disabled="true"></el-input>
     </div>
 
     <br>
@@ -138,7 +138,7 @@
           var _this =this;
           var params = new URLSearchParams();
           //userhelper.userId
-          params.append("id",userhelper.userId);
+          params.append("id",sessionStorage.getItem("user"));
           this.$axios.post("space/queryBy",params).then(function (response) {
             _this.user = response.data;
             // 是否进行了实名认证
@@ -164,7 +164,7 @@
         },
         gotoShop(){
           //替换路由路径
-          userhelper.merId(this.user.merid);
+          sessionStorage.setItem("merid",this.user.merid)
           this.$router.replace('/shop')
 
         },
@@ -172,7 +172,8 @@
           //进行实名认证，输入身份证
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",userhelper.userId);
+          params.append("id",sessionStorage.getItem("user"));
+          console.log("zzz"+sessionStorage.getItem("user.id"))
           params.append("idCard",this.user.idCard)
           this.$axios.post("space/updateUser",params).then(function (response) {
             // _this.msg = response.data;
@@ -184,10 +185,10 @@
         }
       },
       filter:{
-        idCard:function(value){
+        idCards:function(value){
           return value.substring(0,6) + '****' + value.substring(10);
         },
-        phone:function(value){
+        phones:function(value){
           return value.substring(0,3)+ '****' + value.substring(7);
         },
       },

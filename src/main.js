@@ -11,7 +11,7 @@ import Axios from "axios"
 import router from "./router/index";
 
 import Store from './store/store.js'
-
+Axios.defaults.withCredentials = true;
 
 
 Vue.use(ElementUI)

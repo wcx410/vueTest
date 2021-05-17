@@ -12,6 +12,8 @@ import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
 import CommodityImages from "../components/back/home/Commodity/CommodityImages";
 import CommodityLableMaintain from "../components/back/home/Commodity/CommodityLableMaintain";
 import Emp from "../components/back/home/system/emp/EmpManagement";
+import Role from "../components/back/home/system/role/RoleManagement";
+import Per from "../components/back/home/system/permission/PermissionManagement";
 import EmpManagementEdit from "../components/back/home/system/emp/EmpManagementEdit";
 import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
 import Distribution from "../components/back/home/Distribution/Distribution";
@@ -22,7 +24,8 @@ import ShopHome from "../views/shop/ShopHome";
 import ShopRouter from "./shop/ShopRouter";
 import Merchant from "../space/Merchant/Merchant";
 import Message from "../space/message/Message";
-import demo from "../space/message/demo";
+
+import Demo from "../components/back/home/system/permission/demo";
 
 Vue.use(VueRouter)
 
@@ -64,6 +67,9 @@ const routes = [
     component:Login
   },
   {path:'/emp',component:Emp},
+  {path:'/demo',component:Demo},
+  {path:'/role',component:Role},
+  {path:'/per',component:Per},
   {path:'/empedit',component:EmpManagementEdit},
   {path:'/backLogin',component:BackLogin},
   {
