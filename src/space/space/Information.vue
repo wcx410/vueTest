@@ -164,7 +164,7 @@
         },
         gotoShop(){
           //替换路由路径
-          userhelper.merId(this.user.merid);
+          sessionStorage.setItem("merid",this.user.merid)
           this.$router.replace('/shop')
 
         },
