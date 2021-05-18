@@ -154,9 +154,6 @@
         resetForm() {
           this.applyForm.name = "";
           this.applyForm.address = "";
-          this.yyzzimageFile = [];
-          this.sfzzimageFile = [];
-          this.sfzfimageFile = [];
         }
       },
     }

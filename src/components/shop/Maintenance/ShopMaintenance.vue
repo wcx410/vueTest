@@ -75,6 +75,15 @@
                   <el-form-item label="商户备注 ：">
                     <span>{{props.row.remark}}</span>
                   </el-form-item>
+                  <el-form-item label="营业执照 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagefan"  fit="cover" lazy></el-image>
+                  </el-form-item>
+                  <el-form-item label="身份证件照正面 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.photos"  fit="cover" lazy></el-image>
+                  </el-form-item>
+                  <el-form-item label="身份证件照反面 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagezheng"  fit="cover" lazy></el-image>
+                  </el-form-item>
                 </el-form>
               </template>
             </el-table-column>
@@ -221,6 +230,12 @@
 
         this.$axios.post("/shop/querymerchants.action",params).then((value) => {
           _this.tableData = value.data.rows;
+          _this.tableData =_this.tableData.map(function (item) {
+            item.photos="http://localhost:8090/xsyx/"+item.photos;
+            item.idcardimagefan="http://localhost:8090/xsyx/"+item.idcardimagefan;
+            item.idcardimagezheng="http://localhost:8090/xsyx/"+item.idcardimagezheng;
+            return item;
+          })
         })
       },
       //点击查询按钮 模糊查询商品信息

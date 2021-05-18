@@ -50,14 +50,14 @@
                     <span>{{props.row.userMessage}}</span>
                   </el-form-item>
                   <br>
+                  <el-form-item label="营业执照 ：">
+                    <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagefan"  fit="cover" lazy></el-image>
+                  </el-form-item><br>
                   <el-form-item label="身份证件照正面 ：">
                     <el-image style="height: 100px;width: 150px" :src="props.row.photos"  fit="cover" lazy></el-image>
                   </el-form-item>
                   <el-form-item label="身份证件照反面 ：">
                     <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagezheng"  fit="cover" lazy></el-image>
-                  </el-form-item>
-                  <el-form-item label="营业执照 ：">
-                    <el-image style="height: 100px;width: 150px" :src="props.row.idcardimagefan"  fit="cover" lazy></el-image>
                   </el-form-item>
                 </el-form>
               </template>
@@ -249,6 +249,9 @@
                 params.append("phone",row.phone);
                 params.append("state",1);
                 params.append("userId",row.userId);
+                params.append("idcardimagezheng",row.idcardimagezheng.substring(27));
+                params.append("idcardimagefan",row.idcardimagefan.substring(27));
+                params.append("photos",row.photos.substring(27));
                 this.$axios.post("/shop/insertmerchants.action", params).then((value) => {
                   if(value){
                     this.$message({
