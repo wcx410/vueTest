@@ -3,17 +3,17 @@
   <div>
     <el-page-header content="个人首页"></el-page-header>
       <div style="margin-top: 70px;margin-right: auto">
-          <!--<el-upload-->
-            <!--class="avatar-uploader"-->
-            <!--:action="'http://localhost:8080/userFileUpload?dir=frontImage&uId=' + user.id"-->
-            <!--:show-file-list="false"-->
-            <!--:on-success="handleAvatarSuccess"-->
-            <!--:before-upload="beforeAvatarUpload"-->
-            <!--name="file">-->
-            <!--<img v-if="" :src="'http://localhost:8090/xsyx'+user.headPortrait" class="avatar">-->
-
-            <!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
-          <!--</el-upload>-->
+        <el-upload
+          class="avatar-uploader"
+          action=""
+          :show-file-list="true"
+          :auto-upload="false"
+          :on-change="handleChange"
+          :before-upload="beforeAvatarUpload"
+          name="file">
+          <img v-if="imageFile.url" :src="$host + imageFile.url" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
           <div style="font-size: 15px;margin-left: 180px;margin-top: -60px">
             昵称：{{user.username}}<br><br>
           </div>
@@ -82,14 +82,37 @@
                // isDelete:"",
              },
              isSmrz:false,
+             imageFile: [],
            }
        },
       methods:{
+
+        beforeAvatarUpload(file) {
+          var  _this=this;
+          const type = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
+          const isLt5M = file.size / 1024 / 1024 < 5;
+          if (!type)
+            _this.$message.error('上传图片只能是 JPG 或 PNG 获取 GIF 格式!');
+          if (!isLt5M)
+            _this.$message.error('上传图片大小不能超过 5MB!');
+          return type && isLt5M;
+        },
+        // 上传附件
+        handleChange(file, fileList) {
+          this.imageFile.push(file.raw)
+          this.beforeAvatarUpload(file.raw);
+        },
+        //上传成功调用
+        handleAvatarSuccess(res, files) {
+          var _this=this;
+          _this.imageFile.url = res.msg;
+        },
         //  根据编号来查询用户，在显示到界面上
         getdata(){
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",userhelper.userId);
+          params.append("id",sessionStorage.getItem("user"));
+
           this.$axios.post("space/queryBy",params).then(function (response) {
             _this.user = response.data;
           }).catch();
@@ -101,10 +124,11 @@
         xg(){
           var _this =this;
           var params = new URLSearchParams();
-          params.append("id",userhelper.userId)
+          params.append("id",sessionStorage.getItem("user"))
           params.append("sex",this.user.sex);
           params.append("phone",this.user.phone);
           params.append("signature",this.user.signature);
+          params.append("headPortrait",this.user.headPortrait)
           this.$axios.post("space/updateUser",params).then(function (response) {
             console.log(response.data)
             this.getdata();
