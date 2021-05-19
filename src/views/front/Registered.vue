@@ -7,14 +7,14 @@
           <el-menu-item>
             <el-image style="width: 60px; height: 60px" src="src/assets/mcimg/logos.png"></el-image>
           </el-menu-item>
-          <el-menu-item><i class="el-icon-house"/>首页</el-menu-item>
+          <el-menu-item @click="$router.replace('/')"><i class="el-icon-house"/>首页</el-menu-item>
           <el-menu-item class="right">
             <el-image style="width: 55px; height: 50px" src="src/assets/mcimg/hua.png"></el-image>
           </el-menu-item>
           <el-menu-item class="right" index="8">关于我们</el-menu-item>
           <el-menu-item class="right" index="7">联系客服</el-menu-item>
-          <el-menu-item class="right" index="6">注册</el-menu-item>
-          <el-menu-item class="right" index="5">登录</el-menu-item>
+          <el-menu-item class="right" index="6" @click="$router.replace('/zc')">注册</el-menu-item>
+          <el-menu-item class="right" index="5" @click="$router.replace('/login')">登录</el-menu-item>
 
           <el-menu-item index="3"><i class="el-icon-scissors"></i>每日特价</el-menu-item>
         </el-menu>
@@ -40,11 +40,11 @@
                 </el-form-item>
                 <el-form-item prop="password">
                   <i class="el-icon-setting"></i>
-                  <el-input v-model="user.password" autocomplete="off" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" style="width: 55%"></el-input>
+                  <el-input v-model="user.password" type="password" autocomplete="off" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" style="width: 55%"></el-input>
                 </el-form-item>
                 <el-form-item prop="pwd2">
                   <i class="el-icon-setting"></i>
-                  <el-input v-model="user.pwd2" autocomplete="off" placeholder="请确认你的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请确认你的密码'" style="width: 55%"></el-input>
+                  <el-input v-model="user.pwd2" type="password" autocomplete="off" placeholder="请确认你的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请确认你的密码'" style="width: 55%"></el-input>
                 </el-form-item>
                 <el-form-item prop="sex">
                   <i class="el-icon-setting"></i>

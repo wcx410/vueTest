@@ -1,9 +1,11 @@
 <template>
   <div id="app" class="homeWrap">
     <el-container  style="height:100%">
-      <el-aside width="200px" >
+      <el-aside width="200px" style="background-color: burlywood">
+        <h2 style="text-align: center">后台首页</h2>
         <!-- 菜单-->
         <el-tree
+          style="background-color: burlywood"
           :data="data"
           :props="defaultProps"
           accordion
@@ -46,6 +48,10 @@
   import PurchaseOrder from "../../components/back/home/Purchase/PurchaseOrder";
   import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
   import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
+  import PurchaseOrderJiLu from "../../components/back/home/Purchase/PurchaseOrderJiLu";
+  import RoleManagement from "../../components/back/home/system/role/RoleManagement";
+  import PermissionManagement from "../../components/back/home/system/permission/PermissionManagement";
+  import CustomerMaintain from "../../components/back/home/Customer/CustomerMaintain";
   import Commodity from "../../components/back/home/Commodity/Commodity";
   import CommodityLableMaintain from "../../components/back/home/Commodity/CommodityLableMaintain";
   import CommodityTypeMaintain from "../../components/back/home/Commodity/CommodityTypeMaintain";
@@ -56,13 +62,17 @@
       components:{
           EmpManagement,
           Warehousemaintain,
+        RoleManagement,
+        PermissionManagement,
+        CustomerMaintain,
           PurchaseOrder,
           Commodity,
           CommodityLableMaintain,
           CommodityTypeMaintain,
           Distribution,
         MaintenanceApply,
-        ShopMaintenance
+        ShopMaintenance,
+        PurchaseOrderJiLu
       },
       data () {
         return {

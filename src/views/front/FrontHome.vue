@@ -9,11 +9,11 @@
         <!--热门分类-->
         <hot-types></hot-types>
         <!--新品上市-->
-        <new-commodity :data="homeData.newReleases"></new-commodity>
+        <new-commodity :data="homeData"></new-commodity>
         <!--热销商品-->
-        <hot-sale :data="homeData.hotSale"></hot-sale>
+        <!--<hot-sale :data="homeData.hotSale"></hot-sale>-->
         <!--猜你喜欢-->
-        <guess-likes :data="homeData.guessLikes"></guess-likes>
+        <!--<guess-likes :data="homeData.guessLikes"></guess-likes>-->
       </el-main>
 
       <el-footer style="margin: 100px -10px -10px -10px;padding: 0;">
@@ -49,11 +49,7 @@
       },
       data(){
           return{
-            homeData:{
-              newReleases:[],
-              hotSale:[],
-              guessLikes:[]
-            },
+            homeData:[],
             carData:null
           }
       },
@@ -67,7 +63,8 @@
         this.$axios.get("/commodity/queryHome").then(function (result) {
           console.log(result);
           _this.homeData=result.data;
-        }).catch()
+        }).catch();
+
       }
     }
 </script>

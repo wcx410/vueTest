@@ -8,7 +8,18 @@
         </el-form-item>
         <el-form-item label="员工头像: ">
           <!-- 商品图片-->
-          <emp-management-image :image-file="imageFile"></emp-management-image>
+          <el-upload
+            class="avatar-uploader"
+            :show-file-list="true"
+            action=""
+            :on-change="handleChange"
+            :auto-upload="false"
+            :before-upload="beforeAvatarUpload"
+            name="file">
+            <img v-if="imageFile.url" :src="$host + imageFile.url" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+          <!--<emp-management-image :image-file="imageFile"></emp-management-image>-->
         </el-form-item>
         <el-form-item label="员工性别: ">
           <el-radio v-model="formData.sex" label="男" value="男" border></el-radio>
@@ -51,15 +62,6 @@
     name:"EmpManagementEdit",
     data(){
       return{
-       /* formData:{
-          name:"",
-          sex:"",
-          phone:"",
-          icCard:"",
-          address:"",
-          email:"",
-          remark:""
-        },*/
         rules:{
           name: [{
             pattern: /^[\u4e00-\u9fa5]{2,4}$/,
@@ -99,7 +101,31 @@
     // props:["formData","imageFile"],
     props:{
       formData: {},
-      imageFile:{}
+      imageFile:{},
+      imageFileHeard:{},
+    },
+    methods:{
+      beforeAvatarUpload(file) {
+        _this=this;
+        const type = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
+        const isLt5M = file.size / 1024 / 1024 < 5;
+        if (!type)
+          _this.$message.error('上传图片只能是 JPG 或 PNG 获取 GIF 格式!');
+        if (!isLt5M)
+          _this.$message.error('上传图片大小不能超过 5MB!');
+        return type && isLt5M;
+      },
+
+      //上传成功调用
+      handleAvatarSuccess(res, files) {
+        _this=this;
+        _this.imageFile.url = res.msg;
+      },
+      handleChange(file, fileList) {
+        this.imageFileHeard.push(file.raw)
+        this.handleChange(file)
+        this.beforeAvatarUpload(file.raw);
+      },
     },
     //触发验证
     async validate() {

@@ -38,6 +38,11 @@ const UserRoutes = [
     component: footprint
   },
 
+  {
+    path: '/apply',
+    component: Merchant
+  },
+
 ]
 
 export default UserRoutes

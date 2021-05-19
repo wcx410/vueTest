@@ -1,13 +1,19 @@
 <template>
   <div>
-    <el-form label-width="80px" status-icon :model="roleDate" ref="role">
-      <el-form-item label="选择角色" prop="comType.id">
-        <el-select v-model="roleDate.role.id">
-          <el-option :value="0" label="--请选择--"></el-option>
-          <el-option :value="r.id" :label="r.name" v-for="r in role"  ></el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
+    <!--<el-form label-width="80px" status-icon ref="role" >-->
+      <!--<el-form-item label="选择角色" v-model="roles" placeholder="请选择">-->
+        <!--<el-select v-model="roles" placeholder="请选择">-->
+          <!--<el-option  v-for="r in role"   :value="r.id" :label="r.name"  ></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+    <!--</el-form>-->
+    <!--<el-checkbox-group  size="small" >
+      &lt;!&ndash;<el-checkbox  v-for="r in role"  :value="r.id" :label="r.name"  border></el-checkbox>&ndash;&gt;
+      <el-checkbox v-for="r in role"  :key="r.name"  >{{r.name}}</el-checkbox>
+    </el-checkbox-group>-->
+    <el-checkbox-group  v-model="ids">
+      <el-checkbox  v-for="r in roles"  :label="r.id">{{r.name}}</el-checkbox>
+    </el-checkbox-group>
   </div>
 </template>
 
@@ -16,26 +22,45 @@
     name: "EmpManagementRoleEdit",
     data(){
       return{
-        role:[]
+        role:[{id:1,name:"角色1"},{id:2,name:"角色2"}],
+        roles:[],
+        ids:[]
       }
     },
-    props:{
-      roleDate: {}
-    },
+    props:[
+      // roleDate: {}
+      "roledata"
+    ],
+
+
     methods:{
       //查询所有商品类型信息
       getEmpRoleAll(){
         var _this=this;
         this.$axios.post("/role/queryallrole").then(value => {
-          console.log(value.data)
-          _this.role=value.data;
+          console.log(value.data.records)
+         this.roles=value.data.records;
         })
       },
-
+      emproles() {
+        //获取员工id
+        // this.id=row.id;
+        let params = new URLSearchParams();
+        params.append("id", roledata);
+        this.$axios.post("/employee/querybyid", params)
+          .then((result) => {
+            result.data.forEach((val)=>{
+              this.ids .push(val.role)
+            })
+          }).catch()
+      },
     },
     created() {
       //加载所有商品类型信息
       this.getEmpRoleAll();
+    },
+    mounted(){
+
     },
     //触发验证
     async validate() {

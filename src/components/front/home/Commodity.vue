@@ -2,6 +2,7 @@
   <div class="xsyx-commodity-item">
     <div class="xsyx-commodity-content">
       <el-badge :value="'NEW'" type="success" class="badge"/>
+      <!--path: '/spxq?id=' + data.id-->
       <div class="image-box" @click="$router.push({path: '/spxq?id=' + data.id})">
         <el-image :src="$host + data.image" fit="cover" class="image"></el-image>
       </div>

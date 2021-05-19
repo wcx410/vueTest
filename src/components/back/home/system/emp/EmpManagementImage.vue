@@ -3,9 +3,10 @@
   <div>
     <el-upload
       class="avatar-uploader"
-      :action="'http://localhost:8080/fileUpload?dir=back/comimg&empId=' + empId"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
+      :show-file-list="true"
+      action=""
+      :on-change="handleChange"
+      :auto-upload="false"
       :before-upload="beforeAvatarUpload"
       name="file">
       <img v-if="imageFile.url" :src="$host + imageFile.url" class="avatar">
@@ -20,7 +21,8 @@
     data(){
       return{
         imageFile: {},
-        empId :'1'
+        empId :'1',
+        imageFileHeard:[]
       }
       //当前员工id, 上传需要获取员工id
     },
@@ -41,7 +43,12 @@
       handleAvatarSuccess(res, files) {
         _this=this;
         _this.imageFile.url = res.msg;
-      }
+      },
+      handleChange(file, fileList) {
+        this.imageFileHeard.push(file.raw)
+        this.handleChange(file)
+        this.beforeAvatarUpload(file.raw);
+      },
 
     }
   }

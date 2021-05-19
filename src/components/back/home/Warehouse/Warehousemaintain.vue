@@ -300,7 +300,7 @@
                         label="商品图片"
                         prop="image">
                     <template slot-scope="props">
-                        <el-image fit="cover" :src="$host+props.row.image" :preview-src-list="[$host+props.row.image]"
+                        <el-image fit="cover" :src="props.row.image" :preview-src-list="[props.row.image]"
                                   style="width: 100px;height: 50px"></el-image>
                     </template>
                 </el-table-column>
@@ -410,7 +410,7 @@
                 <el-form-item label="仓库类型:">
                     <el-input v-model="wartype" style="width: 250px"></el-input>
                 </el-form-item>
-                <el-form-item label="仓库容量;">
+                <el-form-item label="仓库容量:">
                     <el-input v-model="warcapacity" style="width: 250px"></el-input>
                 </el-form-item>
                 <el-form-item label="仓库地址:">
@@ -433,7 +433,7 @@
                 <el-form-item label="仓库类型:">
                     <el-input v-model="wartype" style="width: 250px"></el-input>
                 </el-form-item>
-                <el-form-item label="仓库容量;">
+                <el-form-item label="仓库容量:">
                     <el-input v-model="warcapacity" style="width: 250px"></el-input>
                 </el-form-item>
                 <el-form-item label="仓库地址:">
@@ -589,6 +589,8 @@
             url: "/commodity/queryallcommodity.action",
             data: params
           }).then(value => {
+            console.log("queryallcommodity.action")
+            console.log(value)
             console.log(value.data)
             this.shoptableData = value.data;
           })
@@ -599,7 +601,8 @@
             method: "post",
             url: "/purchase/queryPurchaseLinShiAll",
           }).then(value => {
-            //console.log(value.data)
+            console.log("value.data")
+            console.log(value.data)
             this.PurchaseLinShiData = value.data;
           })
         },
@@ -967,7 +970,7 @@
         //点击备注页面的确定按钮 提交采购申请
         SubmitCaiGou(){
           let params = new URLSearchParams();
-          params.append("applicant",EmpHelper.empId);
+          //params.append("applicant",request.data.id);
           params.append("applicantremarks",this.beizhu);
           //添加
           Axios({

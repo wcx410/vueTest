@@ -16,6 +16,7 @@
       <!--<el-image style="width:200px;height: 200px" v-if="user.headPortrait" :src="$host + user.headPortrait"></el-image>-->
 
       <!--</el-upload>-->
+      <el-image style="height: 100px;width: 150px" :src="user.headPortrait"  fit="cover" lazy></el-image>
       <div style="font-size: 15px;margin-left: 240px;margin-top: -60px">
         昵称：{{ user.username }}<br><br>
       </div>
@@ -36,7 +37,7 @@
 
       <div style="margin-left: 390px;margin-top: -40px" v-show="isSmrz">
         <!--去申请商户-->
-        <el-button type="warning" plain @click="$router.replace('/apply')">申请成为商户</el-button>
+        <el-button type="warning" plain @click="$router.push('/apply')">申请成为商户</el-button>
       </div>
 
       <div style="margin-left: 390px;margin-top: -40px" v-show="sh">
@@ -61,7 +62,7 @@
     <br>
     <div style="font-size: 15px">
       <label>电话：</label>
-      <el-input type="text" style="width: 200px;margin-left: 40px" v-model="user.phone|phones" :disabled="true">123</el-input>
+      <el-input type="text" style="width: 200px;margin-left: 40px" v-model="user.phone" :disabled="true">123</el-input>
     </div>
     <br>
     <br>
@@ -73,7 +74,7 @@
     <br>
     <div style="font-size: 15px" v-show="sqsh">
       <label>身份证：</label>
-      <el-input type="text" style="width: 200px;margin-left: 24px" v-model="user.idCard|idCards" :disabled="true"></el-input>
+      <el-input type="text" style="width: 200px;margin-left: 24px" v-model="user.idCard" :disabled="true"></el-input>
     </div>
 
     <br>
@@ -141,6 +142,9 @@
           params.append("id",sessionStorage.getItem("user"));
           this.$axios.post("space/queryBy",params).then(function (response) {
             _this.user = response.data;
+            _this.user.headPortrait = "http://localhost:8090/xsyx/"+response.data.headPortrait
+            console.log(_this.user)
+
             // 是否进行了实名认证
             if (_this.user.idCard == null) {
               _this.isnSmrz = true

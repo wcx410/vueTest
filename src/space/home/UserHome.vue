@@ -8,7 +8,7 @@
             <el-menu-item>
               <el-image style="width: 60px; height: 60px" src=""></el-image>
             </el-menu-item>
-            <el-menu-item><i class="el-icon-house" @click="$router.push('/')"/>首页</el-menu-item>
+            <el-menu-item><i class="el-icon-house" @click="goHome"/>首页</el-menu-item>
             <el-menu-item class="right">
               <el-image style="width: 55px; height: 50px" src=""></el-image>
             </el-menu-item>
@@ -45,7 +45,7 @@
                         <el-menu-item  @click="$router.push('/updateuser')">修改个人信息</el-menu-item>
                       </el-menu-item-group>
                     </el-submenu>
-                    <el-menu-item @click="$router.push('/shopCar')"><i class="el-icon-shopping-cart-full"/>我的购物车</el-menu-item>
+                    <el-menu-item @click="goShopCar"><i class="el-icon-shopping-cart-full"/>我的购物车</el-menu-item>
                     <!--index="./goods"-->
                     <el-menu-item @click="$router.push('/goods')"><i class="el-icon-shopping-bag-2"/>已买到的宝贝</el-menu-item>
                     <el-menu-item @click="$router.push('/collection')"><i class="el-icon-star-off"/>我的收藏</el-menu-item>
@@ -108,6 +108,16 @@
             }
         },
         methods:{
+          goShopCar(){
+            if (sessionStorage.getItem("user")==null){
+              this.$router.push('/login')
+            }else {
+              this.$router.push("/shopCar")
+            }
+          },
+          goHome(){
+            this.$router.push('/');
+          },
           handleOpen() {
 
           },

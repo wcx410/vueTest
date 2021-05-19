@@ -213,6 +213,7 @@
           //根据订单id 查询所有采购商品
           let params = new URLSearchParams();
           params.append("orderid", this.currentRowIndex.toString())
+          console.log(this.currentRowIndex.toString())
           Axios({
             method: "post",
             url: "/purchase/querycaigouAll",
@@ -248,7 +249,8 @@
           //console.log(this.beizhu)
           let params = new URLSearchParams();
           params.append("orderid", this.currentRowIndex.toString());
-          params.append("approvedby", EmpHelper.empId);
+          //params.append("approvedby", sessionStorage.getItem("emp"));
+          console.log(sessionStorage.getItem("emp.id")+"---------emp.id")
           params.append("state", "1");
           params.append("approvedbyremarks", this.beizhu);
 
@@ -298,10 +300,10 @@
           //传一个表示同意的参数 1 修改状态
 
           //获取审批人备注
-          //console.log(this.beizhu)
+          console.log(request.data.id)
           let params = new URLSearchParams();
           params.append("orderid", this.currentRowIndex.toString());
-          params.append("approvedby", EmpHelper.empId);
+          //params.append("approvedby", sessionStorage.getItem("emp"));
           params.append("state", "-1");
           params.append("approvedbyremarks", this.beizhu);
 
