@@ -15,8 +15,9 @@
         }
       },
       methods: {
-        query:{
-
+        query(){
+          this.$store.commit("setSearch",this.search);
+          this.$router.push("/HomeSearch");
         }
       }
     }

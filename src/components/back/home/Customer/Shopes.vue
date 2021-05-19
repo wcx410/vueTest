@@ -37,7 +37,7 @@
         <el-input-number v-model="number" @change="handleChange" :min="1" :max="10" style="margin-left: 800px;margin-top: 25px"></el-input-number>
       </div>
       <div style="margin-left: 1050px;margin-top: -40px">
-        <el-button type="danger" round @click="">点击购买</el-button>
+        <el-button type="danger" round @click="add()">加购物车</el-button>
       </div>
 
       <div class="pl">
@@ -135,13 +135,27 @@
             _this.goodName=item.data.name;
             _this.goodPrice=item.data.price;
             _this.goodParticulars=item.data.particulars;
-            _this.image=item.data.image;
+            _this.image="http://localhost:8090/xsyx/"+item.data.image;
 
           }).catch()
         },
         handleChange(){
           console.log("number:"+this.number);
-        }
+        },
+        add(cid,price) {
+          if (sessionStorage.getItem("user") == null) {
+            this.$router.push("/login")
+          } else {
+            var _this = this;
+            var params = new URLSearchParams();
+            params.append("totalprice", this.goodPrice*this.number)
+            params.append("number", this.number)
+            params.append("uid", sessionStorage.getItem("user"));
+            params.append("cid", this.id);
+            this.$axios.post("/shopCar/addShopCar", params).then(function (item) {
+            }).catch()
+          }
+        },
       },
       created() {
         // let str = location.search;

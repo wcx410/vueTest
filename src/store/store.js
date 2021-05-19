@@ -4,10 +4,22 @@ import Vuex from 'Vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state:{},
-  getters:{},
-  mutations:{},
-  actions:{},
+  state:{
+    search:""
+  },
+  getters:{
+    getSearch(state){
+      return state.search;
+    }
+  },
+  mutations:{
+    setSearch(state,val){
+      state.search = val;
+    }
+  },
+  actions:{
+
+  },
   modules: {
     'front': {
       namespaced: true,
@@ -97,3 +109,4 @@ export default new Vuex.Store({
     }
   }
 })
+

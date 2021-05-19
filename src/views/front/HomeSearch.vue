@@ -16,30 +16,29 @@
             <label style="font-size: 20px;color: #8558D6;display: inline">搜索结果</label>
             <div class="xsyx-line"></div><br>
           </el-row>
-<!--          <div class="xsyx-commodity-content">-->
-<!--            <el-badge :value="'NEW'" type="success" class="badge"/>-->
-<!--            <div class="image-box" @click="$router.push({path: '/spxq?id=' + data.id})">-->
-<!--              <el-image :src="$host + data.image" fit="cover" class="image"></el-image>-->
-<!--            </div>-->
-<!--            <el-row style="height: 52px">-->
-<!--              <div class="title">{{ data.name }}</div>-->
-<!--            </el-row>-->
+          <div class="xsyx-commodity-content" v-for="c in tableData">
+            <el-badge :value="'NEW'" type="success" class="badge"/>
+            <div class="image-box" @click="selByid(c.id)">
+              <el-image :src="c.image" fit="cover" class="image"></el-image>
+            </div>
+            <el-row style="height: 52px">
+              <div class="title">{{ c.name }}</div>
+            </el-row>
 <!--            <el-row>-->
-<!--              <div class="type">{{ data.comType.name }}</div>-->
+<!--              <div class="type">{{ c.comType }}</div>-->
 <!--            </el-row>-->
-<!--            <el-row>-->
-<!--              <el-button class="add-to-car" type="success" round plain>加入购物车</el-button>-->
-<!--              <div class="price">-->
-<!--                <span class="discount"></span>-->
-<!--                <span class="discount-price"> ￥{{ data.price }}</span>-->
-<!--                <span> / {{ data.unit }}</span>-->
-<!--              </div>-->
-<!--            </el-row>-->
-<!--          </div>  -->
+            <el-row>
+              <el-button class="add-to-car" type="success" @click="add(c.id,c.price)" round plain>加入购物车</el-button>
+              <div class="price">
+                <span class="discount"></span>
+                <span class="discount-price"> ￥{{ c.price }}</span>
+                <span> / {{ c.unit }}</span>
+              </div>
+            </el-row>
+          </div>
           <el-row>
             <div class="xsys-commodity-box">
-              {{name}}
-              {{unit}}
+
             </div>
           </el-row>
 
@@ -77,20 +76,51 @@
       components: {FrontHeader,  Footer},
       data(){
         return{
-          name: "",
-          image: "",
-          unit: "",
+          search:"",
+          tableData: [],
         }
       },
       methods:{
         query() {
           var _this = this;
           var params = new URLSearchParams();
+          this.search = this.$store.state.search;
           params.append("name",this.search);
-          this.$axios.post("/commodity/queryallcommodity.action", params).then(function (item) {
-            console.log(item)
+          this.$axios.post("/commodity/queryallcommoditys.action", params).then(function (item) {
+            _this.tableData = item.data;
+            _this.tableData = _this.tableData.map((val)=>{
+              val.image="http://localhost:8090/xsyx/"+val.image;
+              return val;
+            })
           })
+        },
+        add(cid,price) {
+          if (sessionStorage.getItem("user") == null) {
+            this.$router.push("/login")
+          } else {
+            var _this = this;
+            var params = new URLSearchParams();
+            params.append("totalprice", price * 1)
+            params.append("number", 1)
+            params.append("uid", sessionStorage.getItem("user"));
+            params.append("cid", cid);
+            this.$axios.post("/shopCar/addShopCar", params).then(function (item) {
+            }).catch()
+          }
+        },
+        selByid(id){
+
+          this.$router.push({path: '/spxq?id=' + id})
+          // var _this=this;
+          // var params = new URLSearchParams();
+          // params.append("id",this.id);
+          // this.$axios.post("/commodity/xiangqing.action",params).then(function (item) {
+          //
+          // }).catch()
         }
+      },
+      created() {
+          this.query();
       }
     }
 </script>
