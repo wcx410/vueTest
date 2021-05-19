@@ -1,9 +1,11 @@
 <template>
   <div id="app" class="homeWrap">
     <el-container  style="height:100%">
-      <el-aside width="200px" >
+      <el-aside width="200px" style="background-color: burlywood">
+        <h2 style="text-align: center">后台首页</h2>
         <!-- 菜单-->
         <el-tree
+          style="background-color: burlywood"
           :data="data"
           :props="defaultProps"
           accordion

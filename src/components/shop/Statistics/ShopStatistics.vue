@@ -50,7 +50,7 @@
                     <use xlink:href="#icon-shouru1"></use>
                   </svg>
                 </div>
-                <div style="float: left;">￥ {{zrsr}}</div>
+                <div style="float: left;">{{zrsr}}￥</div>
               </div>
             </div>
           </xl-panel>
@@ -79,17 +79,13 @@
       <el-col :span="24">
         <el-card shadow="hover">
           <div style="float: left">营收统计 : </div>
-          <el-radio-group v-model="scopeDay" style="margin-left: 30px">
-            <el-radio :label="365">一年内</el-radio>
-            <el-radio :label="30">一个月内</el-radio>
-            <el-radio :label="7">一周内</el-radio>
-          </el-radio-group>
 
           <el-divider></el-divider>
           <!-- 统计图 -->
-          <div ref="biao1" style="width: 60%;height: 400px;float: left"></div>
+          <!--<div ref="biao1" style="width: 60%;height: 400px;float: left"></div>-->
 
-          <div ref="biao2" style="width: 40%;height: 400px;float: right"></div>
+          <!--<div ref="biao2" style="width: 40%;height: 400px;float: right"></div>-->
+          <div id="main" style="width: 600px;height:400px;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -110,6 +106,8 @@
         daiti: "",
         zrsr:"",
         zsr:"",
+        xdata:[],
+        ydata:[],
         fromData: {
           comDiscount: {}
         },
@@ -119,28 +117,79 @@
       }
     },
     methods: {
+      initEchart() {
+        var _this = this;
+        //初始化echart实例，获取dom
+        var echartDemo = this.$echarts.init(document.getElementById('main'));
+        var option = {
+          title: {
+            text: '商品销量'
+          },
+          tooltip: {},
+          legend: {
+            data:['销量']
+          },
+          xAxis: {
+            data:_this.xdata
+          },
+          yAxis: {},
+          series: [{
+            name: '销量',
+            type: 'bar',
+            data: _this.ydata
+          }]
+        };
+        echartDemo.setOption(option);
+      },
       getCommodityAll() {
         var _this = this;
-        // let params = new URLSearchParams();
-        // params.append("id",sessionStorage.getItem("user.uid"))
+        let params = new URLSearchParams();
+        params.append("id",sessionStorage.getItem("user"))
         this.$axios.post("/shop/queryshouhuo.action").then(value => {
           _this.daishou = value.data.rows.length;
         }),
           this.$axios.post("/shop/querytihuo.action").then(value => {
             _this.daiti = value.data.rows.length;
           }),
-          this.$axios.post("/shop/queryzsr").then(value => {
-            _this.zsr = value.data
-            console.log("zzz"+value.data);
-          }),
-          this.$axios.post("/shop/queryztsr").then(value => {
+          this.$axios.post("/shop/queryztsr",params).then(value => {
             _this.zrsr = value.data
+          }),
+          this.$axios.post("/shop/queryzsr",params).then(value => {
+            _this.zsr = value.data
           })
       },
       //点击查询按钮 模糊查询商品信息
       MohuqueryCommodity() {
         this.getCommodityAll();
+      },
+    getdata(){
+      var _this =this;
+      this.$axios.post("shop/queryTu").then(function (response) {
+        _this.xdata=response.data.map(function (item) {
+          item =item.name;
+          return item;
+        })
+        _this.ydata=response.data.map(function (item) {
+          item =item.number;
+          return item;
+        })
+        console.log(_this.xdata);
+        console.log(_this.ydata);
+      }).catch();
+    }
+    },//数据自动刷新，必然需要一个监听机制告诉Echarts重新设置数据
+    watch: {
+      //观察option的变化
+      xdata: {
+        handler(newVal, oldVal) {
+          this.initEchart();
+        },
+        deep: true //对象内部属性的监听，关键。
       }
+    }
+    ,mounted(){
+      this.initEchart();
+      this.getdata();
     },
   created() {
     this.getCommodityAll();

@@ -40,11 +40,11 @@
                 </el-form-item>
                 <el-form-item prop="password">
                   <i class="el-icon-setting"></i>
-                  <el-input v-model="user.password" autocomplete="off" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" style="width: 55%"></el-input>
+                  <el-input v-model="user.password" type="password" autocomplete="off" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" style="width: 55%"></el-input>
                 </el-form-item>
                 <el-form-item prop="pwd2">
                   <i class="el-icon-setting"></i>
-                  <el-input v-model="user.pwd2" autocomplete="off" placeholder="请确认你的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请确认你的密码'" style="width: 55%"></el-input>
+                  <el-input v-model="user.pwd2" type="password" autocomplete="off" placeholder="请确认你的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请确认你的密码'" style="width: 55%"></el-input>
                 </el-form-item>
                 <el-form-item prop="sex">
                   <i class="el-icon-setting"></i>

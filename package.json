@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "axios": "^0.21.1",
+    "echarts": "^5.1.1",
     "identify": "^0.1.5",
     "jquery": "^1.12.4",
     "vue": "^2.5.11"

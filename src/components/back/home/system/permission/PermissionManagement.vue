@@ -8,7 +8,7 @@
         <el-table :data="tableData"
                   v-loading="isLoading"
                   highlight-current-row
-                  @current-change="selectRow"
+                  @row-click="selectRow"
         >
           <el-table-column width="100" prop="id" label="ID" sortable></el-table-column>
           <el-table-column width="200" prop="name" label="角色名"></el-table-column>
@@ -25,6 +25,10 @@
         </el-pagination>
       </el-col>
 
+      <div class="buttons">
+        <el-button @click="authorization">授权</el-button>
+        <el-button @click="resetChecked">清空</el-button>
+      </div>
       <!-- 树节点 -->
       <el-col :span="8">
         <div style="padding-left: 25px">
@@ -32,8 +36,9 @@
           :data="data"
           show-checkbox
           node-key="id"
-          :default-expanded-keys=[]
-          :default-checked-keys=false
+          ref="tree"
+          :default-expanded-keys="[]"
+          :default-checked-keys="ids"
           :props="defaultProps">
         </el-tree>
 
@@ -49,7 +54,7 @@
         name: "PermissionManagement",
       data(){
           return {
-            data: [],
+            data:[],
             defaultProps: {
               children: 'children',
               label: 'name'
@@ -63,6 +68,8 @@
             //每页条
             row: 10,
             tableData:[],
+            ids:[],
+            id:0
           }
       },
 
@@ -118,19 +125,63 @@
             console.log(this.data)
           }).catch();
         },
-        // async selectRow(){
-        //   var _this = this;
-        //   this.$axios.post("menu/querybyid").then((result)=> {
-        //
-        //   }).catch();
-        //
-        // },
+        selectRow(row, column, event){
+          console.log(row)
+          console.log(column)
+          console.log(event)
+          var _this = this;
+          this.id = row.id;
+          let params = new URLSearchParams();
+          params.append("id",row.id);
+          this.$axios.post("menu/querybyid",params).then((result)=> {
+            this.ids = result.data;
+            this.resetChecked();
+          }).catch();
+
+        },
       getmenu(){
           var _this = this;
-          this.$axios.post("menu/queryMenu.action").then((result)=>{
-            this.data = result.data;
+          this.$axios.post("/menu/querymenuthir").then((result)=>{
+            this.data= result.data;
           }).catch();
-      }
+      },
+        //清空
+        resetChecked() {
+          this.$refs.tree.setCheckedKeys([]);
+        },
+        //授权
+        authorization(){
+          var _this = this;
+          var list = this.$refs.tree.getCheckedNodes();
+          var zid = [];
+          var idss = [];
+          for (let i = 0; i < list.length-1; i++) {
+            zid.push(list[i].id);
+          }
+          zid.forEach(function (item) {
+            console.log("------------");
+            // console.log(item);
+            // console.log(_this.id);
+            var iid ={menu:item,role:_this.id};
+            idss.push(iid);
+          });
+          this.$axios.post("/menu/authorization",JSON.stringify(idss),{headers: {'Content-Type': 'application/json; charset=UTF-8'}})
+            .then((result) => {
+              if (result.data === true) {
+                this.$message({
+                  type: 'success',
+                  message: "授权成功√"
+                });
+              }
+              //刷新页面
+              this.getEmpManagement();
+            }).catch((msg) => {
+            this.$message({
+              type: 'error',
+              message: "授权失败×"
+            });
+          });
+        }
       },
     }
 </script>
