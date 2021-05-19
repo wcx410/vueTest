@@ -63,7 +63,7 @@
           return{
             'xs':true,
             'bxs':false,
-            carData:null
+            carData:null,
           }
         },
       components:{
