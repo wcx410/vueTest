@@ -148,14 +148,27 @@
                              </el-button>
                              </el-tooltip>
                          </el-popconfirm>
-
-
-
-
-
                        </template>
                    </el-table-column>
                    </el-table>
+
+<!--                   <div class="block">-->
+<!--                     <span class="demonstration">页数较少时的效果</span>-->
+<!--                     <el-pagination-->
+<!--                       layout="prev, pager, next"-->
+<!--                       :total="50">-->
+<!--                     </el-pagination>-->
+<!--                   </div>-->
+                   <el-pagination
+                     @size-change="rowChange"
+                     @current-change="pageChange"
+                     background
+                     :page-sizes="[10, 15, 25, 50]"
+                     :page-size="10"
+                     layout="total, sizes, prev, pager, next"
+                     :total="total">
+                   </el-pagination>
+
                  </template>
                     <!--模态框-->
                             <el-dialog :visible.sync="dialogVisible" >
@@ -246,12 +259,26 @@
                 idCard:"",
                 visible: false,
                 isDelete:"-1",
-                imageFile:[]
+                imageFile:[],
+                page:1,
+                //每页条
+                row:10,
+                total:0,
 
               }
             },
             methods:{
 
+              //页面大小改变
+              rowChange(val) {
+                this.row = val;
+                this.SelUser();
+              },
+              //页数改变
+              pageChange(val) {
+                this.page = val;
+                this.SelUser();
+              },
               beforeAvatarUpload(file) {
                 var  _this=this;
                 const type = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
@@ -273,12 +300,16 @@
                 params.append("username",this.searchStr);
                 params.append("state",this.isRealName);
                 params.append("sex",this.Sex);
-                params.append("isDelete",this.isDelete)
+                params.append("isDelete",this.isDelete);
+                params.append("page",this.page);
+                params.append("rows",this.row);
                 this.$axios.post("/user/queryUser.action",params).then(function (item) {
+
                 _this.dxs = item.data.records.map(val=>{
                   val.headPortrait="http://localhost:8090/xsyx/"+val.headPortrait;
                   return val;
                 })
+                  _this.total=value.data.total;
                 }).catch()
                 // console.log("searchStr:"+this.searchStr);
                 // console.log("isRealName:"+this.isRealName)
@@ -320,6 +351,7 @@
                   // console.log(item)
                 })
               },
+              //删除
               Deluser(id){
                 this.visible=true;
                 var _this=this;
@@ -327,9 +359,9 @@
                 params.append("id",id);
                 this.$axios.post("/user/Deluser.action",params).then(function (item) {
                   _this.SelUser();
-                  console.log(item)
                 })
               },
+              //恢复
               Delzero(id){
                 this.visible=true;
                 var _this=this;
