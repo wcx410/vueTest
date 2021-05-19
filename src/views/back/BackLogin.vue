@@ -55,7 +55,9 @@
               message: "登录成功"
             });
             _this.$router.push({path: "/back"});
-            sessionStorage.setItem("emp",request.data);
+            console.log("request.data.id")
+            console.log(request.data.id)
+            _this.sessionStorage.setItem("emp",request.data.id);
           }
         }).catch();
       }

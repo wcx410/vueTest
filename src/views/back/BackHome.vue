@@ -46,6 +46,7 @@
   import PurchaseOrder from "../../components/back/home/Purchase/PurchaseOrder";
   import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
   import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
+  import PurchaseOrderJiLu from "../../components/back/home/Purchase/PurchaseOrderJiLu";
 
     export default {
         name: "BackHome",
@@ -54,7 +55,8 @@
           Warehousemaintain,
           PurchaseOrder,
         MaintenanceApply,
-        ShopMaintenance
+        ShopMaintenance,
+        PurchaseOrderJiLu
       },
       data () {
         return {
