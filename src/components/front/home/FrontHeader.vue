@@ -9,11 +9,10 @@
       <el-menu-item class="right" index="8">
         <el-button round type="success" plain>现在下单</el-button>
       </el-menu-item>
-      <el-menu-item class="right" index="7">联系客服</el-menu-item>
-      <el-menu-item class="right" index="6" @click="$router.push('/zc')">注册</el-menu-item>
+      <el-menu-item id="zc" class="right" index="6" @click="$router.push('/zc')">注册</el-menu-item>
       <el-menu-item class="right" index="5" @click="$router.push('/userhome')">个人首页</el-menu-item>
 
-      <el-menu-item class="right" index="5" @click="$router.push('/login')" v-show="xs">登录</el-menu-item>
+      <el-menu-item id="dl" class="right" index="5" @click="$router.push('/login')" v-show="xs">登录</el-menu-item>
       <!--<el-avatar shape="square" class="right" style="margin-top: 10px"
                  :size="'small'" :fit="'fit'" src="./assets/mcimg/6.png" v-show="bxs">
       </el-avatar>-->
@@ -71,15 +70,23 @@
           HomeQuery,
           HotTypeTop
       },
-      methods: {
-        xianshi() {
-          if (sessionStorage.getItem("user") === null) {
+      methods:{
+        login(){
+          var dl = document.getElementById("dl");
+          var zc = document.getElementById("zc");
+          if (sessionStorage.getItem("user")!=null){
+            dl.style.display = "none"
+            zc.style.display = "none"
+          }
+        },
+        xianshi(){
+          if (sessionStorage.getItem("user") === null){
 
-            this.xs = true
-            this.bxs = false;
-          } else {
-            this.xs = false
-            this.bxs = true;
+            this.xs=true
+            this.bxs=false;
+          }else {
+            this.xs=false
+            this.bxs=true;
           }
         },
         goShopCar() {
@@ -99,7 +106,7 @@
         },
 
         mounted() {
-
+            this.login();
         }
     }
 </script>

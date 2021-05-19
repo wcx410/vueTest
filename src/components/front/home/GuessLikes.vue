@@ -3,7 +3,6 @@
     <el-row>
       <div class="xsyx-flag" style="background-color: #A0918A"></div>
       <label style="font-size: 20px;color: #A0918A;display: inline">猜你喜欢</label>
-      <el-link style="float: right">更多商品 >></el-link>
       <div class="xsyx-line"></div><br>
     </el-row>
 

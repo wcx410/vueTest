@@ -8,7 +8,7 @@
                    src="src/assets/mcimg/logos.png"
                    fit="cover"></el-avatar>
         <div class="menu-title">商户平台</div>
-        <div class="menu-item" style="width: 80px">首页</div>
+        <div class="menu-item" style="width: 80px" @click="$router.replace('/')">首页</div>
 
         <!--头像-->
         <div class="menu-item" style="float: right">

@@ -6,8 +6,6 @@
       <el-main style="margin-top: 50px">
         <!--巨幕-->
         <hugescreen></hugescreen>
-        <!--热门分类-->
-        <hot-types></hot-types>
         <!--新品上市-->
         <new-commodity :data="homeData"></new-commodity>
         <!--热销商品-->

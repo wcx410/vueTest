@@ -12,19 +12,21 @@ import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
 import CommodityImages from "../components/back/home/Commodity/CommodityImages";
 import CommodityLableMaintain from "../components/back/home/Commodity/CommodityLableMaintain";
 import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
-import Distribution from "../components/back/home/Distribution/Distribution";
 import BackLogin from "../views/back/BackLogin"
-import Registered from "../views/front/Registered"
 import Emp from "../components/back/home/system/emp/EmpManagement";
 import Role from "../components/back/home/system/role/RoleManagement";
 import Per from "../components/back/home/system/permission/PermissionManagement";
 import EmpManagementEdit from "../components/back/home/system/emp/EmpManagementEdit";
+import Distribution from "../components/back/home/Distribution/Distribution";
 import BackHome from "../views/back/BackHome";
 import BackRouter from "./back/backRouter";
 import HomeSearch from '../views/front/HomeSearch.vue'
 import ShopHome from "../views/shop/ShopHome";
 import ShopRouter from "./shop/ShopRouter";
 import Merchant from "../space/Merchant/Merchant";
+import Message from "../space/message/Message";
+import Registered from "../views/front/Registered"
+
 
 import Demo from "../components/back/home/system/permission/demo";
 Vue.use(VueRouter)
@@ -37,6 +39,10 @@ const routes = [
   {
     path: '/shopCar',
     component: ShopCar
+  },
+  {
+    path: '/msg',
+    component: Message
   },
   {
     path: '/apply',
@@ -76,7 +82,6 @@ const routes = [
   {path:'/per',component:Per},
   {path:'/empedit',component:EmpManagementEdit},
   {path:'/backLogin',component:BackLogin},
-
   {
     path: '/back',
     component: BackHome,

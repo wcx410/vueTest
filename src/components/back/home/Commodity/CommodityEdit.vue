@@ -11,7 +11,17 @@
             </el-form-item>
             <el-form-item label="商品图片">
                 <!-- 商品图片-->
-                <commodity-images :image-file="imageFile"></commodity-images>
+              <el-upload
+                class="avatar-uploader"
+                action=""
+                :auto-upload="false"
+                :on-change="handleChange"
+                :show-file-list="true"
+                :before-upload="beforeAvatarUpload"
+                name="file">
+                <img v-if="imageFile.url" :src="$host +imageFile.url" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
             </el-form-item>
             <el-form-item label="商品价格" prop="price">
                 <el-input  v-model="fromData.price"></el-input >
@@ -91,11 +101,29 @@
     components:{
       CommodityImages
   },
-    props:{
+    // ["fromData","imageFile"],
+    props:
+      {
       fromData: {},
       imageFile:{}
     },
     methods:{
+
+      beforeAvatarUpload(file) {
+        var  _this=this;
+        const type = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
+        const isLt5M = file.size / 1024 / 1024 < 5;
+        if (!type)
+          _this.$message.error('上传图片只能是 JPG 或 PNG 获取 GIF 格式!');
+        if (!isLt5M)
+          _this.$message.error('上传图片大小不能超过 5MB!');
+        return type && isLt5M;
+      },
+      // 上传附件
+      handleChange(file, fileList) {
+        this.imageFile.push(file.raw)
+        this.beforeAvatarUpload(file.raw);
+      },
       //查询所有商品类型信息
       getCommodityTypeAll(){
         var _this=this;

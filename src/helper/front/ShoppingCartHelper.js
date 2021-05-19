@@ -1,22 +1,5 @@
 const data=[
-  {
-    name: "西红柿",
-    count: 2,
-    image: './assets/logo.png',
-    price: 1.5
-  },
-  {
-    name: "西蓝花",
-    count: 3,
-    image: './assets/logo.png',
-    price: 2.5
-  },
-  {
-    name: "西蓝花",
-    count: 3,
-    image: './assets/logo.png',
-    price: 2.5
-  }
+
 ];
 
 /**

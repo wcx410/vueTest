@@ -51,6 +51,7 @@
                             <span>{{ props.row.particulars }}</span>
                         </el-form-item>
                         <el-form-item label="商品图片：">
+                          <el-image style="height: 100px;width: 150px" :src="props.row.image"  fit="cover" lazy></el-image>
 <!--                            <el-image fit="cover" :src="$host+props.row.image" :preview-src-list="[$host+props.row.image]" style="width: 100px;height: 50px"></el-image>-->
                         </el-form-item>
                         <el-form-item label="商品价格：">
@@ -149,7 +150,7 @@
                    :visible.sync="addmotaikuang">
             <!-- 商品添加组件, 传入data值, 传入图片列表 -->
 <!--            <commodity-add ref="addFrom" :from-data="fromData" :image-file="imageFile"></commodity-add>-->
-            <commodity-edit ref="addFrom" :from-data="fromData" :image-file="imageFile"></commodity-edit>
+            <commodity-edit ref="addFrom" :from-data="fromData" :image-file="imgFile"></commodity-edit>
 
             <div slot="footer" class="dialog-footer">
                 <el-button @click="addmotaikuang = false">取 消</el-button>
@@ -188,6 +189,7 @@
           addFrom:'',
           updateFrom:''
         },
+        imgFile:[],
       // /!*延迟表格加载*!/
       loading:true,
         //添加模态框的状态
@@ -248,6 +250,10 @@
         this.$axios.post("/commodity/queryallcommodity.action",params).then(value => {
           console.log(value.data.records)
           _this.tableData=value.data.records;
+          _this.tableData =_this.tableData.map(function (item) {
+            item.image="http://localhost:8090/xsyx/"+item.image;
+            return item;
+          })
         })
 
 
@@ -331,7 +337,7 @@
         //关闭模态框
         this.addmotaikuang = false;
         //执行提交操作
-        let params = new URLSearchParams();
+        let params = new FormData();
         params.append("name",this.fromData.name)
         params.append("particulars",this.fromData.particulars)
         params.append("image",this.imageFile.url)
@@ -340,13 +346,19 @@
         params.append("specification",this.fromData.specification)
         params.append("manufacturer",this.fromData.manufacturer)
         params.append("comType",this.fromData.comType.id)
+        params.append("imgFile",this.imgFile[0])
         params.append("state",0)
 
         console.log(params)
         console.log(this.fromData.name)
-
-        this.$axios.post("/commodity/add.action",params)
-          .then((result)=> {
+        // /commodity/add.action
+        this.$axios({
+          method: 'post',
+          url: '/commodity/add.action',
+          data:params,
+          headers: {
+            'Content-Type':'multipart/form-data'
+          }}).then((result)=> {
             if (result.data===true){
               _this.$message({
                 type: 'success',

@@ -6,15 +6,10 @@
             :default-active= " '1'"
                    mode="horizontal">
 
-            <el-menu-item><i class="el-icon-house" style="margin-left:90px;" @click="$router.push('/ ')"/>首页</el-menu-item>
+            <el-menu-item><i class="el-icon-house" style="margin-left:90px;" @click="$router.push('/')"/>首页</el-menu-item>
             <el-menu-item class="right">
               <el-image style="width: 55px; height: 50px;" src=""></el-image>
             </el-menu-item>
-            <el-menu-item class="right" index="8" >关于我们</el-menu-item>
-            <el-menu-item class="right" index="7" >联系客服</el-menu-item>
-            <el-menu-item class="right" index="6">注册</el-menu-item>
-            <el-menu-item class="right" index="5">登录</el-menu-item>
-            <el-menu-item index="3"><i class="el-icon-scissors"></i>每日特价</el-menu-item>
           </el-menu>
         </el-header>
 
@@ -141,7 +136,7 @@
           getShopCar(){
             var _this =this;
             var params = new URLSearchParams();
-            params.append("uid",userhelper.userId);
+            params.append("uid",sessionStorage.getItem("user"));
             this.$axios.post("shopCar/shopCarAndCommodities",params).then(function (response) {
               _this.MyShopcar = response.data;
             }).catch();
@@ -164,6 +159,7 @@
                   message: '成功',
                   type: 'success'
                 });
+                this.getShopCar();
               }else {
                 _this.$message({
                   message: '失败',

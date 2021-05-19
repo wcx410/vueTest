@@ -2,8 +2,7 @@
   <div class="xsyx-block">
     <el-row>
       <div class="xsyx-flag" style="background-color: #8558D6"></div>
-      <label style="font-size: 20px;color: #8558D6;display: inline">新品上市</label>
-      <el-link style="float: right">更多新品 >></el-link>
+      <label style="font-size: 20px;color: #8558D6;display: inline">全部商品</label>
       <div class="xsyx-line"></div><br>
     </el-row>
 

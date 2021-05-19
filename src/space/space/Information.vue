@@ -177,7 +177,6 @@
           var _this =this;
           var params = new URLSearchParams();
           params.append("id",sessionStorage.getItem("user"));
-          console.log("zzz"+sessionStorage.getItem("user.id"))
           params.append("idCard",this.user.idCard)
           this.$axios.post("space/updateUser",params).then(function (response) {
             // _this.msg = response.data;

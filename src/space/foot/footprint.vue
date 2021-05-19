@@ -29,7 +29,7 @@
           getfoot(){
             var _this =this;
             var params = new URLSearchParams();
-            params.append("uid",userhelper.userId);
+            params.append("uid",sessionStorage.getItem("user"));
             this.$axios.post("foot/queryFoot",params).then(function (response) {
               _this.commodity = response.data;
             }).catch();

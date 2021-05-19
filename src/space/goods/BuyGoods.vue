@@ -73,7 +73,7 @@
           var _this =this;
           var params = new URLSearchParams();
           params.append("state",state);
-          params.append("uid",userhelper.userId);
+          params.append("uid",sessionStorage.getItem("user"));
           this.$axios.post("buy/getBuyGoods",params).then(function (response) {
             _this.goods = response.data;
           }).catch();

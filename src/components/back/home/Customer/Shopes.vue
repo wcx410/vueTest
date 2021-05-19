@@ -6,14 +6,10 @@
       <el-menu-item>
         <el-image style="width: 60px; height: 60px" src="../assets/mcimg/logos.png"></el-image>
       </el-menu-item>
-      <el-menu-item><i class="el-icon-house"/>首页</el-menu-item>
+      <el-menu-item><i class="el-icon-house" @click="$router.replace('/')"/>首页</el-menu-item>
       <el-menu-item class="right">
         <el-image style="width: 55px; height: 50px" src="../assets/mcimg/hua.png"></el-image>
       </el-menu-item>
-      <el-menu-item class="right" index="8">关于我们</el-menu-item>
-      <el-menu-item class="right" index="7">联系客服</el-menu-item>
-      <el-menu-item class="right" index="6">注册</el-menu-item>
-      <el-menu-item class="right" index="5">登录</el-menu-item>
 
       <el-menu-item index="3"><i class="el-icon-scissors"></i>每日特价</el-menu-item>
     </el-menu>

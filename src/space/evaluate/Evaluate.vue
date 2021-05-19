@@ -29,7 +29,7 @@
           getComments(){
             var _this =this;
             var params = new URLSearchParams();
-            params.append("uid",userhelper.userId);
+            params.append("uid",sessionStorage.getItem("user"));
             this.$axios.post("evaluate/getComments",params).then(function (response) {
               _this.shopEvaluate = response.data;
             }).catch();

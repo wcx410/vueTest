@@ -3,7 +3,6 @@
     <el-row>
       <div class="xsyx-flag" style="background-color: #FF7034"></div>
       <label style="font-size: 20px;color: #FF7034;display: inline">热销商品</label>
-      <el-link style="float: right">更多热销 >></el-link>
       <div class="xsyx-line"></div><br>
     </el-row>
 
