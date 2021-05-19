@@ -147,6 +147,8 @@
           var _this = this;
           let params = new URLSearchParams();
           params.append("name",this.input);
+          params.append("page",this.page);
+          params.append("rows",this.rows);
           this.$axios.post("/commodity/queryAlltypebydto.action",params).then(value => {
             console.log(value.data.records)
             _this.tableData = value.data.records;
@@ -188,7 +190,8 @@
               });
             }
             //刷新页面
-            this.getCommodityAll();
+            this.getCommodityTypeAll();
+            this.addmotaikuang = false;
           }).catch((msg) => {
             _this.$message({
               type: 'error',
@@ -220,18 +223,19 @@
             if (result.data === true) {
               _this.$message({
                 type: 'success',
-                message: "添加成功√"
+                message: "修改成功√"
               });
             }
             //刷新页面
-            this.getCommodityAll();
+            this.getCommodityTypeAll();
+            this.updatemotaikuang = false;
           }).catch((msg) => {
             _this.$message({
               type: 'error',
-              message: "添加失败×"
+              message: "修改失败×"
             });
             //关闭模态框
-            this.addmotaikuang = false;
+            this.updatemotaikuang = false;
             //刷新页面
             this.getCommodityTypeAll();
           })
@@ -248,8 +252,9 @@
           }).then(() => {
             let params = new URLSearchParams();
             params.append("id", row.id)
+            console.log(row.id)
             //执行删除操作
-            this.$axios.post("/commodity/deletetype", params)
+            this.$axios.post("/commodity/deletetype.action", params)
               .then((result) => {
                 if (result.data === true) {
                   this.$message({

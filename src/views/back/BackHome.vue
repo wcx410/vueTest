@@ -52,6 +52,10 @@
   import RoleManagement from "../../components/back/home/system/role/RoleManagement";
   import PermissionManagement from "../../components/back/home/system/permission/PermissionManagement";
   import CustomerMaintain from "../../components/back/home/Customer/CustomerMaintain";
+  import Commodity from "../../components/back/home/Commodity/Commodity";
+  import CommodityLableMaintain from "../../components/back/home/Commodity/CommodityLableMaintain";
+  import CommodityTypeMaintain from "../../components/back/home/Commodity/CommodityTypeMaintain";
+  import Distribution from "../../components/back/home/Distribution/Distribution";
 
     export default {
         name: "BackHome",
@@ -62,6 +66,10 @@
         PermissionManagement,
         CustomerMaintain,
           PurchaseOrder,
+          Commodity,
+          CommodityLableMaintain,
+          CommodityTypeMaintain,
+          Distribution,
         MaintenanceApply,
         ShopMaintenance,
         PurchaseOrderJiLu
