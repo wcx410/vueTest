@@ -12,6 +12,7 @@ import CommodityEdit from "../components/back/home/Commodity/CommodityEdit"
 import CommodityImages from "../components/back/home/Commodity/CommodityImages";
 import CommodityLableMaintain from "../components/back/home/Commodity/CommodityLableMaintain";
 import CommodityTypeMaintain from "../components/back/home/Commodity/CommodityTypeMaintain";
+import Distribution from "../components/back/home/Distribution/Distribution";
 import BackLogin from "../views/back/BackLogin"
 import Registered from "../views/front/Registered"
 import Emp from "../components/back/home/system/emp/EmpManagement";
@@ -93,7 +94,7 @@ const routes = [
   {
     path: '/lb',
 
-    component: CommodityLableMaintain
+    component: Distribution
   },
   {
     path: '/spxq',
