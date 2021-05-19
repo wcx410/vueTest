@@ -130,9 +130,9 @@
           params.append("yyzzimgFile",this.yyzzimageFile[0])
           params.append("sfzzimageFile",this.sfzzimageFile[0])
           params.append("sfzfimageFile",this.sfzfimageFile[0])
-          console.log(this.yyzzimageFile)
-          console.log(this.sfzzimageFile)
-          console.log(this.sfzfimageFile)
+          // console.log(this.yyzzimageFile)
+          // console.log(this.sfzzimageFile)
+          // console.log(this.sfzfimageFile)
 
             this.$axios({
               method: 'post',
