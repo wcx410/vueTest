@@ -6,22 +6,25 @@
         <span class="login-title">兴盛优选后台登录</span>
       </div>
       <div class="login-body">
-        <el-row>
-          <el-input placeholder="请输入账号" clearable v-model="empInfo.name">
-            <template slot="prepend">账号 :</template>
-          </el-input>
-        </el-row>
-        <el-row>
-          <el-input placeholder="请输入密码" clearable show-password v-model="empInfo.password">
-            <template slot="prepend" >密码 :</template>
-          </el-input>
-        </el-row>
+        <el-form ref="form" :model="empInfo" label-width="80px">
+          <!--<el-form-item label="活动名称" prop="name">-->
+            <!--<el-input v-model="ruleForm.name"></el-input>-->
+          <!--</el-form-item>-->
+          <el-form-item label="账号" class="login-center-input">
+              <el-input placeholder="请输入账号" type="type"  v-model="empInfo.name"></el-input>
+          </el-form-item>
+          <el-form-item label="密码 :" class="login-center-input">
+              <el-input placeholder="请输入密码" type="type" v-model="empInfo.password" show-password></el-input>
+          </el-form-item>
         <!--<el-row>-->
           <!--<el-switch :active-text="'记住我'" v-model="rememberMe"></el-switch>-->
         <!--</el-row>-->
         <el-row>
-          <el-button class="login-btn" type="primary" round plain @click="login">登录</el-button>
+          <el-form-item>
+            <el-button  type="primary" round plain @click="login">登录</el-button>
+          </el-form-item>
         </el-row>
+        </el-form>
       </div>
     </div>
   </div>
@@ -85,6 +88,7 @@
     background-color: #505458;
   }
   .login-title {
+    margin: auto;
     color: white;
     font-size: 25px;
     font-weight: bold;

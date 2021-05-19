@@ -49,12 +49,18 @@
   import MaintenanceApply from "../../components/shop/Maintenance/MaintenanceApply";
   import ShopMaintenance from "../../components/shop/Maintenance/ShopMaintenance"
   import PurchaseOrderJiLu from "../../components/back/home/Purchase/PurchaseOrderJiLu";
+  import RoleManagement from "../../components/back/home/system/role/RoleManagement";
+  import PermissionManagement from "../../components/back/home/system/permission/PermissionManagement";
+  import CustomerMaintain from "../../components/back/home/Customer/CustomerMaintain";
 
     export default {
         name: "BackHome",
       components:{
           EmpManagement,
           Warehousemaintain,
+        RoleManagement,
+        PermissionManagement,
+        CustomerMaintain,
           PurchaseOrder,
         MaintenanceApply,
         ShopMaintenance,

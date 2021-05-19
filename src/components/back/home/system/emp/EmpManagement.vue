@@ -204,7 +204,7 @@
                :visible.sync="addmotaikuang">
       <!--&lt;!&ndash; 商品编辑组件, 传入data值, 传入图片列表 &ndash;&gt;-->
       <!--<emp-management-edit ref="editBox" :form-data="formData" :image-file="imageFile"></emp-management-edit>-->
-      <EmpManagementEdit :form-data="formData" :image-file="imageFile"></EmpManagementEdit>
+      <EmpManagementEdit :form-data="formData" :image-file="imageFile" :imageFileHeard="imageFileHeard"></EmpManagementEdit>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addmotaikuang = false">取 消</el-button>
         <!--&lt;!&ndash;点击调用添加方法&ndash;&gt;-->
@@ -218,7 +218,7 @@
                :visible.sync="updatemotaikuang">
       <!--&lt;!&ndash; 商品编辑组件, 传入data值, 传入图片列表 &ndash;&gt;-->
       <!--<emp-management-edit ref="editBox" :form-data="formData" :image-file="imageFile"></emp-management-edit>-->
-      <EmpManagementEdit :form-data="formData" :image-file="imageFile"></EmpManagementEdit>
+      <EmpManagementEdit :form-data="formData" :image-file="imageFile" :imageFileHeard="imageFileHeard"></EmpManagementEdit>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updatemotaikuang = false">取 消</el-button>
         <!--&lt;!&ndash;点击调用修改方法&ndash;&gt;-->
@@ -350,7 +350,8 @@
         //添加角色模态框
         rolesyanzheng: false,
         ids: [],
-        roledata:[]
+        roledata:[],
+        imageFileHeard:[]
       }
     },
     components: {
@@ -405,7 +406,27 @@
       //***********************************************************
       //                          添加员工
       //***********************************************************
+      beforeAvatarUpload(file) {
+        _this=this;
+        const type = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
+        const isLt5M = file.size / 1024 / 1024 < 5;
+        if (!type)
+          _this.$message.error('上传图片只能是 JPG 或 PNG 获取 GIF 格式!');
+        if (!isLt5M)
+          _this.$message.error('上传图片大小不能超过 5MB!');
+        return type && isLt5M;
+      },
 
+      //上传成功调用
+      handleAvatarSuccess(res, files) {
+        _this=this;
+        _this.imageFile.url = res.msg;
+      },
+      handleChange(file, fileList) {
+        this.imageFileHeard.push(file.raw)
+        this.handleChange(file)
+        this.beforeAvatarUpload(file.raw);
+      },
       /**
        * 打开添加员工窗口
        */
@@ -413,13 +434,14 @@
         this.addmotaikuang = true;
         this.formData = [];
         this.imageFile = {url: null};
+        this.imageFileHeard=[]
       },
 
       //提交添加
-      async submitAddEmp() {
+       submitAddEmp() {
         var _this = this;
         this.addmotaikuang = false;
-        let params = new URLSearchParams();
+        let params = new FormData();
         params.append("name", this.formData.name);
         params.append("image", this.imageFile.url);
         params.append("sex", this.formData.sex);
@@ -428,8 +450,14 @@
         params.append("email", this.formData.email);
         params.append("address", this.formData.address);
         params.append("remark", this.formData.remark);
-
-        this.$axios.post("employee/add", params)
+        params.append("imgFile",this.imageFileHeard[0]);
+        this.$axios({
+          method: 'post',
+          url: 'employee/add',
+          data:params,
+          headers: {
+            'Content-Type':'multipart/form-data'
+          }})
           .then((result) => {
             if (result.data === true) {
               _this.$message({
