@@ -175,12 +175,7 @@
               }
               //刷新页面
               this.getEmpManagement();
-            }).catch((msg) => {
-            this.$message({
-              type: 'error',
-              message: "授权失败×"
-            });
-          });
+            }).catch();
         }
       },
     }

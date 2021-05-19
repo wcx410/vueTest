@@ -206,6 +206,8 @@
           //商品规格
           //订单id
           //如果仓库id为0 提示选择仓库
+          console.log(this.warehouseid)
+          console.log(this.peisongyuanid)
           if(this.warehouseid==="0"){
             this.$message({
               type: 'error',
@@ -220,7 +222,7 @@
             });
             return
           }
-          if(this.carid=="1"){
+          if(this.carid==="1"){
             this.$message({
               type: 'error',
               message: "请选择闲置配送车辆"
@@ -233,13 +235,13 @@
               message: "请选择配送员"
             });
             return
-          }if(this.peisongyuanid=="1"){
+          }if(this.peisongyuanid==="1"){
             this.$message({
               type: 'error',
               message: "请选择闲置配送员"
             });
             return
-          }if(this.peisongyuanid=="2"){
+          }if(this.peisongyuanid==="2"){
             this.$message({
               type: 'error',
               message: "请选择在职配送员"

@@ -89,7 +89,7 @@ const routes = [
   },
   {
     path: '/com',
-    component: Commodity
+    component: CommodityTypeMaintain
   },
   {
     path: '/userhome',
